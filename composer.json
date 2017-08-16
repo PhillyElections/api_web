@@ -1,13 +1,13 @@
 {
-    "name":"revuls/slimMVC",
+    "name":"mattyhead/api_web",
     "type":"framework",
-    "description":"MVC for the PHP microframework Slim",
+    "description":"APIs running on SlimMVC",
     "keywords":["microframework", "rest", "router", "mvc"],
-    "homepage":"https://github.com/revuls/SlimMVC",
+    "homepage":"https://github.com/mattyhead/api_web",
     "license":"MIT",
     "authors":[
         {
-            "name":"revuls"
+            "name":"mattyhead"
         }
     ],
     "require":{
