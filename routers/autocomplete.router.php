@@ -4,9 +4,9 @@
 $app->get(
 	'/autocomplete', function () use ( $app ) {
 
-		$autocomplete = new Autocomplete();
+		$autocomplete = new models\Autocomplete();
 
 		$app->contentType( 'application/json' );
-		echo json_encode( $autocomplete->fetch() );
+		echo $autocomplete->fetch();
 	}
 );
