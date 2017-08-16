@@ -3,11 +3,11 @@
 use lib\Config;
 
 // DB Config
-Config::write('db.host',     ini_get( 'mysqli.default_host'));
-Config::write('db.port',     '');
-Config::write('db.basename', ini_get('mysqli.default_user'));
-Config::write('db.user',     ini_get('mysqli.default_user'));
-Config::write('db.password', ini_get('mysqli.default_pw'));
+Config::write( 'db.host', 'localhost' );
+Config::write( 'db.port', '' );
+Config::write( 'db.basename', 'events' );
+Config::write( 'db.user', 'root' );
+Config::write( 'db.password', '' );
 
 // Project Config
-Config::write('path', 'http://api.phillyvotes.org');
+Config::write( 'path', 'http://localhost/slimMVC' );
