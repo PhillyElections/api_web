@@ -26,7 +26,7 @@ class Autocomplete {
 	public function fetch() {
 		$r = array();
 
-		$sql = ' SELECT DISTINCT ${self::fields} FROM ${self::table} WHERE ${self::criteria} ORDER BY street_name LIMIT 0, 10 ';
+		$sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
 
 		$stmt = $this->core->dbh->prepare( $sql );
 
