@@ -29,6 +29,7 @@ class Autocomplete {
 
 		$stmt = $this->core->dbh->prepare( $sql );
 		var_dump( $stmt );
+		var_dump( $this->params );
 		exit;
 		if ( $stmt->execute( $this->params ) ) {
 			return $this->callback . '(' . json_encode( $stmt->fetchAll( PDO::FETCH_ASSOC ) ) . ')';
