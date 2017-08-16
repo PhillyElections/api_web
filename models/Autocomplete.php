@@ -9,6 +9,9 @@ class Autocomplete {
 	protected $address;
 	protected $callback;
 	protected $core;
+	protected $criteria;
+	protected $fields;
+	protected $params;
 	protected $table;
 
 	function __construct() {
@@ -23,15 +26,12 @@ class Autocomplete {
 	public function fetch() {
 		$r = array();
 
-		$fields   = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir';
-		$table    = ;
-		$criteria = 'house_range_start <= :a1 and house_range_end >= :a2';
-		$query    = ' SELECT DISTINCT ${fields} FROM ${table} WHERE ${criteria} ORDER BY street_name LIMIT 0, 10 ';
+		$sql = ' SELECT DISTINCT ${self::fields} FROM ${self::table} WHERE ${self::criteria} ORDER BY street_name LIMIT 0, 10 ';
 
 		$sql = 'SELECT * FROM stuff';
 		$stmt = $this->core->dbh->prepare( $sql );
 
-		if ( $stmt->execute() ) {
+		if ( $stmt->execute( $this->params ) ) {
 			$r = $stmt->fetchAll( PDO::FETCH_ASSOC );
 		} else {
 			$r = 0;
@@ -44,30 +44,29 @@ class Autocomplete {
 		$address = urldecode( $_GET['address'] )
 		$parts    = explode( ' ', $address );
 
-		$this->
-	}
-}
-switch ( count( $parts ) ) {
-	case 0:
-		break;
-	case 1:
-		$criteria .= '';
-		$params = array(
-			':a1' => $parts[0],
-			':a2' => $parts[0],
-		);
-		break;
-	case 2:
-		$criteria .= ' and street_name LIKE :a3 ';
-		$params = array(
-			':a1' => $parts[0],
-			':a2' => $parts[0],
-			':a3' => $parts[1] . '%',
-		);
-	default:
-		break;
-}
-$statement = $pdo->prepare();
+		$fields   = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir, ';
+		$criteria = 'house_range_start <= :a1 and house_range_end >= :a2';
 
-$statement->execute( $params );
-$rows = $statement->fetchAll();
+		switch ( count( $parts ) ) {
+			case 0:
+				break;
+			case 1:
+				$criteria .= '';
+				$this->params = array(
+					':a1' => $parts[0],
+					':a2' => $parts[0],
+				);
+				break;
+			case 2:
+				$criteria .= ' and street_name LIKE :a3 ';
+				$this->params = array(
+					':a1' => $parts[0],
+					':a2' => $parts[0],
+					':a3' => $parts[1] . '%',
+				);
+			default:
+				break;
+		}
+	}
+
+}
