@@ -22,7 +22,7 @@ class Core {
 
 		$this->dbh = new PDO( $dsn, $user, $password );
 
-		$this->setFunctions();
+		// $this->setFunctions();
 	}
 
 	public static function getInstance() {
