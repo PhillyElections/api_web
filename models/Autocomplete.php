@@ -6,7 +6,6 @@ use PDO;
 
 class Autocomplete {
 
-	protected $address;
 	protected $callback;
 	protected $core;
 	protected $criteria;
@@ -29,7 +28,7 @@ class Autocomplete {
 		$sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
 
 		$stmt = $this->core->dbh->prepare( $sql );
-		var_dump( $this );
+		var_dump( $stmt );
 		exit;
 		if ( $stmt->execute( $this->params ) ) {
 			return $this->callback . '(' . json_encode( $stmt->fetchAll( PDO::FETCH_ASSOC ) ) . ')';
