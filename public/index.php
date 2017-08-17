@@ -1,12 +1,12 @@
 <?php
 // Get Env variable to automatically include environment config
 defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? 
-                                  getenv('APPLICATION_ENV') : 
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?
+                                  getenv('APPLICATION_ENV') :
                                   'local'));
 
 // show errors when working on local
-if(APPLICATION_ENV === 'local'){
+if (APPLICATION_ENV === 'local') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }

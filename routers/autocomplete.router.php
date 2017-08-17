@@ -2,11 +2,12 @@
 
 // Get user
 $app->get(
-	'/autocomplete', function () use ( $app ) {
+    '/autocomplete',
+    function () use ($app) {
 
-		$autocomplete = new models\Autocomplete();
+        $autocomplete = new models\Autocomplete();
 
-		// $app->contentType( 'application/json' );
-		echo $autocomplete->fetch();
-	}
+        // $app->contentType( 'application/json' );
+        echo $autocomplete->fetch();
+    }
 );
