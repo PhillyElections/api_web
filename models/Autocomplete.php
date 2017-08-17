@@ -2,9 +2,6 @@
 
 namespace models;
 
-use lib\Core;
-use PDO;
-
 class Autocomplete
 {
     protected $callback;
@@ -26,13 +23,14 @@ class Autocomplete
     // Get all stuff
     public function fetch()
     {
-        $r = array();
-
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
 
         $stmt = $this->core->dbh->prepare($sql);
+        echo '<pre>';
         var_dump($stmt);
+        var_dump($this->callback);
         var_dump($this->params);
+        echo '</pre>';
 
         if ($stmt->execute($this->params)) {
             return $this->callback . '(' . json_encode($stmt->fetchAll(PDO::FETCH_ASSOC)) . ')';
@@ -45,8 +43,7 @@ class Autocomplete
     protected function setup()
     {
         $this->callback = urldecode($_GET['callback']);
-        $address = urldecode($_GET['address']);
-        $parts   = explode(' ', $address);
+        $parts   = explode(' ', urldecode($_GET['address']));
 
         $this->fields   = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir, ';
         $this->criteria = 'house_range_start <= :a1 and house_range_end >= :a2';
