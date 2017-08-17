@@ -1,6 +1,6 @@
 <?php
 /**
- * Provide a admin area view for the plugin
+ * Provide a admin area view for the plugin.
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
@@ -12,7 +12,6 @@
 
 namespace lib;
 
-use lib\Config;
 use PDO;
 
 class Core
@@ -20,14 +19,14 @@ class Core
     /**
      * Handle of the DB connection.
      *
-     * @var object  $dbh  PDO
+     * @var object   PDO
      */
     public $dbh;
 
     /**
-     * Singleton
+     * Singleton.
      *
-     * @var object  $instance  singleton instance
+     * @var object   singleton instance
      */
     private static $instance;
 
@@ -60,6 +59,7 @@ class Core
             $object = __CLASS__;
             self::$instance = new $object();
         }
+
         return self::$instance;
     }
 }

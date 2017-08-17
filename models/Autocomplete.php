@@ -7,7 +7,6 @@ use PDO;
 
 class Autocomplete
 {
-
     protected $callback;
     protected $core;
     protected $criteria;
@@ -15,7 +14,7 @@ class Autocomplete
     protected $params;
     protected $table;
 
-    function __construct()
+    public function __construct()
     {
         $this->core = \lib\Core::getInstance();
         $this->table = 'api_block_range';
@@ -39,6 +38,7 @@ class Autocomplete
             return $this->callback . '(' . json_encode($stmt->fetchAll(PDO::FETCH_ASSOC)) . ')';
         }
         echo 'failed';
+
         return false;
     }
 

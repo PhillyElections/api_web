@@ -2,7 +2,6 @@
 
 // Get user
 $app->get('/user', function () use ($app) {
-    
     $oLaboratory = new User();
     $users = $oLaboratory->getUsers();
     $app->contentType('application/json');
@@ -13,7 +12,7 @@ $app->get('/user', function () use ($app) {
 $app->post('/user', function () use ($app) {
     //var_dump($app->request()->post('data'));
     $user = json_decode($app->request()->post('data'), true);
-    $user['password'] = hash("sha1", $user['password']);
+    $user['password'] = hash('sha1', $user['password']);
     $oUser = new User();
     echo $oUser->insertUser($user);
 });
@@ -22,14 +21,14 @@ $app->post('/user', function () use ($app) {
 $app->post('/login', function () use ($app) {
     //var_dump($app->request()->post('data'));
     $data = json_decode($app->request()->post('data'), true);
-    
+
     //echo $data['password'];
     $email = $data['email'];
-    $pass = hash("sha1", $data['password']);
+    $pass = hash('sha1', $data['password']);
     //echo "  despues: ".$pass. "   ";
 
     $oUser = new User();
-    
+
     echo json_encode($oUser->getUserByLogin($email, $pass), true);
 });
 

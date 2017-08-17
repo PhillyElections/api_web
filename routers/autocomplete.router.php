@@ -4,7 +4,6 @@
 $app->get(
     '/autocomplete',
     function () use ($app) {
-
         $autocomplete = new models\Autocomplete();
 
         // $app->contentType( 'application/json' );

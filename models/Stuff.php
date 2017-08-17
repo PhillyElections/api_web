@@ -2,15 +2,13 @@
 
 namespace models;
 
-use lib\Core;
 use PDO;
 
 class Stuff
 {
-
     protected $core;
 
-    function __construct()
+    public function __construct()
     {
         $this->core = \lib\Core::getInstance();
     }
@@ -28,6 +26,7 @@ class Stuff
         } else {
             $r = 0;
         }
+
         return $r;
     }
 
