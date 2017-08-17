@@ -27,6 +27,7 @@ class Autocomplete
 
         $stmt = $this->core->dbh->prepare($sql);
         echo '<pre>';
+        var_dump($this);
         var_dump($stmt);
         var_dump($this->callback);
         var_dump($this->params);
