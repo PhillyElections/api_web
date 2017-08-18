@@ -50,7 +50,7 @@ class Autocomplete
             $stmt->execute($this->params);
         } catch (PDOException $e) {
             $success = false;
-            ddd($this, $e->getMessage());
+            Kint::debug($this, $e->getMessage());
         }
 
         return false;
