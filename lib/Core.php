@@ -1,8 +1,8 @@
 <?php
 /**
- * Provide a admin area view for the plugin.
+ * Core functionality.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
+ * Basically this is the shared PDO object.
  *
  * @link       https://www.philadelphiavotes.com
  *
@@ -14,6 +14,14 @@ namespace lib;
 
 use PDO;
 
+/**
+ * Class for core functionality.
+ *
+ * @link       https://www.philadelphiavotes.com
+ *
+ * @package    api_web
+ * @subpackage api_web/lib
+ */
 class Core
 {
     /**
