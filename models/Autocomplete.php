@@ -1,7 +1,25 @@
 <?php
+/**
+ * Autocomplete model.
+ *
+ * Autocomplete API's model
+ *
+ * @link       https://www.philadelphiavotes.com
+ *
+ * @package    api_web
+ * @subpackage api_web/models
+ */
 
 namespace models;
 
+/**
+ * Autocomplete class.
+ *
+ * @link       https://www.philadelphiavotes.com
+ *
+ * @package    api_web
+ * @subpackage api_web/models
+ */
 class Autocomplete
 {
     protected $callback;
@@ -44,29 +62,27 @@ class Autocomplete
     protected function setup()
     {
         $this->callback = urldecode($_GET['callback']);
-        $parts   = explode(' ', urldecode($_GET['address']));
+        $parts = explode(' ', urldecode($_GET['address']));
 
-        $this->fields   = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir, ';
-        $this->criteria = 'house_range_start <= :a1 and house_range_end >= :a2';
+        $this->fields = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir, ';
 
-        switch (count($parts)) {
-            case 1:
-                $this->criteria .= '';
-                $this->params = array(
-                    ':a1' => $parts[0],
-                    ':a2' => $parts[0],
-                );
-                break;
-            case 2:
-                $this->criteria .= ' and street_name LIKE :a3 ';
-                $this->params = array(
-                    ':a1' => $parts[0],
-                    ':a2' => $parts[0],
-                    ':a3' => $parts[1] . '%',
-                );
-                break;
-            default:
-                break;
+        $number = array_pop($parts);
+        $street = implode('', $parts);
+
+        if ($street) {
+            $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir) LIKE :a3 OR (CONCAT(TRIM(LEADING \'0\' FROM street_name) as street, type_dir) LIKE :a4';
+            $this->params = array(
+                ':a1' => $number,
+                ':a2' => $number,
+                ':a3' => $street . '%',
+                ':a4' => $street . '%',
+            );
+        } else {
+            $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2';
+            $this->params = array(
+                ':a1' => $number,
+                ':a2' => $number,
+            );
         }
     }
 
