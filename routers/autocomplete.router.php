@@ -7,6 +7,6 @@ $app->get(
         $autocomplete = new models\Autocomplete();
 
         // $app->contentType( 'application/json' );
-        $autocomplete->fetch();
+        echo $autocomplete->fetch();
     }
 );
