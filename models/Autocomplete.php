@@ -46,7 +46,7 @@ class Autocomplete
     {
         d('fetch of Autocomplete');
         $json = false;
-        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
+        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 100 ';
 
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key=>$pair) {
