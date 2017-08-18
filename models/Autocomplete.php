@@ -53,8 +53,8 @@ class Autocomplete
             $stmt->bindParam($key, $pair['value'], $pair['type']);
         }
 
-        if ($results = $stmt->execute()) {
-            $json = $this->callback . '(' . json_encode($results) . ')';
+        if ($stmt->execute()) {
+            $json = $this->callback . '(' . json_encode($stmt->fetchAll()) . ')';
         } else {
             d($stmt->errorInfo(), $this, $stmt);
         }
