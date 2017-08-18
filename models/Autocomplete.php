@@ -75,6 +75,7 @@ class Autocomplete
         $street = implode('', $parts);
 
         if ($street) {
+            d('street is truthy', $number, $street);
             $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir) LIKE :a3 OR (CONCAT(TRIM(LEADING \'0\' FROM street_name) as street, type_dir) LIKE :a4';
             $this->params = array(
                 ':a1' => $number,
@@ -83,6 +84,7 @@ class Autocomplete
                 ':a4' => $street . '%',
             );
         } else {
+            d('street is falsy', $number);
             $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2';
             $this->params = array(
                 ':a1' => $number,
