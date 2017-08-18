@@ -31,7 +31,7 @@ class Autocomplete
 
     public function __construct()
     {
-        $this->kint = new Kint();
+        $this->kint = new \kint()-php\kint\Kint();
         $this->core = \lib\Core::getInstance();
         $this->table = 'api_block_range';
 
