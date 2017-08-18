@@ -50,9 +50,8 @@ class Autocomplete
             $stmt->execute($this->params);
         } catch (PDOException $e) {
             $success = false;
-            echo $e->getMessage();
+            ddd($this, $e->getMessage());
         }
-        echo 'failed';
 
         return false;
     }
