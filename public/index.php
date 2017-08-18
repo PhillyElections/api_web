@@ -14,7 +14,7 @@ require '../configs/'.strtolower(APPLICATION_ENV).'.config.php';
 
 // Setup custom Twig view
 $twigView = new \Slim\Views\Twig();
-Kint::debug($twigView);
+
 $app = new \Slim\Slim(array(
     'debug' => true,
     'view' => $twigView,
