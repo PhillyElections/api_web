@@ -9,6 +9,7 @@
  * @package    api_web
  * @subpackage api_web/models
  */
+use kint;
 
 namespace models;
 
