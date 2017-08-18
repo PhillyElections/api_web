@@ -51,7 +51,7 @@ class Autocomplete
         try {
             $results = $stmt->execute($this->params);
             $json = $this->callback . '(' . json_encode($results) . ')';
-            d($stmt->errorInfo());
+            d($stmt->errorInfo(), $this);
         } catch (PDOException $e) {
             d($this, $e->getMessage(), $e, $stmt);
         }
