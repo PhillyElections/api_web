@@ -43,19 +43,19 @@ class Autocomplete
     public function fetch()
     {
         d('fetch of Autocomplete');
-        $success = true;
+        $json = false;
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
 
         $stmt = $this->core->dbh->prepare($sql);
 
         try {
-            $stmt->execute($this->params);
+            $results = $stmt->execute($this->params);
+            $json = $this->callback . '(' . json_encode($results) . ')';
         } catch (PDOException $e) {
-            $success = false;
             d($this, $e->getMessage(), $e, $stmt);
         }
 
-        return false;
+        return $json;
     }
 
     protected function setup()
