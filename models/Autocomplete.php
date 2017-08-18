@@ -31,6 +31,7 @@ class Autocomplete
 
     public function __construct()
     {
+        d('constructor of Autocomplete');
         $this->core = \lib\Core::getInstance();
         $this->table = 'api_block_range';
 
