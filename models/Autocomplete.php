@@ -42,6 +42,7 @@ class Autocomplete
     // Get all stuff
     public function fetch()
     {
+        d('fetch of Autocomplete');
         $success = true;
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
 
