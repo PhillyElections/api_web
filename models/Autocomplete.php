@@ -31,7 +31,6 @@ class Autocomplete
 
     public function __construct()
     {
-        $this->kint = new \kint()-php\kint\Kint();
         $this->core = \lib\Core::getInstance();
         $this->table = 'api_block_range';
 
@@ -51,7 +50,10 @@ class Autocomplete
             $stmt->execute($this->params);
         } catch (PDOException $e) {
             $success = false;
-            $this->kint::debug($this, $e->getMessage());
+            var_dump($this);
+            echo $e->getMessage();
+            var_dump($e);
+            var_dump($stmt);
         }
 
         return false;
