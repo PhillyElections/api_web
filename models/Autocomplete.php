@@ -72,7 +72,7 @@ class Autocomplete
             die('No thanks.  Not even touching that.');
         }
 
-        $this->fields = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir, ';
+        $this->fields = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir ';
 
         $number = array_pop($parts);
         $street = implode('', $parts);
