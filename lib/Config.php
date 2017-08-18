@@ -1,8 +1,25 @@
 <?php
+/**
+ * Configuration class.
+ *
+ * Configuration loader (local/production)
+ *
+ * @link       https://www.philadelphiavotes.com
+ *
+ * @package    api_web
+ * @subpackage api_web/lib
+ */
 
 namespace lib;
 
-// Configuration Class
+/**
+ * Configuration class.
+ *
+ * @link       https://www.philadelphiavotes.com
+ *
+ * @package    api_web
+ * @subpackage api_web/lib
+ */
 class Config
 {
     public static $confArray;
