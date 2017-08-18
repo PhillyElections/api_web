@@ -9,9 +9,10 @@
  * @package    api_web
  * @subpackage api_web/models
  */
-use PDO;
 
 namespace models;
+
+use PDO;
 
 /**
  * Autocomplete class.
