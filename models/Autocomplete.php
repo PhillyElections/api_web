@@ -41,18 +41,16 @@ class Autocomplete
     // Get all stuff
     public function fetch()
     {
+        $success = true;
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
 
         $stmt = $this->core->dbh->prepare($sql);
-        echo '<pre>';
-        var_dump($this);
-        var_dump($stmt);
-        var_dump($this->callback);
-        var_dump($this->params);
-        echo '</pre>';
 
-        if ($stmt->execute($this->params)) {
-            return $this->callback . '(' . json_encode($stmt->fetchAll(PDO::FETCH_ASSOC)) . ')';
+        try {
+            $stmt->execute($this->params);
+        } catch (PDOException $e) {
+            $success = false;
+            echo $e->getMessage();
         }
         echo 'failed';
 
