@@ -47,13 +47,14 @@ class Autocomplete
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 10 ';
 
         $stmt = $this->core->dbh->prepare($sql);
+        foreach ($this->params as $key=>$pair) {
+            $stmt->bindParam($key, $pair['value'], $pair['type']);
+        }
 
-        try {
-            $results = $stmt->execute($this->params);
+        if ($results = $stmt->execute()) {
             $json = $this->callback . '(' . json_encode($results) . ')';
+        } else {
             d($stmt->errorInfo(), $this, $stmt);
-        } catch (PDOException $e) {
-            d($this, $e->getMessage(), $e, $stmt);
         }
 
         return $json;
@@ -78,17 +79,17 @@ class Autocomplete
             d('street is truthy', $number, $street);
             $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir) LIKE :a3 OR (CONCAT(TRIM(LEADING \'0\' FROM street_name) as street, type_dir) LIKE :a4';
             $this->params = array(
-                ':a1' => $number,
-                ':a2' => $number,
-                ':a3' => $street . '%',
-                ':a4' => $street . '%',
+                ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a3' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
+                ':a4' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } else {
             d('street is falsy', $number);
             $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2';
             $this->params = array(
-                ':a1' => $number,
-                ':a2' => $number,
+                ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
             );
         }
     }
