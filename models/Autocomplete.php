@@ -59,6 +59,7 @@ class Autocomplete
 
     protected function setup()
     {
+        d('setup of Autocomplete');
         $this->callback = urldecode($_REQUEST['callback']);
         $parts = explode(' ', urldecode($_REQUEST['address']));
 
