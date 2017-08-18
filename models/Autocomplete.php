@@ -58,8 +58,12 @@ class Autocomplete
 
     protected function setup()
     {
-        $this->callback = urldecode($_GET['callback']);
-        $parts = explode(' ', urldecode($_GET['address']));
+        $this->callback = urldecode($_REQUEST['callback']);
+        $parts = explode(' ', urldecode($_REQUEST['address']));
+
+        if (count($parts)>4) {
+            die('No thanks.  Not even touching that.');
+        }
 
         $this->fields = 'prefix_dir, TRIM(LEADING \'0\' FROM street_name) as street, type_dir, ';
 
