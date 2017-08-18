@@ -26,5 +26,5 @@ $routers = glob('../routers/*.router.php');
 foreach ($routers as $router) {
     require $router;
 }
-Kint::dump('kint is loaded');
+dd('kint is loaded');
 $app->run();
