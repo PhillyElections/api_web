@@ -9,7 +9,6 @@
  * @package    api_web
  * @subpackage api_web/models
  */
-use kint\kint;
 
 namespace models;
 
@@ -32,6 +31,7 @@ class Autocomplete
 
     public function __construct()
     {
+        $this->kint = new \kint\Kint();
         $this->core = \lib\Core::getInstance();
         $this->table = 'api_block_range';
 
@@ -51,7 +51,7 @@ class Autocomplete
             $stmt->execute($this->params);
         } catch (PDOException $e) {
             $success = false;
-            Kint::debug($this, $e->getMessage());
+            $this->kint::debug($this, $e->getMessage());
         }
 
         return false;
