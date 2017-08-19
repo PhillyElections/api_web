@@ -41,6 +41,7 @@ class Autocomplete
 
         // process _REQUEST.
         $this->setup();
+        d($this);
     }
 
     /**
@@ -57,7 +58,7 @@ class Autocomplete
         foreach ($this->params as $key=>$pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
         }
-
+        d($stmt);
         if ($stmt->execute()) {
             $json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
         } else {
