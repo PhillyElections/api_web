@@ -60,7 +60,8 @@ class Autocomplete
         }
         d($stmt);
         if ($stmt->execute()) {
-            $json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
+            //$json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
+            $json = json_encode($stmt->fetchAll());
         } else {
             d($stmt->errorInfo(), $this, $stmt);
         }
