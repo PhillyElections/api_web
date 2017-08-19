@@ -83,7 +83,7 @@ class Autocomplete
         }
 
         $number = $parts[];
-        $parts = array_shift($parts);
+        $parts = array_shift(array_values($parts));
         $street = implode('', $parts);
 
         $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
