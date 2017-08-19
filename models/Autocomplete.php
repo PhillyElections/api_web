@@ -82,7 +82,7 @@ class Autocomplete
             die($this->callback . '({"status":"failure","message":"No thanks.  Not even touching that."});');
         }
 
-        $number = array_pop(array_reverse($parts));
+        $number = array_shift($parts);
         $street = implode('', $parts);
 
         $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
