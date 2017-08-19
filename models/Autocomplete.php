@@ -85,7 +85,7 @@ class Autocomplete
         $number = array_pop($parts);
         $street = implode('', $parts);
 
-        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code, precinct_split';
+        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
 
         if ($street) {
             d('street is truthy', $number, $street);
