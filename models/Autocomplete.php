@@ -28,25 +28,30 @@ class Autocomplete
     protected $core;
     protected $criteria;
     protected $fields;
+    protected $limit = '0, 10';
     protected $params;
-    protected $table;
+    protected $table = 'api_block_range';
 
+    /**
+     * Constructor: get core, call setup to process request.
+     */
     public function __construct()
     {
-        d('constructor of Autocomplete');
         $this->core = \lib\Core::getInstance();
-        $this->table = 'api_block_range';
 
-        // set properties from _GET
+        // process _REQUEST.
         $this->setup();
     }
 
-    // Get all stuff
+    /**
+     * Fetch results based on setup().
+     *
+     * @return     boolean  A JsonP function.
+     */
     public function fetch()
     {
-        d('fetch of Autocomplete');
         $json = false;
-        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT 0, 200 ';
+        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
 
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key=>$pair) {
@@ -54,7 +59,7 @@ class Autocomplete
         }
 
         if ($stmt->execute()) {
-            $json = $this->callback . '(' . json_encode($stmt->fetchAll()) . ')';
+            $json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
         } else {
             d($stmt->errorInfo(), $this, $stmt);
         }
@@ -62,6 +67,9 @@ class Autocomplete
         return $json;
     }
 
+    /**
+     * Prepare the current _REQUEST.
+     */
     protected function setup()
     {
         d('setup of Autocomplete');
@@ -69,13 +77,13 @@ class Autocomplete
         $parts = explode(' ', urldecode($_REQUEST['address']));
 
         if (count($parts)>4) {
-            die('No thanks.  Not even touching that.');
+            die($this->callback . '({"status":"failure","message":"No thanks.  Not even touching that."});');
         }
-
-        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) ';
 
         $number = array_pop($parts);
         $street = implode('', $parts);
+
+        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code, precinct_split';
 
         if ($street) {
             d('street is truthy', $number, $street);
@@ -96,6 +104,13 @@ class Autocomplete
         }
     }
 
+    /**
+     * A name-safe formatter.
+     *
+     * @param      string  $string  The string
+     *
+     * @return     string  $string a prettier string.
+     */
     protected function titleCase($string)
     {
         $word_splitters = array(' ', '-', 'O\'', 'L\'', 'D\'', 'St.', 'Mc');
