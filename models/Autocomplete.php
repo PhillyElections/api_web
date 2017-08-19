@@ -60,6 +60,7 @@ class Autocomplete
         }
         d($stmt);
         if ($stmt->execute()) {
+            d($stmt);
             //$json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
             $json = json_encode($stmt->fetchAll());
         } else {
