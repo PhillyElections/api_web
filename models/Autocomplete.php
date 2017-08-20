@@ -83,7 +83,7 @@ class Autocomplete
         $street = implode('', $parts);
 
 //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
-        $this->fields = 'REPLACE( \'  \', \' \', CONCAT_WS(prefix_dir, \' \', proper(TRIM(LEADING \'0\' FROM street_name)), proper(type_dir), \' \', zip_code)) as address';
+        $this->fields = 'REPLACE( \'  \', \' \', CONCAT_WS(\' \', prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)), proper(type_dir), zip_code)) as address';
 
         if ($street) {
             $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a3 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a4)';
