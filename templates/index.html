@@ -29,7 +29,7 @@
         }
         $('#address_form').on('keyup', '#address', function() {
             console.log('keyup', this.value);
-            if ( this.value.indexOf(" ") ) {
+            if ( this.value.indexOf(" ") > 0 ) {
             	getList(this.value).done(function(data){
             		console.log(data);
             	});
