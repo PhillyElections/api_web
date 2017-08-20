@@ -31,7 +31,8 @@
             console.log('keyup', this.value);
             if ( this.value.length > 2 ) {
             	getList(this.value).done(function(data){
-            		console.log(data);
+            		//console.log(data);
+            		data.forEach(function(datum){console.log(datum);});
             	});
             }
         });
