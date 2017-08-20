@@ -41,7 +41,6 @@ class Autocomplete
 
         // process _REQUEST.
         $this->setup();
-        d($this);
     }
 
     /**
@@ -58,12 +57,10 @@ class Autocomplete
         foreach ($this->params as $key => $pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
         }
-        d($stmt);
+
         if ($stmt->execute()) {
             //$json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
             $json = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-        } else {
-            d($stmt->errorInfo(), $this, $stmt);
         }
 
         return $json;
@@ -74,7 +71,7 @@ class Autocomplete
      */
     protected function setup()
     {
-        d('setup of Autocomplete');
+
         $this->callback = urldecode($_REQUEST['callback']);
         $parts = explode(' ', urldecode($_REQUEST['address']));
 
@@ -88,7 +85,6 @@ class Autocomplete
         $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
 
         if ($street) {
-            d('street is truthy', $number, $street);
             $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a3 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a4)';
             $this->params = array(
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
@@ -97,7 +93,6 @@ class Autocomplete
                 ':a4' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } else {
-            d('street is falsy', $number);
             $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2';
             $this->params = array(
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
