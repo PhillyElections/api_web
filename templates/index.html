@@ -15,9 +15,11 @@
 		$(function() {
 		  'use strict';
 
-		  $('#address_form').on('change', '#address', function(){
+		  $('#address').on('change' '#address', function(){
 			$.getJSON( "/autocomplete?callback=back&address="+this.value, function( data ) {
 			  var items = [];
+			  console.log($data);
+			  return;
 			  $.each( data, function( key, val ) {
 			    items.push( "<li id='" + key + "'>" + val + "</li>" );
 			  });
