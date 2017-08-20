@@ -55,7 +55,7 @@ class Autocomplete
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
 
         $stmt = $this->core->dbh->prepare($sql);
-        foreach ($this->params as $key=>$pair) {
+        foreach ($this->params as $key => $pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
         }
         d($stmt);
