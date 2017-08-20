@@ -18,9 +18,9 @@
         'use strict';
 
         function getList(address) {
-            var dynamicData = {};
+            var payload = {};
             payload['callback'] = 'back';
-            payload['address']=address;
+            payload['address'] = address;
             return $.ajax({
                 url: "autocomplete",
                 type: "get",
