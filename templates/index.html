@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Test Autocomplete</title>
- 	<script src="/js/jquery-1.8.2.min.js"></script>
 </head>
 <body>
     <h1>{{ hello }}</h1>
@@ -11,10 +10,25 @@
     	<input type="text" name="address" id="address" />
     	<div id="selections"></div>
     </form>
+ 	<script src="/js/jquery-1.8.2.min.js"></script>
     <script>
 		$(function() {
+		  'use strict';
+
 		  $('#address_form').on('keyup', '#address', function(){
-		  	console.log('keyup');
+			$.getJSON( "/autocomplete?callback=back&address="+this.value, function( data ) {
+			  var items = [];
+			  console.log(data);
+			  return;
+			  $.each( data, function( key, val ) {
+			    items.push( "<li id='" + key + "'>" + val + "</li>" );
+			  });
+			 
+			  $( "<ul/>", {
+			    "class": "my-new-list",
+			    html: items.join( "" )
+			  }).appendTo( "#autocomplete" );
+			});
 		  });
 		});
     </script>
