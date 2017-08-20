@@ -18,7 +18,7 @@
 		  $('#address').on('change' '#address', function(){
 			$.getJSON( "/autocomplete?callback=back&address="+this.value, function( data ) {
 			  var items = [];
-			  console.log($data);
+			  console.log(data);
 			  return;
 			  $.each( data, function( key, val ) {
 			    items.push( "<li id='" + key + "'>" + val + "</li>" );
@@ -33,4 +33,4 @@
 		});
     </script>
 </body>
-</html>=
+</html>
