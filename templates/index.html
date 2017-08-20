@@ -15,7 +15,7 @@
 		$(function() {
 		  'use strict';
 
-		  $('#address').on('change' '#address', function(){
+		  $('#address').on('change', function(){
 			$.getJSON( "/autocomplete?callback=back&address="+this.value, function( data ) {
 			  var items = [];
 			  console.log(data);
