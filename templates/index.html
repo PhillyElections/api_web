@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Test Autocomplete</title>
+ 	<script src="/js/jquery-1.8.2.min.js"></script>
 </head>
 <body>
     <h1>{{ hello }}</h1>
@@ -10,7 +11,6 @@
     	<input type="text" name="address" id="address" />
     	<div id="selections"></div>
     </form>
- 	<script src="/js/jquery-1.8.2.min.js"></script>
     <script type="javascript">
 		$(function() {
 		  $('#address_form').on('keyup', '#address', function(){
