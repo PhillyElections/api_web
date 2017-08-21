@@ -29,7 +29,7 @@
   addressEl.autocomplete({
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
-      $.getJSON('autocomplete?address='+addressEl.value, function (response) {
+      $.getJSON('autocomplete?address='+addressEl.val(), function (response) {
         if (response.candidates) {
           var addresses = $.map(response.candidates, function (candidate) {
             return { label: candidate.address, division: candidate.attributes.division }
