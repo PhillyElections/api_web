@@ -97,7 +97,7 @@ class Autocomplete
         } else {
             $this->criteria = 'house_range_start % 2 = :a0 % 2 AND house_range_start <= :a1 AND house_range_end >= :a2';
             $this->params = array(
-                ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a0' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
             );
