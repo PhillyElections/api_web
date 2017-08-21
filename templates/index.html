@@ -99,10 +99,6 @@
           })
           callback(addresses)
           sendEvent('Autocomplete', 'Hit', request)
-        } else {
-          callback([])
-          sendEvent('Autocomplete', 'Miss', request)
-        }
         }
   addressEl.autocomplete({
     source: function (request, callback) {
