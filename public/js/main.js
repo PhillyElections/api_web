@@ -58,6 +58,7 @@
         } else {
           // Otherwise show the result
           selected = response.features[0].attributes;
+          console.log(selected);
           selected.building = buildingCodes[selected.building];
           selected.parking = parkingCodes[selected.parking];
           resultContainer.html(templates.result(response.features[0].attributes))
