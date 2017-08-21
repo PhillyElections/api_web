@@ -28,12 +28,12 @@
     var AC = {};
     (function($, _, AC) {
         'use strict'
-        AC.blinky = function() {
-            console.log('blinky');
+        AC.back = function(data) {
+            console.log('blinky', data);
         }
         function getList(address) {
             var payload = {}
-            payload['callback'] = 'back'
+            payload['callback'] = 'AC.back'
             payload['address'] = address
             return $.ajax({
                 url: "autocomplete",
@@ -50,6 +50,7 @@
               });
             }
         })
+
     })(window.jQuery, window._, window.AC)
     </script>
 </body>
