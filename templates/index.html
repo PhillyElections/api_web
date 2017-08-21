@@ -90,10 +90,19 @@
   var addressEl = $('#address')
 
         // set our callback.
-        w.back = function (data) {
+        w.back = function (response) {
 
         console.log(data);
 //            [].forEach(data, function(datum){console.log(datum)})
+          var addresses = $.map(response, function (candidate) {
+            return { label: candidate.address, division: candidate.address }
+          })
+          callback(addresses)
+          sendEvent('Autocomplete', 'Hit', request)
+        } else {
+          callback([])
+          sendEvent('Autocomplete', 'Miss', request)
+        }
         }
   addressEl.autocomplete({
     source: function (request, callback) {
