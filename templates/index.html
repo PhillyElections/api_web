@@ -92,7 +92,7 @@
   addressEl.autocomplete({
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
-      $.getJSON(divisionUrl, function (response) {
+      $.getJSON('autocomplete?callback=back&address='+this.value, function (response) {
         console.log(response);
         if (response.candidates) {
             console.log(response.candidates);
