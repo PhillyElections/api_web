@@ -45,7 +45,7 @@ console.log(data);
         $('#address_form').on('keyup', '#address', function() {
             console.log('keyup', this.value);
             if ( this.value.length > 2 ) {
-              getList(this.value).done(back);
+              getList(this.value);
             }
         })
 
