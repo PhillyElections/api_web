@@ -24,7 +24,31 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="js/main.js"></script>
+    <script>
+    	   (function($, _) {
+        'use strict'
+
+        function getList(address) {
+            var payload = {}
+            payload['callback'] = 'back'
+            payload['address'] = address
+            return $.ajax({
+                url: "autocomplete",
+                type: "get",
+                data: payload
+            })
+        }
+        $('#address_form').on('keyup', '#address', function() {
+            console.log('keyup', this.value);
+            if ( this.value.length > 2 ) {
+              getList(this.value).done(function(data){
+                
+                [].prototype.forEach(data.back, function(field){console.log(field);});
+              });
+            }
+        });
+    })(window.jQuery, window._)
+    </script>
 </body>
 
 </html>
