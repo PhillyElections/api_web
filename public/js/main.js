@@ -15,8 +15,8 @@
             console.log('keyup', this.value);
             if ( this.value.length > 2 ) {
               getList(this.value).done(function(data){
-                console.log(data);
-                $.each(data.back, function(idx,field){console.log(idx,field);});
+                
+                [].prototype.forEach(data.back, function(field){console.log(field);});
               });
             }
         });
