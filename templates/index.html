@@ -28,6 +28,47 @@
     
     (function($, _, w) {
         'use strict'
+
+         var addressEl = $('#addressel')
+
+      addressEl.autocomplete({
+        source: function (request, callback) {
+          var divisionUrl = constructDivisionUrl(request.term)
+          $.getJSON(divisionUrl, function (response) {
+            if (response.candidates) {
+              var addresses = $.map(response.candidates, function (candidate) {
+                return { label: candidate.address, division: candidate.attributes.division }
+              })
+              callback(addresses)
+              sendEvent('Autocomplete', 'Hit', request)
+            } else {
+              callback([])
+              sendEvent('Autocomplete', 'Miss', request)
+            }
+          })
+        },
+        select: function (evt, ui) {
+          sendEvent('Autocomplete', 'Select', ui.item.label)
+          var wardDivision = ui.item.division
+          var pollingPlaceUrl = constructPollingPlaceUrl(wardDivision)
+          resultContainer.html(templates.loading)
+          $.getJSON(pollingPlaceUrl, function (response) {
+            var selected = {};
+            if (response.features.length < 1) {
+              // if there's no features returned, indicate an error
+              resultContainer.html(templates.error())
+            } else {
+              // Otherwise show the result
+              selected = response.features[0].attributes;
+              selected.building = buildingCodes[selected.building];
+              selected.parking = parkingCodes[selected.parking];
+              resultContainer.html(templates.result(response.features[0].attributes))
+            }
+          }).fail(function () {
+            resultContainer.html(templates.error())
+          })
+        }
+      })
         function getList(address) {
             var payload = {}
             payload['callback'] = 'back'
