@@ -43,7 +43,7 @@
             if ( this.value.length > 2 ) {
               getList(this.value).done(function(data){
                 
-                [].prototype.forEach(data.back, function(field){console.log(field);});
+                [].forEach(data.back, function(field){console.log(field);});
               });
             }
         });
