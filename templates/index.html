@@ -27,13 +27,12 @@
     <script>
     
     (function($, _, w) {
-        'use strict'
+      'use strict'
+      var address = $('#address')
 
-         var addressEl = $('#addressel')
-
-      addressEl.autocomplete({
+      address.autocomplete({
         source: function (request, callback) {
-          var divisionUrl = constructDivisionUrl(request.term)
+          var url = 'autocomplete?callback=back'
           $.getJSON(divisionUrl, function (response) {
             if (response.candidates) {
               var addresses = $.map(response.candidates, function (candidate) {
@@ -80,8 +79,9 @@
             })
         }
         w.back = function (data) {
+            var back =JSON.parse(data);
 
-console.log(this, data);
+            [].forEach(back, function(datum){console.log(datum)})
         }
         $('#address_form').on('keyup', '#address', function() {
             console.log('keyup', this.value);
