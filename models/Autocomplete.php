@@ -61,6 +61,7 @@ class Autocomplete
         if ($stmt->execute()) {
             //$json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
             $json = $this->callback . '(' . json_encode($stmt->fetchAll(PDO::FETCH_ASSOC)) . ');';
+            $json = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         }
 
         return $json;
@@ -71,7 +72,6 @@ class Autocomplete
      */
     protected function setup()
     {
-
         $this->callback = urldecode($_REQUEST['callback']);
         $parts = explode(' ', urldecode($_REQUEST['address']));
 
@@ -82,7 +82,7 @@ class Autocomplete
         $number = array_shift($parts);
         $street = implode('', $parts);
 
-//        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
+        //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
         $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)), proper(type_dir), zip_code), \'  \', \' \')) as address';
 
         if ($street) {
