@@ -72,6 +72,7 @@
       address: address.replace(/\+/g, ' ')
     }
     var url = wardDivisionEndpoint + '&' + $.param(params)
+    console.log(url)
     return url
   }
 
@@ -81,6 +82,7 @@
       division: wardDivision.substr(2)
     }
     var url = pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
+    console.log(url)
     return url
   }
 
