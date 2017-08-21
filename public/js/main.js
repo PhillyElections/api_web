@@ -34,7 +34,7 @@
       $.getJSON(divisionUrl, function (response) {
         if (response) {
           var addresses = $.map(response, function (candidate) {
-            return { label: candidate.label, division: candidate.division }
+            return { label: candidate.label + " " + candidate.division, division: candidate.division }
           })
           callback(addresses)
           sendEvent('Autocomplete', 'Hit', request)
