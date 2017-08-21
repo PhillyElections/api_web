@@ -32,7 +32,7 @@
       $.getJSON('autocomplete?callback=back&address='+encodeURIComponent(addressEl.val()), function (response) {
         if (response) {
           var addresses = $.map(response, function (candidate) {
-            return { label: candidate.label, division: candidate.division }
+            return { label: candidate.division, division: candidate.label }
           })
           callback(addresses)
           sendEvent('Autocomplete', 'Hit', request)
