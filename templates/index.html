@@ -25,15 +25,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script>
-    var AC = {};
-    (function($, _, AC) {
+    
+    (function($, _) {
         'use strict'
         AC.back = function(data) {
             console.log('blinky', data);
         }
         function getList(address) {
             var payload = {}
-            payload['callback'] = 'AC.back'
+            payload['callback'] = 'back'
             payload['address'] = address
             return $.ajax({
                 url: "autocomplete",
@@ -41,17 +41,17 @@
                 data: payload
             })
         }
+        function back(data) {
+            console.log(data);
+        }
         $('#address_form').on('keyup', '#address', function() {
             console.log('keyup', this.value);
             if ( this.value.length > 2 ) {
-              getList(this.value).done(function(data){
-                
-                Array.prototype.forEach(data.back, function(field){console.log(field);});
-              });
+              getList(this.value).done(back);
             }
         })
 
-    })(window.jQuery, window._, window.AC)
+    })(window.jQuery, window._)
     </script>
 </body>
 
