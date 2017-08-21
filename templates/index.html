@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script>
-(function ($, _) {
+(function ($, _ w) {
   var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
   var pollingPlaceEndpoint = 'https://api.phila.gov/polling-places/v1'
   var buildingCodes = { 
@@ -89,6 +89,12 @@
   var resultContainer = $('#result')
   var addressEl = $('#address')
 
+        // set our callback.
+        w.back = function (data) {
+
+        console.log(data);
+//            [].forEach(data, function(datum){console.log(datum)})
+        }
   addressEl.autocomplete({
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
@@ -156,7 +162,7 @@
       'eventLabel': value
     })
   }
-})(window.jQuery, window._)
+})(window.jQuery, window._, window)
     /*
     (function($, _, w) {
       'use strict'
