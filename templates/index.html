@@ -26,7 +26,7 @@
 
     <script>
     
-    (function($, _) {
+    (function($, _, w) {
         'use strict'
         function getList(address) {
             var payload = {}
@@ -38,7 +38,7 @@
                 data: payload
             })
         }
-        function back(data) {
+        w.back = function (data) {
 
 console.log(data);
         }
@@ -49,7 +49,7 @@ console.log(data);
             }
         })
 
-    })(window.jQuery, window._)
+    })(window.jQuery, window._, window)
     </script>
 </body>
 
