@@ -93,6 +93,7 @@
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
       $.getJSON(divisionUrl, function (response) {
+        console.log(response);
         if (response.candidates) {
             console.log(response.candidates);
           var addresses = $.map(response.candidates, function (candidate) {
