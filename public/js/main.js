@@ -1,5 +1,7 @@
+
+
 (function ($, _) {
-  var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
+  var wardDivisionEndpoint = 'autocomplete?callback=back'
   var pollingPlaceEndpoint = 'https://api.phila.gov/polling-places/v1'
   var buildingCodes = {	
 	  'F' : 'BUILDING FULLY ACCESSIBLE',
@@ -29,7 +31,7 @@
   addressEl.autocomplete({
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
-      $.getJSON('autocomplete?callback=back&address='+encodeURIComponent(addressEl.val()), function (response) {
+      $.getJSON(divisionUrl, function (response) {
         if (response) {
           var addresses = $.map(response, function (candidate) {
             return { label: candidate.label, division: candidate.division }
@@ -71,7 +73,7 @@
       outFields: 'division',
       f: 'json'
     }
-    return wardDivisionEndpoint + '?' + $.param(params)
+    return wardDivisionEndpoint + '?' + $.param(params) + '&callback=?'
   }
 
   function constructPollingPlaceUrl (wardDivision) {
@@ -79,7 +81,7 @@
       ward: wardDivision.substr(0, 2),
       division: wardDivision.substr(2)
     }
-    return pollingPlaceEndpoint + '?' + $.param(params)
+    return pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
   }
 
   function sendEvent (type, label, value) {
