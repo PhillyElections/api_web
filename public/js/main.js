@@ -61,7 +61,7 @@
           console.log(selected, selected.building);
           selected.building = buildingCodes[selected.building];
           selected.parking = parkingCodes[selected.parking];
-          resultContainer.html(templates.result(response.features[0].attributes))
+          resultContainer.html(templates.result(selected))
         }
       }).fail(function () {
         resultContainer.html(templates.error())
