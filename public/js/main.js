@@ -71,7 +71,8 @@
     var params = {
       address: address.replace(/\+/g, ' ')
     }
-    return wardDivisionEndpoint + '&' + $.param(params)
+    var url = wardDivisionEndpoint + '&' + $.param(params)
+    return url
   }
 
   function constructPollingPlaceUrl (wardDivision) {
@@ -79,7 +80,8 @@
       ward: wardDivision.substr(0, 2),
       division: wardDivision.substr(2)
     }
-    return pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
+    var url = pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
+    return url
   }
 
   function sendEvent (type, label, value) {
