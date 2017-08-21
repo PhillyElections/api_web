@@ -27,6 +27,15 @@
 
   <body>
 
+    <!-- Google Tag Manager [phila.gov] -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC6CR2"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MC6CR2');</script>
+    <!-- End Google Tag Manager -->
 
     <div class="site" id="page">
       <!-- Begin .header -->
@@ -195,190 +204,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script src="js/main.js"></script>
-<script>
-/*(function ($, _, w) {
-  var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
-  var pollingPlaceEndpoint = 'https://api.phila.gov/polling-places/v1'
-  var buildingCodes = { 
-      'F' : 'BUILDING FULLY ACCESSIBLE',
-      'A' : 'ALTERNATE ENTRANCE',
-      'B' : 'BUILDING SUBSTANTIALLY ACCESSIBLE',
-      'R' : 'ACCESSIBLE WITH RAMP',
-      'M' : 'BUILDING ACCESSIBLITY MODIFIED',
-      'N' : 'BUILDING NOT ACCESSIBLE'
-  }
-  var parkingCodes = {  
-    'N' : 'NO PARKING',
-    'L' : 'LOADING ZONE',
-    'H' : 'HANDICAP PARKING',
-    'G' : 'GENERAL PARKING'
-  }
-  
-  // Use mustache.js style brackets in templates
-  _.templateSettings = { interpolate: /\{\{(.+?)\}\}/g }
-  var templates = {
-    result: _.template($('#tmpl-result').html()),
-    error: _.template($('#tmpl-error').html()),
-    loading: $('#tmpl-loading').html()
-  }
-  var resultContainer = $('#result')
-  var addressEl = $('#address')
 
-        // set our callback.
-        w.back = function (data) {
-
-        console.log(data);*/
-//            [].forEach(data, function(datum){console.log(datum)})
-
-/*        }
-  addressEl.autocomplete({
-    source: function (request, callback) {
-      var divisionUrl = constructDivisionUrl(request.term)
-      var payload = {}
-      payload['address'] = address
-      $.ajax({
-        url: "autocomplete",
-        type: "get",
-        dataType: "jsonp",
-        jsonpCallback: "back",
-        data: payload
-      })*/
-/*      $.getJSON('autocomplete?callback=back&address='+this.value, function (response) {
-        console.log(response);
-        if (response.candidates) {
-            console.log(response.candidates);
-          var addresses = $.map(response.candidates, function (candidate) {
-            return { label: candidate.address, division: candidate.attributes.division }
-          })
-          callback(addresses)
-          sendEvent('Autocomplete', 'Hit', request)
-        } else {
-          callback([])
-          sendEvent('Autocomplete', 'Miss', request)
-        }
-      })*/
-/*    },
-    select: function (evt, ui) {
-      sendEvent('Autocomplete', 'Select', ui.item.label)
-      var wardDivision = ui.item.division
-      var pollingPlaceUrl = constructPollingPlaceUrl(wardDivision)
-      resultContainer.html(templates.loading)
-      $.getJSON(pollingPlaceUrl, function (response) {
-        console.log(response);
-        var selected = {};
-        if (response.features.length < 1) {
-          // if there's no features returned, indicate an error
-          resultContainer.html(templates.error())
-        } else {
-          // Otherwise show the result
-          selected = response.features[0].attributes;
-          selected.building = buildingCodes[selected.building];
-          selected.parking = parkingCodes[selected.parking];
-          resultContainer.html(templates.result(response.features[0].attributes))
-        }
-      }).fail(function () {
-        resultContainer.html(templates.error())
-      })
-    }
-  })
-
-  function constructDivisionUrl (address) {
-    var params = {
-      Street: address.replace(/\+/g, ' '),
-      outFields: 'division',
-      f: 'json'
-    }
-    return wardDivisionEndpoint + '?' + $.param(params) + '&callback=back'
-  }
-
-  function constructPollingPlaceUrl (wardDivision) {
-    var params = {
-      ward: wardDivision.substr(0, 2),
-      division: wardDivision.substr(2)
-    }
-    return pollingPlaceEndpoint + '?' + $.param(params) + '&callback=back'
-  }
-
-  function sendEvent (type, label, value) {
-    dataLayer.push({
-      'event': type,
-      'eventCategory': 'Behavior',
-      'eventAction': label,
-      'eventLabel': value
-    })
-  }
-})(window.jQuery, window._, window)*/
-    /*
-    (function($, _, w) {
-      'use strict'
-      var address = $('#address1')
-
-      address.autocomplete({
-        source: function (request, callback) {
-          var url = 'autocomplete?callback=back'
-          $.getJSON(url, function (response) {
-            if (response.candidates) {
-              var addresses = $.map(response.candidates, function (candidate) {
-                return { label: candidate.address, division: candidate.attributes.division }
-              })
-              callback(addresses)
-              sendEvent('Autocomplete', 'Hit', request)
-            } else {
-              callback([])
-              sendEvent('Autocomplete', 'Miss', request)
-            }
-          })
-        },
-        select: function (evt, ui) {
-          sendEvent('Autocomplete', 'Select', ui.item.label)
-          var wardDivision = ui.item.division
-          var pollingPlaceUrl = constructPollingPlaceUrl(wardDivision)
-          resultContainer.html(templates.loading)
-          $.getJSON(pollingPlaceUrl, function (response) {
-            var selected = {};
-            if (response.features.length < 1) {
-              // if there's no features returned, indicate an error
-              resultContainer.html(templates.error())
-            } else {
-              // Otherwise show the result
-              selected = response.features[0].attributes;
-              selected.building = buildingCodes[selected.building];
-              selected.parking = parkingCodes[selected.parking];
-              resultContainer.html(templates.result(response.features[0].attributes))
-            }
-          }).fail(function () {
-            resultContainer.html(templates.error())
-          })
-        }
-      })
-        function getList(address) {
-            var payload = {}
-            payload['address'] = address
-            return $.ajax({
-                url: "autocomplete",
-                type: "get",
-                dataType: "jsonp",
-                jsonpCallback: "back",
-                data: payload
-            })
-        }
-
-        // set our callback.
-        w.back = function (data) {
-
-        console.log(data);
-//            [].forEach(data, function(datum){console.log(datum)})
-        }
-        $('#address_form').on('keyup', '#address', function() {
-            console.log('keyup', this.value);
-            if ( this.value.length > 2 ) {
-              getList(this.value);
-            }
-        })
-
-    })(window.jQuery, window._, window)
-    */
-    </script>
 </body>
 
 </html>
