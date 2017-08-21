@@ -86,16 +86,18 @@ class Autocomplete
         $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), type_dir), \'  \', \' \')) as label, SUBSTRING(precinct_split, 1, 4) as division';
 
         if ($street) {
-            $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a3 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a4)';
+            $this->criteria = 'house_range_start % 2 = :a0 % 2 AND house_range_start <= :a1 AND house_range_end >= :a2 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a3 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a4)';
             $this->params = array(
+                ':a0' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a3' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
                 ':a4' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } else {
-            $this->criteria = 'house_range_start <= :a1 AND house_range_end >= :a2';
+            $this->criteria = 'house_range_start % 2 = :a0 % 2 AND house_range_start <= :a1 AND house_range_end >= :a2';
             $this->params = array(
+                ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
             );
