@@ -39,7 +39,8 @@
             })
         }
         function back(data) {
-            console.log(data[0]);
+            var back=eval(data);
+            console.log(back);
         }
         $('#address_form').on('keyup', '#address', function() {
             console.log('keyup', this.value);
