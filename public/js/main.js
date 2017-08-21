@@ -1,26 +1,4 @@
-   (function($, _) {
-        'use strict'
 
-        function getList(address) {
-            var payload = {}
-            payload['callback'] = 'back'
-            payload['address'] = address
-            return $.ajax({
-                url: "autocomplete",
-                type: "get",
-                data: payload
-            })
-        }
-        $('#address_form').on('keyup', '#address', function() {
-            console.log('keyup', this.value);
-            if ( this.value.length > 2 ) {
-              getList(this.value).done(function(data){
-                
-                [].prototype.forEach(data.back, function(field){console.log(field);});
-              });
-            }
-        });
-    })(window.jQuery, window._)
 /*
 (function ($, _) {
   var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
