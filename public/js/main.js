@@ -1,5 +1,5 @@
 
-/*
+
 (function ($, _) {
   var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
   var pollingPlaceEndpoint = 'https://api.phila.gov/polling-places/v1'
@@ -26,7 +26,7 @@
     loading: $('#tmpl-loading').html()
   }
   var resultContainer = $('#result')
-  var addressEl = $('#addressel')
+  var addressEl = $('#address')
 
   addressEl.autocomplete({
     source: function (request, callback) {
@@ -73,7 +73,7 @@
       outFields: 'division',
       f: 'json'
     }
-    return wardDivisionEndpoint + '?' + $.param(params) + '&callback=?'
+    return wardDivisionEndpoint + '?' + $.param(params) + '&callback=back'
   }
 
   function constructPollingPlaceUrl (wardDivision) {
@@ -81,7 +81,7 @@
       ward: wardDivision.substr(0, 2),
       division: wardDivision.substr(2)
     }
-    return pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
+    return pollingPlaceEndpoint + '?' + $.param(params) + '&callback=back'
   }
 
   function sendEvent (type, label, value) {
@@ -93,4 +93,3 @@
     })
   }
 })(window.jQuery, window._)
-*/
