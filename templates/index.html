@@ -25,9 +25,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script>
+    var AC = {};
     (function($, _, AC) {
         'use strict'
-        this.blinky = function() {
+        AC.blinky = function() {
             console.log('blinky');
         }
         function getList(address) {
@@ -49,7 +50,6 @@
               });
             }
         })
-        AC = this
     })(window.jQuery, window._, window.AC)
     </script>
 </body>
