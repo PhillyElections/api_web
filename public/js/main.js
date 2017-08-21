@@ -71,7 +71,7 @@
     var params = {
       address: address.replace(/\+/g, ' ')
     }
-    return wardDivisionEndpoint + '?' + $.param(params) + '&callback=?'
+    return wardDivisionEndpoint + '?' + $.param(params)
   }
 
   function constructPollingPlaceUrl (wardDivision) {
