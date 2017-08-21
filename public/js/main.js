@@ -81,7 +81,7 @@
       ward: wardDivision.substr(0, 2),
       division: wardDivision.substr(2)
     }
-    var url = pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
+    var url = pollingPlaceEndpoint + '?' + $.param(params)
     console.log(url)
     return url
   }
