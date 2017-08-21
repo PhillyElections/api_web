@@ -98,7 +98,16 @@
   addressEl.autocomplete({
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
-      $.getJSON('autocomplete?callback=back&address='+this.value, function (response) {
+      var payload = {}
+      payload['address'] = address
+      $.ajax({
+        url: "autocomplete",
+        type: "get",
+        dataType: "jsonp",
+        jsonpCallback: "back",
+        data: payload
+      })
+/*      $.getJSON('autocomplete?callback=back&address='+this.value, function (response) {
         console.log(response);
         if (response.candidates) {
             console.log(response.candidates);
@@ -111,7 +120,7 @@
           callback([])
           sendEvent('Autocomplete', 'Miss', request)
         }
-      })
+      })*/
     },
     select: function (evt, ui) {
       sendEvent('Autocomplete', 'Select', ui.item.label)
