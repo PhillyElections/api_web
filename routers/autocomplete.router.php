@@ -6,7 +6,7 @@ $app->get(
     function () use ($app) {
         $autocomplete = new models\Autocomplete();
 
-        // $app->contentType( 'application/json' );
+        $app->contentType('application/json');
         echo $autocomplete->fetch();
     }
 );
@@ -16,7 +16,7 @@ $app->post(
     function () use ($app) {
         $autocomplete = new models\Autocomplete();
 
-        // $app->contentType( 'application/json' );
+        $app->contentType('application/json');
         echo $autocomplete->fetch();
     }
 );

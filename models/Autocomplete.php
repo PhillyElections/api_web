@@ -60,7 +60,7 @@ class Autocomplete
 
         if ($stmt->execute()) {
             //$json = $this->callback . '({"status":"success","data":' . json_encode($stmt->fetchAll()) . ');';
-            $json = $this->callback . '(' . json_encode($stmt->fetchAll(PDO::FETCH_ASSOC)) . ');';
+            //$json = $this->callback . '(' . json_encode($stmt->fetchAll(PDO::FETCH_ASSOC)) . ');';
             $json = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         }
 
