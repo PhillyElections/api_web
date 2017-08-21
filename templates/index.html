@@ -33,7 +33,7 @@
       address.autocomplete({
         source: function (request, callback) {
           var url = 'autocomplete?callback=back'
-          $.getJSON(divisionUrl, function (response) {
+          $.getJSON(url, function (response) {
             if (response.candidates) {
               var addresses = $.map(response.candidates, function (candidate) {
                 return { label: candidate.address, division: candidate.attributes.division }
@@ -70,23 +70,23 @@
       })
         function getList(address) {
             var payload = {}
-            payload['callback'] = 'back'
             payload['address'] = address
             return $.ajax({
                 url: "autocomplete",
                 type: "get",
+                dataType: "jsonp",
+                jsonpCallback: "back",
                 data: payload
             })
         }
         w.back = function (data) {
-            var back =JSON_parse(data);
 
-            [].forEach(back, function(datum){console.log(datum)})
+            [].forEach(data, function(datum){console.log(datum)})
         }
         $('#address_form').on('keyup', '#address', function() {
             console.log('keyup', this.value);
             if ( this.value.length > 2 ) {
-              getList(this.value).done(back);
+              getList(this.value);
             }
         })
 
