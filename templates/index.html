@@ -60,8 +60,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+    <script src="js/main.js"></script>
+
     <script>
-(function ($, _, w) {
+/*(function ($, _, w) {
   var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
   var pollingPlaceEndpoint = 'https://api.phila.gov/polling-places/v1'
   var buildingCodes = { 
@@ -90,16 +92,12 @@
   var addressEl = $('#address')
 
         // set our callback.
-        w.back = function (response) {
+        w.back = function (data) {
 
-        console.log(data);
+        console.log(data);*/
 //            [].forEach(data, function(datum){console.log(datum)})
-          var addresses = $.map(response, function (candidate) {
-            return { label: candidate.address, division: candidate.address }
-          })
-          callback(addresses)
-          sendEvent('Autocomplete', 'Hit', request)
-        }
+
+/*        }
   addressEl.autocomplete({
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
@@ -111,7 +109,7 @@
         dataType: "jsonp",
         jsonpCallback: "back",
         data: payload
-      })
+      })*/
 /*      $.getJSON('autocomplete?callback=back&address='+this.value, function (response) {
         console.log(response);
         if (response.candidates) {
@@ -126,7 +124,7 @@
           sendEvent('Autocomplete', 'Miss', request)
         }
       })*/
-    },
+/*    },
     select: function (evt, ui) {
       sendEvent('Autocomplete', 'Select', ui.item.label)
       var wardDivision = ui.item.division
@@ -176,7 +174,7 @@
       'eventLabel': value
     })
   }
-})(window.jQuery, window._, window)
+})(window.jQuery, window._, window)*/
     /*
     (function($, _, w) {
       'use strict'
