@@ -30,8 +30,8 @@
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
       $.getJSON('autocomplete?callback=back&address='+encodeURIComponent(addressEl.val()), function (response) {
-        if (response.candidates) {
-          var addresses = $.map(response.candidates, function (candidate) {
+        if (response) {
+          var addresses = $.map(response, function (candidate) {
             return { label: candidate.address, division: candidate.attributes.division }
           })
           callback(addresses)
