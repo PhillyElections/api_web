@@ -73,7 +73,7 @@ class Autocomplete
     protected function setup()
     {
         $this->callback = urldecode($_REQUEST['callback']);
-        $parts = explode('+', urldecode($_REQUEST['address']));
+        $parts = explode('+', $_REQUEST['address']);
 
         if (count($parts)>4) {
             die($this->callback . '({"status":"failure","message":"No thanks.  Not even touching that."});');
