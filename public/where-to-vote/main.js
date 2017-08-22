@@ -80,6 +80,7 @@
       division: wardDivision.substr(2)
     }
     return pollingPlaceEndpoint + '?' + $.param(params) 
+  }
 
   function sendEvent (type, label, value) {
     dataLayer.push({
