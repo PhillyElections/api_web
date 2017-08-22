@@ -1,5 +1,5 @@
 (function ($, _) {
-  var wardDivisionEndpoint = 'https://api.phillyvotes.org/autocomplete'
+  var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
   var pollingPlaceEndpoint = 'https://api.phila.gov/polling-places/v1'
   var buildingCodes = {	
 	  'F' : 'BUILDING FULLY ACCESSIBLE',
@@ -79,8 +79,7 @@
       ward: wardDivision.substr(0, 2),
       division: wardDivision.substr(2)
     }
-    return pollingPlaceEndpoint + '?' + $.param(params)
-  }
+    return pollingPlaceEndpoint + '?' + $.param(params) 
 
   function sendEvent (type, label, value) {
     dataLayer.push({
