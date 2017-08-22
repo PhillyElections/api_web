@@ -31,9 +31,9 @@
     source: function (request, callback) {
       var divisionUrl = constructDivisionUrl(request.term)
       $.getJSON(divisionUrl, function (response) {
-        if (response.candidates) {
-          var addresses = $.map(response.candidates, function (candidate) {
-            return { label: candidate.address, division: candidate.attributes.division }
+        if (response.length) {
+          var addresses = $.map(response, function (candidate) {
+            return { label: candidate.label, division: candidate.division }
           })
           callback(addresses)
           sendEvent('Autocomplete', 'Hit', request)
