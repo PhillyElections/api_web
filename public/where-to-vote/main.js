@@ -68,7 +68,7 @@
 
   function constructDivisionUrl (address) {
     var params = {
-      Street: address.replace(/\+/g, ' ')
+      Street: address.replace(/\+/g, ' '),
       callback: 'back'
     }
     return wardDivisionEndpoint + '?' + $.param(params) 
