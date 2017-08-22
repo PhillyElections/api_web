@@ -1,6 +1,6 @@
 (function ($, _) {
-  var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
-  var pollingPlaceEndpoint = 'https://api.phila.gov/polling-places/v1'
+  var wardDivisionEndpoint = 'https://api.phillyvotes.org/autocomplete'
+  var pollingPlaceEndpoint = 'https://www.philadelphiavotes.com/'
   var buildingCodes = {	
 	  'F' : 'BUILDING FULLY ACCESSIBLE',
 	  'A' : 'ALTERNATE ENTRANCE',
@@ -79,10 +79,20 @@
       ward: wardDivision.substr(0, 2),
       division: wardDivision.substr(2)
     }
-    return pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
+    return pollingPlaceEndpoint + '?' + $.param(params)
   }
-
-  function sendEvent (type, label, value) {
+/*  function constructPollingPlaceUrl (wardDivision) {
+    var params = {
+      ward: wardDivision.substr(0, 2),
+      division: wardDivision.substr(2),
+      view: 'json',
+      option: 'com_pollingplaces'
+    }
+    var url = pollingPlaceEndpoint + '?' + $.param(params)
+    console.log(url)
+    return url
+  }
+*/  function sendEvent (type, label, value) {
     dataLayer.push({
       'event': type,
       'eventCategory': 'Behavior',
