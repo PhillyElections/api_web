@@ -1,5 +1,6 @@
 (function ($, _) {
-  var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
+//  var wardDivisionEndpoint = 'https://gis.phila.gov/arcgis/rest/services/ElectionGeocoder/GeocodeServer/findAddressCandidates'
+  var wardDivisionEndpoint = 'https://api.phillyvotes.org/autocomplete'
   var pollingPlaceEndpoint = 'https://www.philadelphiavotes.com/'
   var buildingCodes = {	
 	  'F' : 'BUILDING FULLY ACCESSIBLE',
@@ -67,11 +68,10 @@
 
   function constructDivisionUrl (address) {
     var params = {
-      Street: address.replace(/\+/g, ' '),
-      outFields: 'division',
-      f: 'json'
+      Street: address.replace(/\+/g, ' ')
+      callback: 'back'
     }
-    return wardDivisionEndpoint + '?' + $.param(params) + '&callback=?'
+    return wardDivisionEndpoint + '?' + $.param(params) 
   }
 
   function constructPollingPlaceUrl (wardDivision) {
