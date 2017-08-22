@@ -4,5 +4,5 @@
 $app->get('/', function () use ($app) {
     $oStuff = new models\Stuff();
     $hello = $oStuff->setStuff();
-    $app->render('index.html', array('hello' => $hello));
+    $app->render('index.html', array('hello' => $hello, 'Move along, plealse...' => 'Nothing to see here.'));
 });
