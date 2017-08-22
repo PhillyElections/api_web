@@ -79,7 +79,7 @@
       ward: wardDivision.substr(0, 2),
       division: wardDivision.substr(2)
     }
-    return pollingPlaceEndpoint + '?' + $.param(params) 
+    return pollingPlaceEndpoint + '?' + $.param(params) + '&callback=?'
   }
 
   function sendEvent (type, label, value) {
