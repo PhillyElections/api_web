@@ -30,7 +30,7 @@ class Autocomplete
     protected $fields;
     protected $limit = '0, 10';
     protected $params;
-    protected $table = 'api_block_range';
+    protected $table = 'block_range';
 
     /**
      * Constructor: get core, call setup to process request.
