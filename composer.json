@@ -16,7 +16,10 @@
         "slim/views":"0.1.*",
         "twig/twig":"1.*",
         "phpseclib/mcrypt_compat": "^1.0",
-        "kint-php/kint": "^2.1"
+        "kint-php/kint": "^2.1",
+        "slim/flash": "^0.2.0",
+        "slim/http-cache": "^0.3.0",
+        "slim/csrf": "^0.8.1"
     },
     "autoload":{
         "psr-0":{
