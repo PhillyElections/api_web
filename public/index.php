@@ -1,3 +1,3 @@
 <?php
 
-require_once '../main.php';
+require '../main.php';
