@@ -1,16 +1,16 @@
 <?php
 
 // Get Env variable to automatically include environment config
-defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'local'));
+/*defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'local'));
 
 // show errors when working on local
 if (APPLICATION_ENV === 'local') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
-}
+}*/
 
 require '../vendor/autoload.php';
-require '../configs/'.strtolower(APPLICATION_ENV).'.config.php';
+//require '../configs/'.strtolower(APPLICATION_ENV).'.config.php';
 
 // Setup custom Twig view
 /*$twigView = new \Slim\Views\Twig();
@@ -38,7 +38,9 @@ $container = $app->getContainer();
 
 // Register Twig View helper
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig('../templates');
+    $view = new \Slim\Views\Twig('../templates', [
+        'cache' => '../cache'
+    ]);
 
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');
@@ -48,8 +50,8 @@ $container['view'] = function ($c) {
 };
 
 // Define named route
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    return $this->view->render($response, 'profile.html', [
+$app->get('/hello/{title}', function ($request, $response, $args) {
+    return $this->view->render($response, 'index.html', [
         'name' => $args['name']
     ]);
 })->setName('profile');
