@@ -52,7 +52,7 @@ class Autocomplete
     {
         $json = false;
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
-
+        d($sql, $this->params);
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
@@ -84,7 +84,16 @@ class Autocomplete
         d($number, $street);
         //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(suffix_type) as suffix_type, zip';
         $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \')) as label, SUBSTRING(precinct, 1, 4) as division';
-
+        /*
+         `oeb` enum('O','E','B') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'B',
+         `range_start` int(6) unsigned NOT NULL DEFAULT '0',
+         `range_end` int(6) unsigned NOT NULL DEFAULT '0',
+         `prefix_dir` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+         `street_name` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+         `suffix_dir` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+         `suffix_type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+         `zip_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+        */
         if ($street) {
             $this->criteria = '(range_start % 2 = :a0 % 2 OR range_end % 2 = :a1 % 2) AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
             $this->params = array(
