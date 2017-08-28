@@ -31,24 +31,25 @@ $drop = 'DROP TABLE IF EXISTS `block_range`';
 
 $create = "
 CREATE TABLE `block_range` (
-  `id` INT(11) UNSIGNED NOT NULL,
-  `oeb` ENUM('O','E','B') NOT NULL DEFAULT 'B',
-  `range_start` INT(6) UNSIGNED NOT NULL DEFAULT '0',
-  `range_end` INT(6) UNSIGNED NOT NULL DEFAULT '0',
-  `prefix_dir` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `street_name` VARCHAR(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `suffix_dir` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `suffix_type` VARCHAR(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `zip_code` VARCHAR(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `city` VARCHAR(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `zip` INT(5) UNSIGNED ZEROFILL NOT NULL DEFAULT '0',
-  `block_id` INT(11) DEFAULT NULL,
-  `usage` CHAR(1) NOT NULL DEFAULT '',
-  `status` TINYINT(1) NOT NULL DEFAULT '0',
-  `precinct` INT(4) UNSIGNED ZEROFILL NOT NULL DEFAULT '0',
-  `voters` INT(5) NOT NULL DEFAULT '0',
-  `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'
+ `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+ `oeb` enum('O','E','B') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'B',
+ `range_start` int(6) unsigned NOT NULL DEFAULT '0',
+ `range_end` int(6) unsigned NOT NULL DEFAULT '0',
+ `prefix_dir` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ `street_name` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+ `suffix_dir` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ `suffix_type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ `zip_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ `city` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ `zip` int(5) unsigned zerofill NOT NULL DEFAULT '00000',
+ `block_id` int(11) DEFAULT NULL,
+ `usage` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ `status` tinyint(1) NOT NULL DEFAULT '0',
+ `precinct` int(4) unsigned zerofill NOT NULL DEFAULT '0000',
+ `voters` int(5) NOT NULL DEFAULT '0',
+ `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+ `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+ PRIMARY KEY (`id`)
 ) ENGINE=Aria DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ";
 
