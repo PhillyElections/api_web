@@ -5,7 +5,7 @@ require '../configs/production.config.php';
 
 //$core = \lib\Core::getInstance();
 
-dd('kint loaded');
+ddd('kint loaded');
 // Parameters
 if ($argv[1]) {
     $file = $argv[1];
