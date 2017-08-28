@@ -72,21 +72,21 @@ class Autocomplete
      */
     protected function setup()
     {
-        $this->callback = urldecode($_REQUEST['callback']);
+        //        $this->callback = urldecode($_REQUEST['callback']);
         $parts = explode(' ', urldecode($_REQUEST['address']));
 
         if (count($parts)>4) {
-            die($this->callback . '({"status":"failure","message":"No thanks.  Not even touching that."});');
+            die('{"status":"failure","message":"No thanks.  Not even touching that."}');
         }
 
         $number = array_shift($parts);
         $street = implode('', $parts);
 
-        //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(type_dir) as type_dir, zip_code';
-        $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), type_dir), \'  \', \' \')) as label, SUBSTRING(precinct_split, 1, 4) as division';
+        //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(suffix_type) as suffix_type, zip';
+        $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \')) as label, SUBSTRING(precinct, 1, 4) as division';
 
         if ($street) {
-            $this->criteria = '(house_range_start % 2 = :a0 % 2 OR house_range_end % 2 = :a1 % 2) AND house_range_start <= :a2 AND house_range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), type_dir) LIKE :a5)';
+            $this->criteria = '(range_start % 2 = :a0 % 2 OR range_end % 2 = :a1 % 2) AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
             $this->params = array(
                 ':a0' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
@@ -96,7 +96,7 @@ class Autocomplete
                 ':a5' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } else {
-            $this->criteria = 'house_range_start % 2 = :a0 % 2 AND house_range_start <= :a1 AND house_range_end >= :a2';
+            $this->criteria = 'range_start % 2 = :a0 % 2 AND range_start <= :a1 AND range_end >= :a2';
             $this->params = array(
                 ':a0' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
