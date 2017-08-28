@@ -1,10 +1,11 @@
 <?php
 
 require '../vendor/autoload.php';
+require '../configs/production.config.php';
 
-$core = \lib\Core::getInstance();
+//$core = \lib\Core::getInstance();
 
-dd($core, 'kint loaded');
+dd('kint loaded');
 // Parameters
 if ($argv[1]) {
     $file = $argv[1];
@@ -45,6 +46,7 @@ CREATE TABLE `block_range` (
   `usage` CHAR(1) NOT NULL DEFAULT '',
   `status` TINYINT(1) NOT NULL DEFAULT '0',
   `precinct` INT(4) UNSIGNED ZEROFILL NOT NULL DEFAULT '0',
+  `voters` INT(5) NOT NULL DEFAULT '0',
   `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=Aria DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
