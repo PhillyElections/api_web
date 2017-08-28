@@ -20,7 +20,8 @@
         "slim/flash": "^0.2.0",
         "slim/http-cache": "^0.3.0",
         "slim/csrf": "^0.8.1",
-        "kanellov/slim-twig-flash": "^0.2.0"
+        "kanellov/slim-twig-flash": "^0.2.0",
+        "twbs/bootstrap": "^3.3"
     },
     "autoload":{
         "psr-0":{
