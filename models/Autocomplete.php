@@ -52,7 +52,7 @@ class Autocomplete
     {
         $json = false;
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
-        d($sql, $this->params);
+
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
@@ -81,7 +81,7 @@ class Autocomplete
 
         $number = array_shift($parts);
         $street = implode('', $parts);
-        d($number, $street);
+
         //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(suffix_type) as suffix_type, zip';
         $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \')) as label, SUBSTRING(precinct, 1, 4) as division';
         /*
