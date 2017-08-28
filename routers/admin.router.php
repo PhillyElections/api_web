@@ -3,7 +3,7 @@
 // GET index route
 $app->get(
     '/admin',
-    function () use ($app) {
+    function ($request, $response, $args) use ($app) {
         $admin = new models\Admin();
         $content = $admin->getContent();
         d($app);
