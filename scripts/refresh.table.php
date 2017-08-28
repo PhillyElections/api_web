@@ -49,7 +49,12 @@ CREATE TABLE `block_range` (
  `voters` int(5) NOT NULL DEFAULT '0',
  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
  `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
- PRIMARY KEY (`id`)
+ PRIMARY KEY (`id`),
+ KEY `br_oeb` (`oeb`),
+ KEY `br_range_start` (`range_start`),
+ KEY `br_range_end` (`range_end`),
+ KEY `br_prefix_dir` (`prefix_dir`),
+ KEY `br_street_name` (`street_name`)
 ) ENGINE=Aria DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ";
 
