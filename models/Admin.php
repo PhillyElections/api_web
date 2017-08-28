@@ -30,9 +30,6 @@ class Admin
     public function __construct()
     {
         $this->core = \lib\Core::getInstance();
-
-        // process _REQUEST.
-        $this->setup();
     }
 
     public function getContent()
