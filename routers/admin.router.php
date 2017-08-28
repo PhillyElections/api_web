@@ -2,10 +2,10 @@
 
 // GET index route
 $app->get(
-    '/admin',
-    function () use ($app) {
+    '/admin/{api}',
+    function (Request $request) use ($app) {
         $admin = new models\Admin();
-
+        $api = $request->getAttribute('name');
         $content = $admin->getContent();
 
         // $content is segmented into title/header/body
