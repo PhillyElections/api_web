@@ -34,4 +34,9 @@ class Admin
         // process _REQUEST.
         $this->setup();
     }
+
+    public function getContent()
+    {
+        return array('title' => 'Admin Title', 'header' => 'Admin Header', 'body' => 'Admin Body');
+    }
 }
