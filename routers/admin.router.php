@@ -2,7 +2,7 @@
 
 // GET index route
 $app->get(
-    '/admin/{api}',
+    '/admin',
     function () use ($app) {
         $admin = new models\Admin();
         $content = $admin->getContent();
