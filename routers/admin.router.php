@@ -7,7 +7,7 @@ $app->get(
         $admin = new models\Admin();
 
         $content = $admin->getContent();
-        d($content);
+
         // $content is segmented into title/header/body
         $app->render(
             'admin.html',
@@ -17,8 +17,11 @@ $app->get(
 );
 
 // POST index route
-$app->post('/admin', function () use ($app) {
-    $admin = new models\Admin();
+$app->post(
+    '/admin',
+    function () use ($app) {
+        $admin = new models\Admin();
 
-    $admin->process();
-});
+        $admin->process();
+    }
+);
