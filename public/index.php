@@ -31,7 +31,7 @@ $app->run();
 */
 
 // Create Slim app
-$app = new \Slim\App();
+$app = new \Slim\Slim();
 
 // Fetch DI Container
 $container = $app->getContainer();
