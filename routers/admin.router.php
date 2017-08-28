@@ -16,5 +16,5 @@ $app->get('/admin', function () use ($app) {
 $app->post('/admin', function () use ($app) {
     $admin = new models\Admin();
 
-    $content = $admin->process();
+    $admin->process();
 });
