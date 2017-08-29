@@ -23,6 +23,9 @@ $container['view'] = function ($c) {
 
 // Define named route
 $app->get('/hello/{name}', function ($request, $response, $args) {
+    d($args);
+    exit;
+
     return $this->view->render($response, 'profile.twig', [
         'name' => $args['name']
     ]);
