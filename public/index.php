@@ -54,7 +54,7 @@ $app->get('/hello/{name}', function ($request, $response, $args) {
     return $this->view->render($response, 'index.html', [
         'hello' => $args['name']
     ]);
-})->setName('profile');
+})->setName('index');
 
 // Run app
 $app->run();
