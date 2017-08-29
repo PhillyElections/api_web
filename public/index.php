@@ -51,7 +51,7 @@ $container['view'] = function ($c) {
 
 // Define named route
 $app->get('/hello/{name}', function ($request, $response, $args) {
-    return $this->view->render($response, 'profile.html', [
+    return $this->view->render($response, 'index.html', [
         'hello' => $args['name']
     ]);
 })->setName('profile');
