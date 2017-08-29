@@ -8,8 +8,8 @@ $container = $app->getContainer();
 
 // Register Twig View helper
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig('../templates', [
-        'cache' => '../cache'
+    $view = new \Slim\Views\Twig('app/templates', [
+        'cache' => 'app/cache'
     ]);
 
     // Instantiate and add Slim specific extension
