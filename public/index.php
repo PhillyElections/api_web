@@ -30,31 +30,16 @@ foreach ($routers as $router) {
 $app->run();
 */
 
-// Create Slim app
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+require '../vendor/autoload.php';
+
 $app = new \Slim\App();
+$app->get('/hello/{name}', function (Request $request, Response $response) {
+    $name = $request->getAttribute('name');
+    $response->getBody()->write("Hello, $name");
 
-// Fetch DI Container
-$container = $app->getContainer();
-
-// Register Twig View helper
-$container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig('../templates', [
-        'cache' => '../cache'
-    ]);
-
-    // Instantiate and add Slim specific extension
-    $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');
-    $view->addExtension(new Slim\Views\TwigExtension($c['router'], $basePath));
-
-    return $view;
-};
-
-// Define named route
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    return $this->view->render($response, 'index.html', [
-        'hello' => $args['name']
-    ]);
-})->setName('index');
-
-// Run app
+    return $response;
+});
 $app->run();
