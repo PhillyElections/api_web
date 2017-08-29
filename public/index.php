@@ -44,7 +44,7 @@ $container['view'] = function ($c) {
 
     return $view;
 };
-
+exit;
 // Define named route
 $app->get('/hello/{name}', function ($request, $response, $args) {
     return $this->view->render($response, 'profile.html', [
