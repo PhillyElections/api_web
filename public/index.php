@@ -8,8 +8,8 @@ $container = $app->getContainer();
 
 // Register Twig View helper
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig('path/to/templates', [
-        'cache' => 'path/to/cache'
+    $view = new \Slim\Views\Twig('../templates', [
+        'cache' => '../cache'
     ]);
 
     // Instantiate and add Slim specific extension
@@ -19,11 +19,17 @@ $container['view'] = function ($c) {
     return $view;
 };
 
+// Automatically load router files
+/*$routers = glob('../routers/*.router.php');
+foreach ($routers as $router) {
+    require $router;
+}
+*/
 // Define named route
 $app->get('/hello/{name}', function ($request, $response, $args) {
     return $this->view->render($response, 'index.html', [
-        'hello' => $args['name']
-    ]);
+       'hello' => $args['name']
+   ]);
 })->setName('profile');
 
 // Run app
