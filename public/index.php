@@ -48,10 +48,10 @@ $container['view'] = function ($c) {
 
     return $view;
 };
-d('kint loaded');
+
 // Define named route
 $app->get('/hello/{name}', function ($request, $response, $args) {
-    return $this->view->render($response, 'index.html', [
+    return $this->view->render($response, 'profile.html', [
         'hello' => $args['name']
     ]);
 })->setName('profile');
