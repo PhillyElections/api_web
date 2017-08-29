@@ -1,28 +1,13 @@
 {
-    "name":"mattyhead/api_web",
-    "type":"framework",
-    "description":"APIs running on SlimMVC",
-    "keywords":["microframework", "rest", "router", "mvc"],
-    "homepage":"https://github.com/mattyhead/api_web",
-    "license":"MIT",
-    "authors":[
-        {
-            "name":"mattyhead"
-        }
-    ],
-    "require":{
-        "php":">=5.3.0",
-        "kint-php/kint": "^2.1",
-        "slim/slim": "^3.8",
-        "slim/flash": "^0.2.0",
-        "slim/http-cache": "^0.3.0",
-        "slim/csrf": "^0.8.1",
-        "twig/twig": "^2.4",
-        "slim/twig-view": "^2.2"
+    "require": {
+        "slim/slim": "^3.1",
+        "slim/php-view": "^2.0",
+        "monolog/monolog": "^1.17",
+        "robmorgan/phinx": "^0.5.1"
     },
-    "autoload":{
-        "psr-0":{
-            "": ""
+    "autoload": {
+        "psr-4": {
+            "": "classes/"
         }
     }
 }
