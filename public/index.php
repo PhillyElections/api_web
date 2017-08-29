@@ -1,23 +1,30 @@
 <?php
 
-$config['displayErrorDetails'] = true;
-$config['addContentLengthHeader'] = false;
+// Create app
+$app = new \Slim\App();
 
-$config['db']['host']   = ini_get('mysqli.default_host');
-$config['db']['user']   = ini_get('mysqli.default_user');
-$config['db']['pass']   = ini_get('mysqli.default_pw');
-$config['db']['dbname'] = ini_get('mysqli.default_user');
+// Get container
+$container = $app->getContainer();
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+// Register component on container
+$container['view'] = function ($container) {
+    $view = new \Slim\Views\Twig('path/to/templates', [
+        'cache' => 'path/to/cache'
+    ]);
 
-require '../vendor/autoload.php';
+    // Instantiate and add Slim specific extension
+    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
+    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
 
-$app = new \Slim\App(['settings' => $config]);
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, $name");
+    return $view;
+};
 
-    return $response;
-});
+// Render Twig template in route
+$app->get('/hello/{name}', function ($request, $response, $args) {
+    return $this->view->render($response, 'profile.html', [
+        'name' => $args['name']
+    ]);
+})->setName('profile');
+
+// Run app
 $app->run();
