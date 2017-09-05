@@ -80,6 +80,8 @@ class Autocomplete
         }
 
         $number = array_shift($parts);
+
+        $oeb = ' OEB IN ' . ( $number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )' );
         $street = implode('', $parts);
 
         //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(suffix_type) as suffix_type, zip';
@@ -94,8 +96,11 @@ class Autocomplete
          `suffix_type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
          `zip_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
         */
+
+        ()
+
         if ($street) {
-            $this->criteria = '(range_start % 2 = :a0 % 2 OR range_end % 2 = :a1 % 2) AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
+            $this->criteria = $oeb . ' AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
             $this->params = array(
                 ':a0' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
@@ -105,7 +110,7 @@ class Autocomplete
                 ':a5' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } else {
-            $this->criteria = 'range_start % 2 = :a0 % 2 AND range_start <= :a1 AND range_end >= :a2';
+            $this->criteria = $oeb . ' AND range_start <= :a1 AND range_end >= :a2';
             $this->params = array(
                 ':a0' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
