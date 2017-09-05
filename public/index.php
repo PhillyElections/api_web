@@ -7,8 +7,8 @@ if (APPLICATION_ENV === 'local') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
-require '../vendor/autoload.php';
-require '../configs/'.strtolower(APPLICATION_ENV).'.config.php';
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../configs/'.strtolower(APPLICATION_ENV).'.config.php';
 // Setup custom Twig view
 $twigView = new \Slim\Views\Twig();
 $app = new \Slim\Slim(array(
