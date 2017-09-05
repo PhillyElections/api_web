@@ -81,7 +81,7 @@ class Autocomplete
 
         $number = array_shift($parts);
 
-        $oeb = ' OEB IN ' . ( $number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )' );
+        $oeb = ' OEB IN ' . ($number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )');
         $street = implode('', $parts);
 
         //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(suffix_type) as suffix_type, zip';
@@ -96,8 +96,6 @@ class Autocomplete
          `suffix_type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
          `zip_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
         */
-
-        ()
 
         if ($street) {
             $this->criteria = $oeb . ' AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
