@@ -85,7 +85,7 @@ class Autocomplete
         $street = implode('', $parts);
 
         //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(suffix_type) as suffix_type, zip';
-        $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \')) as label, precinct as division, oeb';
+        $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \')) as label, precinct as division ';
         /*
          `oeb` enum('O','E','B') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'B',
          `range_start` int(6) unsigned NOT NULL DEFAULT '0',
