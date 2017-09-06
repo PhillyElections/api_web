@@ -10,7 +10,7 @@ if (APPLICATION_ENV === 'local') {
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../configs/'.strtolower(APPLICATION_ENV).'.config.php';
-d(1);exit;
+
 $app = new \Slim\App();
 
 // Automatically load router files
