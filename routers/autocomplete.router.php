@@ -14,5 +14,7 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
         return $response;
     }
 
+    $response->getBody()->write('<h1>401: Unauthorized</h1>');
+
     return $response->withStatus(401);
 });
