@@ -13,7 +13,6 @@
 namespace models;
 
 use PDO;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
  * Autocomplete class.
