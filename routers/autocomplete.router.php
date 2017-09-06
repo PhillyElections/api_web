@@ -9,8 +9,6 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
 
         $autocomplete = new models\Autocomplete($address);
 
-        exit;
-
         $response->getBody()->write($autocomplete->fetch());
 
         return $response;
