@@ -1,6 +1,8 @@
 <?php
 
 // GET index route
-$app->get('/', function () use ($app) {
-    $app->render('index.html', array('hello' => 'Move along, please...', 'title'=> 'Nothing to see here.'));
+$app->get('/', function (Request $request, Response $response) {
+    $response->getBody()->write('Move allong... Nothing to see here.');
+
+    return $response;
 });
