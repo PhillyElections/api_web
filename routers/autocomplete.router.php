@@ -14,5 +14,5 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
         return $response;
     }
 
-    return $response->withStatus('401', 'Unauthorized');
+    return $response->withStatus(401);
 });
