@@ -8,7 +8,7 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
         $address = $request->getAttribute('address');
 
         $autocomplete = new models\Autocomplete($address);
-        d($address, $autocomplete);
+        d($address, $autocomplete, $autocomplete->fetch());
         exit;
 
         $response->getBody()->write($autocomplete->fetch());
