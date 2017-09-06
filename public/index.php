@@ -13,7 +13,7 @@ require __DIR__ . '/../configs/'.strtolower(APPLICATION_ENV).'.config.php';
 
 $app = new \Slim\App();
 // Automatically load router files
-$routers = glob('../routers/*.router.php');
+$routers = glob(__DIR__ . '/../routers/*.router.php');
 d($routers, 1);exit;
 
 foreach ($routers as $router) {
