@@ -35,9 +35,9 @@ class ReferrerAuth
      */
     public function __construct()
     {
+        $this->core = \lib\Core::getInstance();
         d(1);
         exit;
-        $this->core = \lib\Core::getInstance();
         $this->request = new Request();
     }
 
