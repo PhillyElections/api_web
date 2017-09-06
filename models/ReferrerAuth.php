@@ -13,7 +13,6 @@
 namespace models;
 
 use PDO;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
  * Autocomplete class.
@@ -32,13 +31,12 @@ class ReferrerAuth
      * Constructor: get core, call setup to process request.
      *
      * @param mixed $address
+     * @param mixed $request
      */
-    public function __construct()
+    public function __construct($request)
     {
         $this->core = \lib\Core::getInstance();
-        $this->request = new Request();
-        d(1);
-        exit;
+        $this->request = $request;
     }
 
     /**

@@ -7,7 +7,7 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
     if (in_array($request->getHeader('host')[0], array('apis.philadelphiavotes.com', 'www.philadelphiavotes.com', 'philadelphiavotes.com'))) {
         $address = $request->getAttribute('address');
 
-        $referrerAuth = new models\ReferrerAuth();
+        $referrerAuth = new models\ReferrerAuth($request);
         $autocomplete = new models\Autocomplete($address);
         //d($referferAuth->authenticate());
         $response->getBody()->write($autocomplete->fetch());
