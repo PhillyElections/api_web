@@ -6,10 +6,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/autocomplete/{address}', function (Request $request, Response $response) {
     if (in_array($request->getHeader('host')[0], array('apis.philadelphiavotes.com', 'www.philadelphiavotes.com', 'philadelphiavotes.com'))) {
         $address = $request->getAttribute('address');
-        d($address);
-        exit;
 
         $autocomplete = new models\Autocomplete($address);
+        d($address, $autocomplete);
+        exit;
 
         $response->getBody()->write($autocomplete->fetch());
 
