@@ -1,5 +1,5 @@
 <?php
-
+/*
 // GET index route
 $app->get(
     '/admini/:api',
@@ -24,3 +24,4 @@ $app->post(
         $admin->process();
     }
 );
+*/
