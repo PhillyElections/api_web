@@ -55,7 +55,7 @@ class ReferrerAuth
         $stmt->bindParam(':a1', $referrer, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $value = $stmt->fetchColumn(PDO::FETCH_ASSOC);
+            $value = $stmt->fetchColumn();
             d($value);
             exit;
         }
