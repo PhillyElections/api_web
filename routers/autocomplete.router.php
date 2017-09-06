@@ -10,7 +10,7 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
 
         $response->getBody()->write($autocomplete->fetch());
 
-        return $response->withHeader('Content-Type', 'application/json');
+        return $response;
     }
     $response->getBody()->write('401 Unauthorized');
 
