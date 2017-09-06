@@ -89,7 +89,7 @@ class Autocomplete
         $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type, city, zip), \'  \', \' \')) as label, precinct as division ';
 
         if ($street) {
-            $this->criteria = $oeb . ' AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
+            $this->criteria = $oeb . ' AND zip > 1 AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
             $this->params = array(
                 ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a3' => array('value'=>$number,'type'=>PDO::PARAM_INT),
@@ -97,7 +97,7 @@ class Autocomplete
                 ':a5' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } else {
-            $this->criteria = $oeb . ' AND range_start <= :a1 AND range_end >= :a2';
+            $this->criteria = $oeb . ' AND zip > 1 AND range_start <= :a1 AND range_end >= :a2';
             $this->params = array(
                 ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
