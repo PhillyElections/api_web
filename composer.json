@@ -11,11 +11,8 @@
         }
     ],
     "require":{
-        "php":">=5.3.0",
-        "slim/slim":"2.*",
-        "slim/views":"0.1.*",
-        "twig/twig":"1.*",
-        "phpseclib/mcrypt_compat": "^1.0",
+        "php":">=5.4.0",
+        "slim/slim":"3.*",
         "kint-php/kint": "^2.1"
     },
     "autoload":{

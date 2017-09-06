@@ -34,13 +34,15 @@ class Autocomplete
 
     /**
      * Constructor: get core, call setup to process request.
+     *
+     * @param mixed $address
      */
-    public function __construct()
+    public function __construct($address)
     {
         $this->core = \lib\Core::getInstance();
 
-        // process _REQUEST.
-        $this->setup();
+        // process $address.
+        $this->setup($address);
     }
 
     /**
@@ -69,11 +71,13 @@ class Autocomplete
 
     /**
      * Prepare the current _REQUEST.
+     *
+     * @param mixed $address
      */
-    protected function setup()
+    protected function setup($address)
     {
         //        $this->callback = urldecode($_REQUEST['callback']);
-        $parts = explode(' ', urldecode($_REQUEST['address']));
+        $parts = explode(' ', urldecode($address));
 
         if (count($parts)>4) {
             die('{"status":"failure","message":"No thanks.  Not even touching that."}');

@@ -1,22 +1,10 @@
 <?php
 
-// Get user
-$app->get(
-    '/autocomplete',
-    function () use ($app) {
-        $autocomplete = new models\Autocomplete();
+$app->get('/autocomplete/{address}', function (Request $request, Response $response) {
+    $address = $request->getAttribute('address');
+    $autocomplete = new models\Autocomplete($address);
 
-        //$app->contentType('application/json');
-        echo $autocomplete->fetch();
-    }
-);
+    $response->getBody()->write($autocomplete->fetch());
 
-$app->post(
-    '/autocomplete',
-    function () use ($app) {
-        $autocomplete = new models\Autocomplete();
-
-        $app->contentType('application/json');
-        echo $autocomplete->fetch();
-    }
-);
+    return $response;
+});
