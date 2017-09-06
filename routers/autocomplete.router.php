@@ -4,9 +4,15 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->get('/autocomplete/{address}', function (Request $request, Response $response) {
-    $address = $request->getAttribute('address');
-    $autocomplete = new models\Autocomplete($address);
+    if (in_array($request->getHeaderLine('host'), array('apis.philadelphiavotes.com', 'www.philadelphiavotes.com', 'philadelphiavotes.com'))) {
+        $address = $request->getAttribute('address');
+        $autocomplete = new models\Autocomplete($address);
 
-    $response->getBody()->write($autocomplete->fetch());
-    d($request->getHeader('host')[0], $response);
+        $response->getBody()->write($autocomplete->fetch());
+
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+    $response->getBody()->write('401 Unauthorized');
+
+    return $response->withStatus('401', 'Unauthorized');
 });
