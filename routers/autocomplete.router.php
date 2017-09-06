@@ -9,7 +9,7 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
 
         $referrerAuth = new models\ReferrerAuth($request);
         $autocomplete = new models\Autocomplete($address);
-        //d($referferAuth->authenticate());
+        d($referferAuth->authenticate());
         $response->getBody()->write($autocomplete->fetch());
 
         return $response;
