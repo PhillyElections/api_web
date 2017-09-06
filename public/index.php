@@ -12,9 +12,10 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../configs/'.strtolower(APPLICATION_ENV).'.config.php';
 
 $app = new \Slim\App();
-d(1);exit;
 // Automatically load router files
 $routers = glob('../routers/*.router.php');
+d($routers, 1);exit;
+
 foreach ($routers as $router) {
     require $router;
 }
