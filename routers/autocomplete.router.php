@@ -13,6 +13,7 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
         return $response;
     }
     d('haven\'t returned yet');
+    exit;
 
     return $response->withStatus('401', 'Unauthorized');
 });
