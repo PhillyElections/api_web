@@ -36,7 +36,7 @@ class ReferrerAuth
     public function __construct()
     {
         $this->core = \lib\Core::getInstance();
-        $this->request = new Request();
+        $this->request = new Psr\Http\Message\ServerRequestInterface();
         d(1);
         exit;
     }
