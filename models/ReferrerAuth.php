@@ -25,6 +25,7 @@ use PDO;
 class ReferrerAuth
 {
     protected $core;
+    protected $request;
     protected $table = 'referrers';
 
     /**
@@ -36,7 +37,7 @@ class ReferrerAuth
     public function __construct($request)
     {
         $this->core = \lib\Core::getInstance();
-        $this->request = $request;
+        $this->request = &$request;
     }
 
     /**
@@ -46,7 +47,7 @@ class ReferrerAuth
      */
     public function authenticate()
     {
-        $referrer = (string) $this->request->getHeader('host');
+        $referrer = $this->request->getHeader('host')[0];
         $value = false;
         $sql = ' SELECT COUNT(name) FROM ' . $this->table . ' WHERE name = :a1 ';
         d($referrer);
