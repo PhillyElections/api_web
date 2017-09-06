@@ -24,7 +24,6 @@ use PDO;
  */
 class Autocomplete
 {
-    protected $callback;
     protected $core;
     protected $criteria;
     protected $fields;
@@ -39,10 +38,11 @@ class Autocomplete
      */
     public function __construct($address)
     {
+        // grab our PDO
         $this->core = \lib\Core::getInstance();
 
         // process $address.
-        $this->setup($address);
+        $this->prefetch($address);
     }
 
     /**
@@ -53,7 +53,7 @@ class Autocomplete
     public function fetch()
     {
         $json = false;
-        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
+        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM `' . $this->table . '` WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
 
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
@@ -70,11 +70,11 @@ class Autocomplete
     }
 
     /**
-     * Prepare the current _REQUEST.
+     * Prepare the current $address.
      *
      * @param mixed $address
      */
-    protected function setup($address)
+    protected function prefetch($address)
     {
         //        $this->callback = urldecode($_REQUEST['callback']);
         $parts = explode(' ', urldecode($address));
@@ -85,24 +85,14 @@ class Autocomplete
 
         $number = array_shift($parts);
 
-        $oeb = ' OEB IN ' . ($number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )');
+        $oeb = ' `oeb` IN ' . ($number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )') . ' ';
         $street = implode('', $parts);
 
         //        $this->fields = 'prefix_dir, proper(TRIM(LEADING \'0\' FROM street_name)) as street, proper(suffix_type) as suffix_type, zip';
-        $this->fields = 'TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \')) as label, precinct as division ';
-        /*
-         `oeb` enum('O','E','B') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'B',
-         `range_start` int(6) unsigned NOT NULL DEFAULT '0',
-         `range_end` int(6) unsigned NOT NULL DEFAULT '0',
-         `prefix_dir` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-         `street_name` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-         `suffix_dir` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-         `suffix_type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-         `zip_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-        */
+        $this->fields = ' TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', `sprefix_dir`, TRIM(LEADING \'0\' FROM `street_name`), `suffix_type`), \'  \', \' \')) as `label`, `precinct` as `division` ';
 
         if ($street) {
-            $this->criteria = $oeb . ' AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
+            $this->criteria = $oeb . ' AND `range_start` <= :a2 AND `range_end` >= :a3 AND (CONCAT(`prefix_dir`, TRIM(LEADING \'0\' FROM `street_name`), `suffix_type`) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM `street_name`), `suffix_type`) LIKE :a5)';
             $this->params = array(
                 ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a3' => array('value'=>$number,'type'=>PDO::PARAM_INT),
