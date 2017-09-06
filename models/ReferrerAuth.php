@@ -48,14 +48,14 @@ class ReferrerAuth
     {
         $referrer = (string) $this->request->getHeader('host');
         $value = false;
-        $sql = ' SELECT COUNT(name) as count FROM ' . $this->table . ' WHERE name = :a1 ';
+        $sql = ' SELECT COUNT(name) FROM ' . $this->table . ' WHERE name = :a1 ';
 
         $stmt = $this->core->dbh->prepare($sql);
         $stmt->bindParam(':a1', $referrer, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $value = $stmt->fetchColumn(PDO::FETCH_ASSOC);
-            d($value);
+            $value = $stmt->fetch(PDO::FETCH_ASSOC);
+            d($value);exit;
         }
 
         return $value;
