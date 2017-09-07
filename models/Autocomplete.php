@@ -15,7 +15,7 @@ namespace models;
 use PDO;
 
 /**
- * Autocomplete class.
+ * Autocomplete model.
  *
  * @link       https://www.philadelphiavotes.com
  *
@@ -48,7 +48,7 @@ class Autocomplete
     /**
      * Fetch results based on setup().
      *
-     * @return     boolean  A JsonP function.
+     * @return     boolean  A json object.
      */
     public function fetch()
     {
@@ -68,7 +68,7 @@ class Autocomplete
     }
 
     /**
-     * Prepare the current _REQUEST.
+     * Prepare the current address.
      *
      * @param mixed $address
      */
