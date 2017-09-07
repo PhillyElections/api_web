@@ -24,7 +24,6 @@ use PDO;
  */
 class Pollingplaces
 {
-    protected $callback;
     protected $core;
     protected $criteria;
     protected $fields;
@@ -41,7 +40,7 @@ class Pollingplaces
     {
         $this->core = \lib\Core::getInstance();
 
-        // process _REQUEST.
+        // store precinct.
         $this->precinct = $precinct;
     }
 
@@ -53,7 +52,7 @@ class Pollingplaces
     public function fetch()
     {
         $json = false;
-        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
+        $sql = ' SELECT * FROM ' . $this->tables . ' WHERE ' . $this->criteria . ' ';
 
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
