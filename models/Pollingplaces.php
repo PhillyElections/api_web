@@ -1,8 +1,8 @@
 <?php
 /**
- * Autocomplete model.
+ * Pollingplaces model.
  *
- * Autocomplete API's model
+ * Pollingplaces API's model
  *
  * @link       https://www.philadelphiavotes.com
  *
@@ -15,19 +15,19 @@ namespace models;
 use PDO;
 
 /**
- * Autocomplete model.
+ * Pollingplaces model.
  *
  * @link       https://www.philadelphiavotes.com
  *
  * @package    api_web
  * @subpackage api_web/models
  */
-class Autocomplete
+class Pollingplaces
 {
+    protected $callback;
     protected $core;
     protected $criteria;
     protected $fields;
-    protected $limit = '0, 10';
     protected $params;
     protected $table = 'block_range';
 
@@ -35,13 +35,14 @@ class Autocomplete
      * Constructor: get core, call setup to process request.
      *
      * @param mixed $address
+     * @param mixed $precinct
      */
-    public function __construct($address)
+    public function __construct($precinct)
     {
         $this->core = \lib\Core::getInstance();
 
         // process _REQUEST.
-        $this->setup($address);
+        $this->precinct = $precinct;
     }
 
     /**
