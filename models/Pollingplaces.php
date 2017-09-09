@@ -52,7 +52,7 @@ class Pollingplaces
     public function fetch()
     {
         $json = false;
-        $sql = ' SELECT * FROM ' . $this->tables . ' WHERE ' . $this->criteria . ' ';
+        $sql = ' SELECT `ward`, `division`, `precinct`, `pin_address`, `display_address`, `zip_code`, `location`, `display_location`, `building`, `parking`, `lat`, `lng`, `elat`, `elng`, `alat`, `alng` FROM `pollingplaces`, `precincts` WHERE `published` = 1 AND `pollingplaces`.`id`=`precincts`.`pollingplace_id` AND `precincts`.`precinct` = :a1 ';
 
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
