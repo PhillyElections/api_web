@@ -7,7 +7,7 @@ $app->get('/pollingplaces/wardlist/{ward}', function (Request $request, Response
     $precinct = $request->getAttribute('ward');
 
 //    $pollingplaces = new models\Pollingplaces($precinct);
-    $response->getBody()->write("We'll show a list of polling places for the ward " . $precinct);
+    $response->getBody()->write("We'll show a list of polling places for the ward $precinct");
 
     return $response;
 });
