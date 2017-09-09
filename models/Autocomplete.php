@@ -51,7 +51,8 @@ class Autocomplete
      */
     public function fetch()
     {
-        $json = false;
+        $data = false;
+        $status = 'error';
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
 
         $stmt = $this->core->dbh->prepare($sql);
@@ -60,10 +61,11 @@ class Autocomplete
         }
 
         if ($stmt->execute()) {
-            $json = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+            $status = 'success';
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        return $json;
+        return array('status'=>$status, 'data'=>$data);
     }
 
     /**
