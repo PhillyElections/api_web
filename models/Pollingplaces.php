@@ -38,7 +38,7 @@ class Pollingplaces
         $this->core = \lib\Core::getInstance();
 
         $params = array();
-        parse_str($precinct, $params)
+        parse_str($precinct, $params);
 
         d($params);
         exit;
