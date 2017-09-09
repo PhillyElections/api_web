@@ -49,15 +49,17 @@ class Pollingplaces
     public function fetch()
     {
         $data = false;
-        $status = 'error';
+        $status = 'faulure';
         $sql = ' SELECT `ward`, `division`, `precinct`, `pin_address`, `display_address`, `zip_code`, `location`, `display_location`, `building`, `parking`, `lat`, `lng`, `elat`, `elng`, `alat`, `alng` FROM `pollingplaces`, `precincts` WHERE `published` = 1 AND `pollingplaces`.`id`=`precincts`.`pollingplace_id` AND `precincts`.`precinct` = :precinct ';
 
         $stmt = $this->core->dbh->prepare($sql);
         $stmt->bindParam(':precinct', $this->precinct, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            $status = 'success';
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($data)) {
+                $status = 'success';
+            }
         }
 
         return json_encode(array('status'=>$status, 'data'=>$data));

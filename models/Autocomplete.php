@@ -52,7 +52,7 @@ class Autocomplete
     public function fetch()
     {
         $data = false;
-        $status = 'error';
+        $status = 'failure';
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
 
         $stmt = $this->core->dbh->prepare($sql);
@@ -61,8 +61,10 @@ class Autocomplete
         }
 
         if ($stmt->execute()) {
-            $status = 'success';
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($data)) {
+                $status = 'success';
+            }
         }
 
         return json_encode(array('status'=>$status, 'data'=>$data));
