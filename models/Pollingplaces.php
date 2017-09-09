@@ -28,7 +28,6 @@ class Pollingplaces
     protected $criteria;
     protected $fields;
     protected $params;
-    protected $table = 'block_range';
 
     /**
      * Constructor: get core, call setup to process request.
