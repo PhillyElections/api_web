@@ -65,7 +65,7 @@ class Autocomplete
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        return array('status'=>$status, 'data'=>$data);
+        return json_encode(array('status'=>$status, 'data'=>$data));
     }
 
     /**
