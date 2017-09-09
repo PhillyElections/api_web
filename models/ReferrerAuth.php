@@ -49,7 +49,7 @@ class ReferrerAuth
      */
     public function authenticate()
     {
-        $sql = ' SELECT COUNT(name) FROM ' . $this->table . ' WHERE api = :api ';
+        $sql = ' SELECT COUNT(`name`) FROM `' . $this->table . '` WHERE `api` = :api ';
 
         $stmt = $this->core->dbh->prepare($sql);
         $stmt->bindParam(':api', $this->api, PDO::PARAM_STR);
@@ -64,7 +64,7 @@ class ReferrerAuth
 
         // Ok, we're still here, so we need to reinitialize for the real check.
         $referrer = $this->request->getHeader('host')[0];
-        $sql = ' SELECT COUNT(name) FROM ' . $this->table . ' WHERE api = :api AND name = :referrer ';
+        $sql = ' SELECT COUNT(`name`) FROM `' . $this->table . '` WHERE `api` = :api AND `name` = :referrer ';
 
         $stmt = $this->core->dbh->prepare($sql);
         $stmt->bindParam(':api', $this->api, PDO::PARAM_STR);
