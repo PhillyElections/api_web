@@ -40,7 +40,7 @@ class Autocomplete
     {
         $this->core = \lib\Core::getInstance();
 
-        // process _REQUEST.
+        // process address.
         $this->setup($address);
     }
 
@@ -77,7 +77,6 @@ class Autocomplete
      */
     protected function setup($address)
     {
-        //        $this->callback = urldecode($_REQUEST['callback']);
         $parts = explode(' ', urldecode($address));
 
         if (count($parts)>4) {
