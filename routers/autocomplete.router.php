@@ -12,7 +12,7 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
         $autocomplete = new models\Autocomplete($address);
         $response->getBody()->write($autocomplete->fetch());
 
-        return $response->withHeader('Content-Type', 'application/json');
+        return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
     }
 
     $response->getBody()->write('<h1>401: Unauthorized</h1>');
