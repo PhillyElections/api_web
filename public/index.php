@@ -11,7 +11,10 @@ if (APPLICATION_ENV === 'local') {
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../configs/'.strtolower(APPLICATION_ENV).'.config.php';
 
-$app = new \Slim\App();
+$app = new \Slim\App([
+    'settings' => [
+        'displayErrorDetails' => true,]
+    ]);
 // Automatically load router files
 $routers = glob(__DIR__ . '/../routers/*.router.php');
 
