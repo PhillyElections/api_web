@@ -13,8 +13,13 @@ $app->get('/autocomplete/{address}', function (Request $request, Response $respo
         $response->getBody()->write($autocomplete->fetch());
         $response->setHeader('Content-Type', 'application/json');
 
-        return $response->withHeader('Access-Control-Allow-Origin', 'https://www.philadelphiavotes.com')
-        ->withAddedHeader('Access-Control-Allow-Origin', 'http://www.philadelphiavotes.com');
+        return $response->withHeader(
+            'Access-Control-Allow-Origin',
+            'https://www.philadelphiavotes.com'
+            )->withAddedHeader(
+                'Access-Control-Allow-Origin',
+                'http://www.philadelphiavotes.com'
+        );
     }
 
     $response->getBody()->write('<h1>401: Unauthorized</h1>');
