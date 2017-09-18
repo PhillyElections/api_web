@@ -25,7 +25,7 @@ use PDO;
 class ReferrerAuth
 {
     protected $core;
-    protected $request;
+    protected $referrer;
     protected $api;
     protected $table = 'referrers';
 
@@ -34,12 +34,14 @@ class ReferrerAuth
      *
      * @param mixed $address
      * @param mixed $request
+     * @param mixed $referrer
+     * @param mixed $api
      */
-    public function __construct($request, $api)
+    public function __construct($referrer, $api)
     {
         $this->core = \lib\Core::getInstance();
         $this->api = &$api;
-        $this->request = &$request;
+        $this->referrer = &$referrer;
     }
 
     /**
@@ -63,12 +65,11 @@ class ReferrerAuth
         }
 
         // Ok, we're still here, so we need to reinitialize for the real check.
-        $referrer = $this->request->getHeader('host')[0];
         $sql = ' SELECT COUNT(`name`) FROM `' . $this->table . '` WHERE `api` = :api AND `name` = :referrer ';
 
         $stmt = $this->core->dbh->prepare($sql);
         $stmt->bindParam(':api', $this->api, PDO::PARAM_STR);
-        $stmt->bindParam(':referrer', $referrer, PDO::PARAM_STR);
+        $stmt->bindParam(':referrer', $this->referrer, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             if ((int) $stmt->fetchColumn() >= 1) {
