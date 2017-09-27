@@ -88,7 +88,7 @@ class Autocomplete
         $oeb = ' oeb IN ' . ($number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )');
         $street = implode('', $parts);
 
-        $this->fields = ' proper(TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type, city, zip), \'  \', \' \'))) as label, proper(TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, street_name, suffix_type), \'  \', \' \'))) as address, precinct as value ';
+        $this->fields = ' \'' . $number .'\' as number, prefix_dir, TRIM(LEADING \'0\' FROM street_name) street, suffix_type, city, zip, proper(TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \'))) as address, precinct ';
 
         if ($street) {
             $this->criteria = $oeb . ' AND zip > 1 AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
