@@ -68,7 +68,7 @@ class Utils
 
     public function polygonString2Array($polygon, $label = 'POLYGON')
     {
-        $core = str_replace(array($label,'(',')'), '', $polygon);
+        $core = str_replace($label, '', $polygon);
         d($core);
         exit;
     }
