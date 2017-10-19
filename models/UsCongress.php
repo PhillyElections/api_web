@@ -60,6 +60,8 @@ class UsCongress
                     $features=array();
                     $features['geometry'] = $data;
                     $status = 'success';
+                } else {
+                    die('no results');
                 }
             } else {
                 die(var_dump($stmt));
