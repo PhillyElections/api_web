@@ -60,7 +60,7 @@ class UsCongress
                     $utils = \lib\Utils::getInstance();
                     $features=array();
                     $features['attributes'] = [];
-                    $features['attributes']['DISTRICT'] = $data['cd115fp'];
+                    $features['attributes']['DISTRICT'] = $data[0]['cd115fp'];
 
                     $features['geometry'] = [];
                     $features['geometry']['rings'] = $utils->polygonString2Array($data[0]['rings']);
