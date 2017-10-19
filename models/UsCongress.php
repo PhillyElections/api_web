@@ -52,7 +52,7 @@ class UsCongress
 
             $stmt = $this->core->dbh->prepare($sql);
             $stmt->bindParam(':geoid', $this->geoid, PDO::PARAM_STR);
-            die(var_dump($stmt));
+            //            die(var_dump($stmt));
 
             if ($stmt->execute()) {
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
