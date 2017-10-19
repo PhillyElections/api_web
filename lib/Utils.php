@@ -58,4 +58,9 @@ class Utils
 
         return $string;
     }
+
+    protected function polygonString2Array($polygon, $label = "POLYGON") {
+        $matches = preg_match($label."\(\(.*)\)\)", $polygon)
+        die(var_dump($matches));
+    }
 }

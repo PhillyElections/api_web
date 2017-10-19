@@ -48,6 +48,8 @@ class UsCongress
         $features = false;
         $status = 'failure';
 
+        $utils = new \lib\Utils();
+
         if ($this->geoid) {
             $sql = ' SELECT `OGR_FID`, ST_AsText(`SHAPE`) as rings, `statefp`, `cd115fp`, `affgeoid`, `geoid`, `lsad`, `cdsessn`, `aland`, `awater`  FROM `urep_shapes` WHERE `geoid` = :a ';
 
@@ -58,6 +60,9 @@ class UsCongress
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (count($data)) {
                     $features=array();
+                    $features['attributes'] = [];
+                    $features['attributes']['DISTRICT'] = $data['cd115fp'];
+                    $utils->polygonString2Array($data['rings']);
                     $features['geometry'] = $data;
                     $status = 'success';
                 }
