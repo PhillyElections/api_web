@@ -11,7 +11,7 @@ $app->get('/shapes/', function (Request $request, Response $response) {
         $response->getBody()->write(
             '<h1>Available Shape Services:</h1>' .
             '<ul>' .
-            '  <li><a href="/shapes/us_congress/">US Congressional</a> (/shapes/us_congress)</li>' .
+            '  <li><a href="/shapes/us_congress/">US Congressional</a> (/shapes/us_congress/[district])</li>' .
             '</ul>'
         );
 
