@@ -70,13 +70,13 @@ class Utils
     {
         $tmp =$output= [];
 
-        $coordString = substr($polygon, strlen($label)+2, strlen($polygon) - strlen($label) - 4);
+        $coordString = substr($polygon, strlen($label) + 2, strlen($polygon) - strlen($label) - 4);
         $coordPairs = explode(',', $coordString);
         foreach ($coordPairs as $pair) {
             $tmp = explode(' ', $pair);
             array_push($output, $tmp);
         }
-        d($output)
+        d($output);
         exit;
     }
 
