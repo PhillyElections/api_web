@@ -49,9 +49,10 @@ class UsCongress
         $status = 'failure';
         if ($this->geoid) {
             $sql = ' SELECT `OGR_FID`, `SHAPE` as rings, `statefp`, `cd115fp`, `affgeoid`, `geoid`, `lsad`, `cdsessn`, `aland`, `awater`  FROM `urep_shapes` WHERE `geoid` = :geoid ';
-            die($sql);
+
             $stmt = $this->core->dbh->prepare($sql);
             $stmt->bindParam(':geoid', $this->geoid, PDO::PARAM_INT);
+            die(var_dump($stmt));
 
             if ($stmt->execute()) {
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
