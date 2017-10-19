@@ -31,7 +31,7 @@ $app->get('/shapes/us_congress/{geoid}', function (Request $request, Response $r
         $geoid = $request->getAttribute('geoid');
 
         $model = new models\UsCongress($geoid);
-        dd($model);
+        ddd($model);
         $response->getBody()->write($model->fetch());
 
         return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
