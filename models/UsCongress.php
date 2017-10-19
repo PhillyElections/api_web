@@ -57,13 +57,13 @@ class UsCongress
             if ($stmt->execute()) {
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (count($data)) {
-                    d($data);
                     $utils = \lib\Utils::getInstance();
                     $features=array();
                     $features['attributes'] = [];
                     $features['attributes']['DISTRICT'] = $data['cd115fp'];
-                    $utils->polygonString2Array($data[0]['rings']);
-                    $features['geometry'] = $data;
+
+                    $features['geometry'] = [];
+                    $features['geometry']['rings'] = $utils->polygonString2Array($data[0]['rings']);
                     $status = 'success';
                 }
             }
