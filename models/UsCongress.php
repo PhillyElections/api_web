@@ -53,7 +53,6 @@ class UsCongress
 
             $stmt = $this->core->dbh->prepare($sql);
             $stmt->bindParam(':a', $this->geoid, PDO::PARAM_STR);
-            //            die(var_dump($stmt));
 
             if ($stmt->execute()) {
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -61,13 +60,9 @@ class UsCongress
                     $features=array();
                     $features['geometry'] = $data;
                     $status = 'success';
-                    die(var_dump($data));
                 }
-                die('no results');
             }
-            die(var_dump($stmt));
         }
-        die('no geoid');
 
         return json_encode(array('status'=>$status, 'features'=>$features));
     }
