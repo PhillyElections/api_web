@@ -70,6 +70,7 @@ class Utils
     {
         $matches = preg_match($label."\(\(.*)\)\)", $polygon);
         d($matches);
+        exit;
     }
 
     /**
