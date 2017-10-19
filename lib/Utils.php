@@ -23,6 +23,13 @@ namespace lib;
 class Utils
 {
     /**
+     * Singleton.
+     *
+     * @var object   singleton instance
+     */
+    private static $instance;
+
+    /**
      * A name-safe formatter.
      *
      * @param      string  $string  The string
