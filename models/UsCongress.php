@@ -60,15 +60,13 @@ class UsCongress
                     $features=array();
                     $features['geometry'] = $data;
                     $status = 'success';
-                } else {
-                    die('no results');
+                    die('results... invisible results');
                 }
-            } else {
-                die(var_dump($stmt));
+                die('no results');
             }
-        } else {
-            die('no geoid');
+            die(var_dump($stmt));
         }
+        die('no geoid');
 
         return json_encode(array('status'=>$status, 'features'=>$features));
     }
