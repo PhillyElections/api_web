@@ -48,7 +48,7 @@ class UsCongress
         $features = false;
         $status = 'failure';
 
-        $utils = new Utils();
+        $utils = new \lib\Utils();
 
         if ($this->geoid) {
             $sql = ' SELECT `OGR_FID`, ST_AsText(`SHAPE`) as rings, `statefp`, `cd115fp`, `affgeoid`, `geoid`, `lsad`, `cdsessn`, `aland`, `awater`  FROM `urep_shapes` WHERE `geoid` = :a ';

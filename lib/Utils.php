@@ -29,7 +29,7 @@ class Utils
      *
      * @return     string  $string a prettier string.
      */
-    protected function titleCase($string)
+    public function titleCase($string)
     {
         $word_splitters = array(' ', '-', 'O\'', 'L\'', 'D\'', 'St.', 'Mc');
         $lowercase_exceptions = array('a', 'the', 'van', 'den', 'von', 'und', 'der', 'de', 'da', 'of', 'and', 'l\'', 'd\'');
@@ -59,7 +59,7 @@ class Utils
         return $string;
     }
 
-    protected function polygonString2Array($polygon, $label = "POLYGON") {
+    public function polygonString2Array($polygon, $label = "POLYGON") {
         $matches = preg_match($label."\(\(.*)\)\)", $polygon)
         die(var_dump($matches));
     }
