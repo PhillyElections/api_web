@@ -35,8 +35,8 @@ class UsCongress
     public function __construct($geoid)
     {
         $this->core = \lib\Core::getInstance();
-        die($geoid);
         $this->geoid = sprintf('%04d', $geoid);
+        die($geoid);
         die('end of constructor');
     }
 
