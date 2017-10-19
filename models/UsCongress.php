@@ -59,11 +59,11 @@ class UsCongress
                 if (count($data)) {
                     $utils = \lib\Utils::getInstance();
                     $features=array();
-                    $features['attributes'] = [];
-                    $features['attributes']['DISTRICT'] = $data[0]['cd115fp'];
+                    $features[0] = $features['attributes'] = [];
+                    $features[0]['attributes']['DISTRICT'] = $data[0]['cd115fp'];
 
-                    $features['geometry'] = [];
-                    $features['geometry']['rings'] = $utils->polygonString2Array($data[0]['rings']);
+                    $features[0]['geometry'] = $features[0]['geometry']['rings'] = [];
+                    $features['geometry']['rings'][0] = $utils->polygonString2Array($data[0]['rings']);
                     $status = 'success';
                 }
             }
