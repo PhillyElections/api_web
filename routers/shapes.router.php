@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/shapes', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
-    d($referrerAuth);
+
     if ($referrerAuth->authenticate()) {
         $response->getBody()->write(
             '<h1>Available Shape Services:</h1>' .
