@@ -63,4 +63,19 @@ class Utils
         $matches = preg_match($label."\(\(.*)\)\)", $polygon)
         die(var_dump($matches));
     }
+
+    /**
+     * Gets the (singleton) instance.
+     *
+     * @return     object  The instance.
+     */
+    public static function getInstance()
+    {
+        if (! isset(self::$instance)) {
+            $object = __CLASS__;
+            self::$instance = new $object();
+        }
+
+        return self::$instance;
+    }
 }
