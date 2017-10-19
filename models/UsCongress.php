@@ -37,6 +37,7 @@ class UsCongress
         $this->core = \lib\Core::getInstance();
 
         $this->geoid = sprintf('%04d', $geoid);
+        die('end of constructor');
     }
 
     /**
