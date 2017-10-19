@@ -11,7 +11,7 @@ $app->get('/shapes/', function (Request $request, Response $response) {
         $response->getBody()->write(
             '<h1>Available Shape Services:</h1>' .
             '<ul>' .
-            '  <li><a href="/shapes/us_congress/">US Congressional</a> (/shapes/us_congress/[district])</li>' .
+            '  <li><a href="/shapes/us_congress/">US Congressional</a> (/shapes/us_congress/[geoid])</li>' .
             '</ul>'
         );
 
@@ -23,14 +23,14 @@ $app->get('/shapes/', function (Request $request, Response $response) {
     return $response->withStatus(401);
 });
 
-$app->get('/shapes/us_congress/{district}', function (Request $request, Response $response) {
+$app->get('/shapes/us_congress/{geoid}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
 
     if ($referrerAuth->authenticate()) {
-        $district = $request->getAttribute('district');
+        $geoid = $request->getAttribute('geoid');
 
-        $model = new models\UsCongress($district);
+        $model = new models\UsCongress($geoid);
         $response->getBody()->write($model->fetch());
 
         return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
