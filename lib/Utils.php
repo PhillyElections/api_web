@@ -68,7 +68,7 @@ class Utils
 
     public function polygonString2Array($polygon, $label = 'POLYGON')
     {
-        $matches = preg_match($label."\(\((.*)\)\)", $polygon);
+        $matches = substr($polygon, strlen($label)+1, strlen($polygon) -9);
         d($matches);
         exit;
     }
