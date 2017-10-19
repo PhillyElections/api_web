@@ -48,10 +48,10 @@ class UsCongress
         $features = false;
         $status = 'failure';
         if ($this->geoid) {
-            $sql = ' SELECT `OGR_FID`, `SHAPE` as rings, `statefp`, `cd115fp`, `affgeoid`, `geoid`, `lsad`, `cdsessn`, `aland`, `awater`  FROM `urep_shapes` WHERE `geoid` = :geoid ';
+            $sql = ' SELECT `OGR_FID`, `SHAPE` as rings, `statefp`, `cd115fp`, `affgeoid`, `geoid`, `lsad`, `cdsessn`, `aland`, `awater`  FROM `urep_shapes` WHERE `geoid` = :a ';
 
             $stmt = $this->core->dbh->prepare($sql);
-            $stmt->bindParam(':geoid', $this->geoid, PDO::PARAM_STR);
+            $stmt->bindParam(':a', $this->geoid, PDO::PARAM_STR);
             //            die(var_dump($stmt));
 
             if ($stmt->execute()) {
@@ -66,6 +66,8 @@ class UsCongress
             } else {
                 die(var_dump($stmt));
             }
+        } else {
+            die('no geoid');
         }
 
         return json_encode(array('status'=>$status, 'features'=>$features));
