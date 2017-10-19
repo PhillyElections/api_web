@@ -62,7 +62,7 @@ class UsCongress
                     $features=array();
                     $features['attributes'] = [];
                     $features['attributes']['DISTRICT'] = $data['cd115fp'];
-                    $utils->polygonString2Array($data['rings']);
+                    $utils->polygonString2Array($data[0]['rings']);
                     $features['geometry'] = $data;
                     $status = 'success';
                 }
