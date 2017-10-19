@@ -51,7 +51,7 @@ class UsCongress
             $sql = ' SELECT `OGR_FID`, `SHAPE` as rings, `statefp`, `cd115fp`, `affgeoid`, `geoid`, `lsad`, `cdsessn`, `aland`, `awater`  FROM `urep_shapes` WHERE `geoid` = :geoid ';
 
             $stmt = $this->core->dbh->prepare($sql);
-            $stmt->bindParam(':geoid', $this->geoid, PDO::PARAM_INT);
+            $stmt->bindParam(':geoid', $this->geoid, PDO::PARAM_STR);
             die(var_dump($stmt));
 
             if ($stmt->execute()) {
