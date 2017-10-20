@@ -39,7 +39,7 @@ class ShapeCityDivision
         $this->core = \lib\Core::getInstance();
         $this->queried = $queried;
         $this->table_name = '`shapes_city_divisions`';
-        $this->queried_index = '`district_n`';
+        $this->queried_index = '`division_n`';
     }
 
     /**
