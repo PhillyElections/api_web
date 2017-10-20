@@ -76,6 +76,8 @@ class Utils
             $tmp = explode(' ', $pair);
             array_push($output, $tmp);
         }
+        d($polygon, $output, $label);
+        exit;
 
         return $output;
     }
