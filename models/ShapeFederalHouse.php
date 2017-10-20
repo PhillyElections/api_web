@@ -26,6 +26,7 @@ class ShapeFederalHouse
 {
     protected $core;
     protected $queried;
+    protected $queried_index;
     protected $table_name;
 
     /**

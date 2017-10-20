@@ -26,6 +26,7 @@ class ShapeCityDistrict
 {
     protected $core;
     protected $queried;
+    protected $queried_index;
     protected $table_name;
 
     /**
@@ -37,7 +38,7 @@ class ShapeCityDistrict
     {
         $this->core = \lib\Core::getInstance();
         $this->queried = $queried;
-        $this->table_name = '`shape_city_district`';
+        $this->table_name = '`shape_city_districts`';
         $this->queried_index = '`district`';
     }
 
