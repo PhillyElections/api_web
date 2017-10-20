@@ -3,16 +3,13 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-$app->get('/shapes/', function (Request $request, Response $response) {
+$app->get('/indexes/', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
-    $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
+    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
     if ($referrerAuth->authenticate()) {
         $response->getBody()->write(
-            '<h1>Available Shape Services:</h1>' .
-            '<ul>' .
-            '  <li><a href="/shapes/federal_house/">US Congressional</a> (/shapes/federal_house/[geoid])</li>' .
-            '</ul>'
+            '<h1>Indexes:</h1>'
         );
 
         return $response->withHeader('Content-Type', 'text/html')->withHeader('Access-Control-Allow-Origin', '*');
@@ -24,14 +21,14 @@ $app->get('/shapes/', function (Request $request, Response $response) {
 });
 
 // federal_house routes
-$app->get('/shapes/federal_house/{queried}', function (Request $request, Response $response) {
+$app->get('/indexes/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
-    $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
+    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
 
-        $model = new models\ShapeFederalHouse($queried);
+        $model = new models\Indexes($queried);
 
         if (in_array($queried, array('all', 'all/'))) {
             // the rare and costly case
@@ -51,9 +48,9 @@ $app->get('/shapes/federal_house/{queried}', function (Request $request, Respons
     return $response->withStatus(401);
 });
 
-$app->get('/shapes/federal_house/some/{queried}', function (Request $request, Response $response) {
+$app->get('/indexes/some/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
-    $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
+    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
@@ -61,7 +58,7 @@ $app->get('/shapes/federal_house/some/{queried}', function (Request $request, Re
         d($queried);
         exit;
 
-        $model = new models\ShapeFederalHouse($queried);
+        $model = new models\Indexes($queried);
         $response->getBody()->write($model->fetchSome());
 
         return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
