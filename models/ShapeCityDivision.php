@@ -57,8 +57,7 @@ class ShapeCityDivision
 
             $stmt = $this->core->dbh->prepare($sql);
             $stmt->bindParam(':a', $this->queried, PDO::PARAM_STR);
-            d($this, $sql, $stmt);
-            exit;
+
             if ($stmt->execute()) {
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (count($data)) {
