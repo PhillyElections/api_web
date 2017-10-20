@@ -55,8 +55,6 @@ class ShapeCityDivision
         if ($this->queried) {
             $sql = ' SELECT * FROM ' . $this->table_name . ' WHERE ' . $this->queried_index . ' = :a ';
 
-            d($this, $sql);
-            exit;
             $stmt = $this->core->dbh->prepare($sql);
             $stmt->bindParam(':a', $this->queried, PDO::PARAM_STR);
 
