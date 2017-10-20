@@ -57,9 +57,12 @@ class ShapeCityDivision
 
             $stmt = $this->core->dbh->prepare($sql);
             $stmt->bindParam(':a', $this->queried, PDO::PARAM_STR);
+            d($this, $sql, $stmt);
 
             if ($stmt->execute()) {
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                d($stmt, $data);
+
                 if (count($data)) {
                     //$utils = \lib\Utils::getInstance();
                     $features=array();
@@ -72,6 +75,9 @@ class ShapeCityDivision
                 }
             }
         }
+        d($features);
+
+        exit;
 
         return json_encode(array('status'=>$status, 'features'=>$features));
     }
