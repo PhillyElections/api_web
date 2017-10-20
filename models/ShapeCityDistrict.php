@@ -53,7 +53,7 @@ class ShapeCityDistrict
         $status = 'failure';
 
         if ($this->queried) {
-            $sql = ' SELECT * FROM ' . $this->table_name . ' WHERE ' . $this->queried_index . ' = :a ';
+            $sql = ' SELECT ST_AsText(SHAPE) as SHAPE FROM ' . $this->table_name . ' WHERE ' . $this->queried_index . ' = :a ';
 
             $stmt = $this->core->dbh->prepare($sql);
             $stmt->bindParam(':a', $this->queried, PDO::PARAM_STR);
