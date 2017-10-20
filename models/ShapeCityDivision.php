@@ -64,13 +64,13 @@ class ShapeCityDivision
                 d($stmt, $data);
 
                 if (count($data)) {
-                    //$utils = \lib\Utils::getInstance();
+                    $utils = \lib\Utils::getInstance();
                     $features=array();
                     $features[0] = $features[0]['attributes'] = [];
                     $features[0]['attributes']['queried'] = $this->queried;
 
                     $features[0]['geometry'] = $features[0]['geometry']['coordinates'] = [];
-                    $features[0]['geometry']['coordinates'][0] = \Utils::polygonString2Array($data[0]['SHAPE']);
+                    $features[0]['geometry']['coordinates'][0] = $utils->polygonString2Array($data[0]['SHAPE']);
                     $status = 'success';
                 }
             }
