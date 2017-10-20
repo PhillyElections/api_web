@@ -15,27 +15,30 @@ namespace models;
 use PDO;
 
 /**
- * Pollingplaces model.
+ * ShapeFederalHouse model.
  *
  * @link       https://www.philadelphiavotes.com
  *
  * @package    api_web
  * @subpackage api_web/models
  */
-class UsCongress
+class ShapeFederalHouse
 {
     protected $core;
-    protected $geoid;
+    protected $queried;
+    protected $table_name;
 
     /**
      * Constructor: get core, call setup to process request.
      *
-     * @param mixed $geoid
+     * @param mixed $queried
      */
-    public function __construct($geoid)
+    public function __construct($queried)
     {
         $this->core = \lib\Core::getInstance();
-        $this->geoid = sprintf('%04d', $geoid);
+        $this->queried = sprintf('%04d', $queried);
+        $this->table_name = '`shape_federal_house`';
+        $this->queried_index = '`geoid`';
     }
 
     /**
@@ -48,27 +51,35 @@ class UsCongress
         $features = false;
         $status = 'failure';
 
-        if ($this->geoid) {
-            $sql = ' SELECT `OGR_FID`, ST_AsText(`SHAPE`) as rings, `statefp`, `cd115fp`, `affgeoid`, `geoid`, `lsad`, `cdsessn`, `aland`, `awater`  FROM `urep_shapes` WHERE `geoid` = :a ';
+        if ($this->queried) {
+            $sql = ' SELECT * FROM ' . $this->table_name . ' WHERE ' . $this->queried_index . ' = :a ';
 
             $stmt = $this->core->dbh->prepare($sql);
-            $stmt->bindParam(':a', $this->geoid, PDO::PARAM_STR);
+            $stmt->bindParam(':a', $this->queried, PDO::PARAM_STR);
 
             if ($stmt->execute()) {
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (count($data)) {
-                    $utils = \lib\Utils::getInstance();
+                    //$utils = \lib\Utils::getInstance();
                     $features=array();
                     $features[0] = $features[0]['attributes'] = [];
-                    $features[0]['attributes']['DISTRICT'] = $data[0]['cd115fp'];
+                    $features[0]['attributes']['queried'] = $data[0]['cd115fp'];
 
-                    $features[0]['geometry'] = $features[0]['geometry']['rings'] = [];
-                    $features[0]['geometry']['rings'][0] = $utils->polygonString2Array($data[0]['rings']);
+                    $features[0]['geometry'] = $features[0]['geometry']['coordinates'] = [];
+                    $features[0]['geometry']['coordinates'][0] = \lib\Utils::polygonString2Array($data[0]['SHAPE']);
                     $status = 'success';
                 }
             }
         }
 
         return json_encode(array('status'=>$status, 'features'=>$features));
+    }
+
+    public function fetchSome()
+    {
+    }
+
+    public function fetchAll()
+    {
     }
 }

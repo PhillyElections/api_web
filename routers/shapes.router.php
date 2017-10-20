@@ -23,15 +23,70 @@ $app->get('/shapes/', function (Request $request, Response $response) {
     return $response->withStatus(401);
 });
 
-$app->get('/shapes/us_congress/{geoid}', function (Request $request, Response $response) {
+// federal_house routes
+$app->get('/shapes/federal_house/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
 
     if ($referrerAuth->authenticate()) {
-        $geoid = $request->getAttribute('geoid');
+        $queried = $request->getAttribute('queried');
 
-        $model = new models\UsCongress($geoid);
+        $model = new models\UsCongress($queried);
         $response->getBody()->write($model->fetch());
+
+        return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
+    }
+
+    $response->getBody()->write('<h1>401: Unauthorized</h1>');
+
+    return $response->withStatus(401);
+});
+
+$app->get('/shapes/federal_house/some/{queried}', function (Request $request, Response $response) {
+    $referrer = $this->request->getHeader('host')[0];
+    $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
+
+    if ($referrerAuth->authenticate()) {
+        $queried = $request->getAttribute('queried');
+
+        $model = new models\UsCongress($queried);
+        $response->getBody()->write($model->fetchSome());
+
+        return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
+    }
+
+    $response->getBody()->write('<h1>401: Unauthorized</h1>');
+
+    return $response->withStatus(401);
+});
+
+$app->get('/shapes/federal_house/all/', function (Request $request, Response $response) {
+    $referrer = $this->request->getHeader('host')[0];
+    $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
+
+    if ($referrerAuth->authenticate()) {
+        $queried = $request->getAttribute('queried');
+
+        $model = new models\UsCongress($queried);
+        $response->getBody()->write($model->fetchAll());
+
+        return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
+    }
+
+    $response->getBody()->write('<h1>401: Unauthorized</h1>');
+
+    return $response->withStatus(401);
+});
+
+$app->get('/shapes/federal_house/all', function (Request $request, Response $response) {
+    $referrer = $this->request->getHeader('host')[0];
+    $referrerAuth = new models\ReferrerAuth($referrer, 'shapes');
+
+    if ($referrerAuth->authenticate()) {
+        $queried = $request->getAttribute('queried');
+
+        $model = new models\UsCongress($queried);
+        $response->getBody()->write($model->fetchAll());
 
         return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
     }
