@@ -40,8 +40,6 @@ class ShapeCityDivision
         $this->queried = $queried;
         $this->table_name = '`shape_city_divisions`';
         $this->queried_index = '`district_n`';
-        d('constructor');
-        exit;
     }
 
     /**
@@ -51,6 +49,8 @@ class ShapeCityDivision
      */
     public function fetch()
     {
+        d($this);
+        exit;
         $features = false;
         $status = 'failure';
 
