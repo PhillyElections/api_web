@@ -1,8 +1,8 @@
 <?php
 /**
- * ShapeFederalHouse model.
+ * ShapeCityWard model.
  *
- * ShapeFederalHouse API's model
+ * ShapeCityWard API's model
  *
  * @link       https://www.philadelphiavotes.com
  *
@@ -15,14 +15,14 @@ namespace models;
 use PDO;
 
 /**
- * ShapeFederalHouse model.
+ * ShapeCityWard model.
  *
  * @link       https://www.philadelphiavotes.com
  *
  * @package    api_web
  * @subpackage api_web/models
  */
-class ShapeFederalHouse
+class ShapeCityWard
 {
     protected $core;
     protected $queried;
@@ -37,8 +37,8 @@ class ShapeFederalHouse
     {
         $this->core = \lib\Core::getInstance();
         $this->queried = $queried;
-        $this->table_name = '`shape_federal_house`';
-        $this->queried_index = '`geoid`';
+        $this->table_name = '`shape_city_ward`';
+        $this->queried_index = '`district_n`';
     }
 
     /**
