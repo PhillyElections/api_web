@@ -38,7 +38,7 @@ class ShapeStateSenate
     {
         $this->core = \lib\Core::getInstance();
         $this->queried = $queried;
-        $this->table_name = '`shape_state_senate`';
+        $this->table_name = '`shapes_state_senate`';
         $this->queried_index = '`district_n`';
     }
 

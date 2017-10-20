@@ -38,7 +38,7 @@ class ShapeCityWard
     {
         $this->core = \lib\Core::getInstance();
         $this->queried = $queried;
-        $this->table_name = '`shape_city_ward`';
+        $this->table_name = '`shapes_city_ward`';
         $this->queried_index = '`district_n`';
     }
 

@@ -38,7 +38,7 @@ class ShapeFederalHouse
     {
         $this->core = \lib\Core::getInstance();
         $this->queried = $queried;
-        $this->table_name = '`shape_federal_house`';
+        $this->table_name = '`shapes_federal_house`';
         $this->queried_index = '`geoid`';
     }
 
