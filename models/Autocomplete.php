@@ -70,8 +70,7 @@ class Autocomplete
         $data = false;
         $status = 'failure';
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
-        d($sql, $this->params);
-        exit;
+
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
@@ -116,6 +115,7 @@ class Autocomplete
         }
 
         $this->fields = ' \'' . $number .'\' as number, prefix_dir, TRIM(LEADING \'0\' FROM street_name) street, suffix_type, city, zip, proper(TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \'))) as address, left(precinct,4) as precinct ';
+
         if ($direction) {
             // yes, $direction implies $street -- necessary duplication for simplicity here
             $this->criteria = $oeb . ' AND zip > 1 AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a6)';
