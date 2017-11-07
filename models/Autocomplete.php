@@ -70,7 +70,7 @@ class Autocomplete
         $data = false;
         $status = 'failure';
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
-        d($sql);
+        d($sql, $this->params);
         exit;
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
