@@ -104,7 +104,7 @@ class Autocomplete
         $oeb = ' oeb IN ' . ($number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )');
 
         $street = implode('', $parts);
-        $direction = array_shift($parts);
+        $direction = strtoupper((array_shift($parts));
 
         $direction = isset($this->directions[$direction]) ? $this->directions[$direction] : false;
         $dir_street_criteria = '';
