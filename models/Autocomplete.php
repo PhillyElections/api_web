@@ -121,7 +121,7 @@ class Autocomplete
             $this->params = array(
                 ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a3' => array('value'=>$number,'type'=>PDO::PARAM_INT),
-                ':a4' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
+                ':a4' => array('value'=>$dir_street . '%','type'=>PDO::PARAM_STR),
                 ':a5' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
                 ':a6' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
