@@ -71,6 +71,7 @@ class Autocomplete
         $status = 'failure';
         $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
         d($sql);
+        exit;
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
