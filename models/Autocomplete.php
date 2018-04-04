@@ -69,20 +69,20 @@ class Autocomplete
     {
         $data = false;
         $status = 'failure';
-        $sql = ' SELECT DISTINCT ' . $this->fields . ' FROM ' . $this->table . ' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
-
+        $sql = ' SELECT DISTINCT ' . $this->fields . 
+		' FROM ' . $this->table . 
+		' WHERE ' . $this->criteria . ' ORDER BY street_name LIMIT ' . $this->limit . ' ';
         $stmt = $this->core->dbh->prepare($sql);
         foreach ($this->params as $key => $pair) {
             $stmt->bindParam($key, $pair['value'], $pair['type']);
         }
-
         if ($stmt->execute()) {
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (count($data)) {
                 $status = 'success';
             }
         }
-
+if ($status=='failure') {var_dump($stmt);}
         return json_encode(array('status'=>$status, 'data'=>$data));
     }
 
@@ -101,7 +101,8 @@ class Autocomplete
 
         $number = array_shift($parts);
 
-        $oeb = ' oeb IN ' . ($number % 2 ? '(\'O\', \'B\' )' : '(\'E\', \'B\' )');
+	$b = 'B';
+        $oe = $number % 2 ? 'O' : 'E';
 
         $street = implode('', $parts);
         $direction = strtoupper(array_shift($parts));
@@ -114,31 +115,37 @@ class Autocomplete
             $dir_street_criteria = '';
         }
 
-        $this->fields = ' \'' . $number .'\' as number, prefix_dir, TRIM(LEADING \'0\' FROM street_name) street, suffix_type, city, zip, proper(TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \'))) as address, left(precinct,4) as precinct ';
+        $this->fields = 'oeb, \'' . $number .'\' as number, prefix_dir, TRIM(LEADING \'0\' FROM street_name) street, suffix_type, city, zip, proper(TRIM(REPLACE(CONCAT_WS(\' \', \'' . $number .'\', prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type), \'  \', \' \'))) as address, left(precinct,4) as precinct ';
 
         if ($direction) {
             // yes, $direction implies $street -- necessary duplication for simplicity here
-            $this->criteria = $oeb . ' AND zip > 1 AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a6)';
+            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $dir_street . '%\' OR CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
             $this->params = array(
-                ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+		':a1' => array('value'=>$b,'type'=>PDO::PARAM_STR),
+                ':a2' => array('value'=>$oe,'type'=>PDO::PARAM_STR),
                 ':a3' => array('value'=>$number,'type'=>PDO::PARAM_INT),
-                ':a4' => array('value'=>$dir_street . '%','type'=>PDO::PARAM_STR),
+                ':a4' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a5' => array('value'=>$dir_street . '%','type'=>PDO::PARAM_STR),
+                ':a6' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
+                ':a7' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
+            );
+        } elseif ($street) {
+            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
+            $this->params = array(
+                ':a1' => array('value'=>$b,'type'=>PDO::PARAM_STR),
+                ':a2' => array('value'=>$oe,'type'=>PDO::PARAM_STR),
+                ':a3' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a4' => array('value'=>$number,'type'=>PDO::PARAM_INT),
                 ':a5' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
                 ':a6' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
-        } elseif ($street) {
-            $this->criteria = $oeb . ' AND zip > 1 AND range_start <= :a2 AND range_end >= :a3 AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a4 OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE :a5)';
-            $this->params = array(
-                ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
-                ':a3' => array('value'=>$number,'type'=>PDO::PARAM_INT),
-                ':a4' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
-                ':a5' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
-            );
         } else {
-            $this->criteria = $oeb . ' AND zip > 1 AND range_start <= :a1 AND range_end >= :a2';
+            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' ';
             $this->params = array(
-                ':a1' => array('value'=>$number,'type'=>PDO::PARAM_INT),
-                ':a2' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a1' => array('value'=>$b,'type'=>PDO::PARAM_STR),
+                ':a2' => array('value'=>$oe,'type'=>PDO::PARAM_STR),
+                ':a3' => array('value'=>$number,'type'=>PDO::PARAM_INT),
+                ':a4' => array('value'=>$number,'type'=>PDO::PARAM_INT),
             );
         }
     }
