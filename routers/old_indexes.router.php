@@ -3,7 +3,7 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-$app->get('/indexes/', function (Request $request, Response $response) {
+$app->get('/old_indexes/', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
@@ -21,14 +21,14 @@ $app->get('/indexes/', function (Request $request, Response $response) {
 });
 
 // federal_house routes
-$app->get('/indexes/{queried}', function (Request $request, Response $response) {
+$app->get('/old_indexes/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
 
-        $model = new models\Indexes($queried);
+        $model = new models\OldIndexes($queried);
 
         if (in_array($queried, array('all', 'all/'))) {
             // the rare and costly case
@@ -48,16 +48,18 @@ $app->get('/indexes/{queried}', function (Request $request, Response $response) 
     return $response->withStatus(401);
 });
 
-$app->get('/indexes/all/{queried}', function (Request $request, Response $response) {
+$app->get('/old_indexes/some/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
 
+        d($queried);
+        exit;
 
-        $model = new models\Indexes($queried);
-        $response->getBody()->write($model->fetchAll());
+        $model = new models\OldIndexes($queried);
+        $response->getBody()->write($model->fetchSome());
 
         return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
     }
@@ -66,5 +68,3 @@ $app->get('/indexes/all/{queried}', function (Request $request, Response $respon
 
     return $response->withStatus(401);
 });
-
-

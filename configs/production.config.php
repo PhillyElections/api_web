@@ -10,4 +10,6 @@ Config::write('db.user', ini_get('mysqli.default_user'));
 Config::write('db.password', ini_get('mysqli.default_pw'));
 
 // Project Config
-Config::write('path', $_SERVER['SERVER_NAME']);
+//Config::write('path', $_SERVER['SERVER_NAME']);
+Config::write('path', 'http://34.233.146.10');
+
