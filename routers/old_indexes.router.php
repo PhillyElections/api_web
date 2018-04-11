@@ -48,18 +48,16 @@ $app->get('/old_indexes/{queried}', function (Request $request, Response $respon
     return $response->withStatus(401);
 });
 
-$app->get('/old_indexes/some/{queried}', function (Request $request, Response $response) {
+$app->get('/old_indexes/list/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
 
-        d($queried);
-        exit;
 
         $model = new models\OldIndexes($queried);
-        $response->getBody()->write($model->fetchSome());
+        $response->getBody()->write($model->fetchList());
 
         return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
     }
@@ -68,3 +66,5 @@ $app->get('/old_indexes/some/{queried}', function (Request $request, Response $r
 
     return $response->withStatus(401);
 });
+
+
