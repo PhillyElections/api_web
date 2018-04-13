@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/indexes/', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
+    $callback = $request->getParam('callback'); 
 
     if ($referrerAuth->authenticate()) {
         $response->getBody()->write(
@@ -24,6 +25,7 @@ $app->get('/indexes/', function (Request $request, Response $response) {
 $app->get('/indexes/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
+    $callback = $request->getParam('callback'); 
 
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
@@ -34,13 +36,13 @@ $app->get('/indexes/{queried}', function (Request $request, Response $response) 
             // the rare and costly case
             d($queried);
             exit;
-            $response->getBody()->write($model->fetchAll());
+            $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetchAll() . ($callback ? ');' : '' ) );
         } elseif (is_numeric($queried)) {
             // the typical case
-            $response->getBody()->write($model->fetch());
+            $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetch() . ($callback ? ');' : '' ) );
         }
 
-        return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
+        return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
     }
 
     $response->getBody()->write('<h1>401: Unauthorized</h1>');
@@ -51,20 +53,19 @@ $app->get('/indexes/{queried}', function (Request $request, Response $response) 
 $app->get('/indexes/all/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
+    $callback = $request->getParam('callback'); 
 
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
 
 
         $model = new models\Indexes($queried);
-        $response->getBody()->write($model->fetchAll());
+        $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetchAll() . ($callback ? ');' : '' ) );
 
-        return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
+        return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
     }
 
     $response->getBody()->write('<h1>401: Unauthorized</h1>');
 
     return $response->withStatus(401);
 });
-
-

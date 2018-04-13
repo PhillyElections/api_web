@@ -21,7 +21,7 @@ $app->get('/pollingplaces/{precinct}', function (Request $request, Response $res
     $pollingplaces = new models\Pollingplaces($precinct);
     $callback = $request->getParam('callback');    
 
-    $response->getBody()->write( ($callback ? $callback . '(' : '') . $pollingplaces->fetch() . ($callback ? ');' : '' ));
+    $response->getBody()->write( ($callback ? $callback . '(' : '') . $pollingplaces->fetch() . ($callback ? ');' : '' ) );
 
     return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
 });
