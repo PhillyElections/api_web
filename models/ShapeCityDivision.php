@@ -67,14 +67,14 @@ class ShapeCityDivision
                     $features[0] = $features[0]['attributes'] = [];
                     $features[0]['attributes']['queried'] = $this->queried;
 
-                    $features[0]['geometry'] = $features[0]['geometry']['coordinates'] = [];
-                    $features[0]['geometry']['coordinates'][0] = $utils->polygonString2Array($data[0]['SHAPE']);
+                    $features[0]['geometry'] = $features[0]['geometry']['rings'] = [];
+                    $features[0]['geometry']['rings'][0] = $utils->polygonString2Array($data[0]['SHAPE']);
                     $status = 'success';
                 }
             }
         }
 
-        return json_encode(array('status'=>$status, 'features'=>$features));
+        return "?(".json_encode(array('status'=>$status, 'features'=>$features)).");";
     }
 
     public function fetchSome()
