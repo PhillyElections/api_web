@@ -19,8 +19,9 @@ $app->get('/pollingplaces/wardlist/{ward}', function (Request $request, Response
 $app->get('/pollingplaces/{precinct}', function (Request $request, Response $response) {
     $precinct = $request->getAttribute('precinct');
     $pollingplaces = new models\Pollingplaces($precinct);
+    $callback = $request->getParam('callback');    
 
-    $response->getBody()->write($pollingplaces->fetch());
+    $response->getBody()->write( ($callback ? $callback . '(' : '') . $pollingplaces->fetch() . ($callback ? ');' : '' ));
 
-    return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
+    return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
 });
