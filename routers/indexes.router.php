@@ -48,7 +48,7 @@ $app->get('/indexes/{queried}', function (Request $request, Response $response) 
     return $response->withStatus(401);
 });
 
-$app->get('/indexes/list/{queried}', function (Request $request, Response $response) {
+$app->get('/indexes/all/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
@@ -57,7 +57,7 @@ $app->get('/indexes/list/{queried}', function (Request $request, Response $respo
 
 
         $model = new models\Indexes($queried);
-        $response->getBody()->write($model->fetchList());
+        $response->getBody()->write($model->fetchAll());
 
         return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
     }

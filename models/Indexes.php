@@ -71,7 +71,7 @@ class Indexes
         return json_encode(array('status'=>$status, 'features'=>$features));
     }
 
-    public function fetchList()
+    public function fetchAll()
     {
 	if ($this->queried && in_array($this->queried, array('division','ward', 'council', 'parep', 'pasenate', 'uscongress'))) {
    	    switch ($this->queried) {
@@ -84,10 +84,10 @@ class Indexes
                 case 'council':
                     return $this->fetchAllCouncil();
                 break;
-                case 'pasenate':
+                case 'parep':
                     return $this->fetchAllStateSenate();
                 break;
-                case 'parep':
+                case 'pasenate':
                     return $this->fetchAllStateHouse();
                 break;
                 case 'uscongress':
