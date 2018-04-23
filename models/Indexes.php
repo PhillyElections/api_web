@@ -85,10 +85,10 @@ class Indexes
                     return $this->fetchAllCouncil();
                 break;
                 case 'parep':
-                    return $this->fetchAllStateSenate();
+                    return $this->fetchAllStateHouse();
                 break;
                 case 'pasenate':
-                    return $this->fetchAllStateHouse();
+                    return $this->fetchAllStateSenate();
                 break;
                 case 'uscongress':
                     return $this->fetchAllUSCongress();
@@ -99,7 +99,7 @@ class Indexes
     }    
 
     public function fetchAllDivs() {
-        $sql = ' SELECT distinct precinct as division_id, ward, division FROM ' . $this->table_name . '  ';
+        $sql = ' SELECT distinct precinct as division_id, TRIM(LEADING \'0\' FROM ward) as  ward, division FROM ' . $this->table_name . '  ';
         $query = $this->core->dbh->query($sql);
         return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }

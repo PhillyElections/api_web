@@ -10,7 +10,7 @@ $app->get('/old_indexes/', function (Request $request, Response $response) {
 
     if ($referrerAuth->authenticate()) {
         $response->getBody()->write(
-            '<h1>Indexes:</h1>'
+            '<h1>OldIndexes:</h1>'
         );
 
         return $response->withHeader('Content-Type', 'text/html')->withHeader('Access-Control-Allow-Origin', '*');
@@ -50,7 +50,7 @@ $app->get('/old_indexes/{queried}', function (Request $request, Response $respon
     return $response->withStatus(401);
 });
 
-$app->get('/old_indexes/some/{queried}', function (Request $request, Response $response) {
+$app->get('/old_indexes/list/{queried}', function (Request $request, Response $response) {
     $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
     $callback = $request->getParam('callback'); 
@@ -58,11 +58,9 @@ $app->get('/old_indexes/some/{queried}', function (Request $request, Response $r
     if ($referrerAuth->authenticate()) {
         $queried = $request->getAttribute('queried');
 
-        d($queried);
-        exit;
 
         $model = new models\OldIndexes($queried);
-        $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetchSome() . ($callback ? ');' : '' ) );
+        $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetchAll() . ($callback ? ');' : '' ) );
 
         return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
     }

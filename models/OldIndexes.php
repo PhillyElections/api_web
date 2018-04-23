@@ -1,8 +1,8 @@
 <?php
 /**
- * Pollingplaces model.
+ * OldIndexes model.
  *
- * Pollingplaces API's model
+ * OldIndexes API's model
  *
  * @link       https://www.philadelphiavotes.com
  *
@@ -15,7 +15,7 @@ namespace models;
 use PDO;
 
 /**
- * ShapeFederalHouse model.
+ * OldIndexes Model 
  *
  * @link       https://www.philadelphiavotes.com
  *
@@ -36,9 +36,9 @@ class OldIndexes
     public function __construct($queried)
     {
         $this->core = \lib\Core::getInstance();
-        $this->queried = sprintf('%04d', $queried);
-        $this->table_name = '`precincts`';
-        $this->queried_index = '`precinct`';
+        $this->queried = $queried;
+        $this->table_name = '`old_precincts`';
+        $this->queried_index = '`old_precinct`';
     }
 
     /**
@@ -71,11 +71,66 @@ class OldIndexes
         return json_encode(array('status'=>$status, 'features'=>$features));
     }
 
-    public function fetchSome()
-    {
-    }
-
     public function fetchAll()
     {
+	if ($this->queried && in_array($this->queried, array('division','ward', 'council', 'parep', 'pasenate', 'uscongress'))) {
+   	    switch ($this->queried) {
+                case 'division':
+                    return $this->fetchAllDivs();
+                break;
+                case 'ward':
+                    return $this->fetchAllWards();
+                break;
+                case 'council':
+                    return $this->fetchAllCouncil();
+                break;
+                case 'parep':
+                    return $this->fetchAllStateHouse();
+                break;
+                case 'pasenate':
+                    return $this->fetchAllStateSenate();
+                break;
+                case 'uscongress':
+                    return $this->fetchAllUSCongress();
+                break;
+            }
+	}
+	return json_encode(array('status'=>'404','message'=>'Nothing to see here.'));
+    }    
+
+    public function fetchAllDivs() {
+        $sql = ' SELECT distinct precinct as division_id, TRIM(LEADING \'0\' FROM ward) as  ward, division FROM ' . $this->table_name . '  ';
+        $query = $this->core->dbh->query($sql);
+        return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public function fetchAllWards() {
+        $sql = ' SELECT distinct ward FROM ' . $this->table_name . '  ';
+        $query = $this->core->dbh->query($sql);
+        return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public function fetchAllCouncil() {
+        $sql = ' SELECT distinct city_district as council_district FROM ' . $this->table_name . ' ';
+        $query = $this->core->dbh->query($sql);
+        return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public function fetchAllStateSenate() {
+        $sql = ' SELECT distinct state_senate as state_senate_district FROM ' . $this->table_name . ' ';
+        $query = $this->core->dbh->query($sql);
+        return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public function fetchAllStateHouse() {
+        $sql = ' SELECT distinct state_house as state_representative_district FROM ' . $this->table_name . ' ';
+        $query = $this->core->dbh->query($sql);
+        return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public function fetchAllUsCongress() {
+        $sql = ' SELECT distinct federal_house as congressional_district FROM ' . $this->table_name . ' ';
+        $query = $this->core->dbh->query($sql);
+        return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }
 }
