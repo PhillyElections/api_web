@@ -18,7 +18,7 @@ $app->get('/shapes/', function (Request $request, Response $response) {
             '  <li><a href="/shapes/state_house/">State Representative</a> (/shapes/state_house/[district])</li>' .
             '  <li><a href="/shapes/federal_house/">US Congressional</a> (/shapes/federal_house/[geoid])</li>' .
             '</ul>' .
-            '<p>A JSONP response may be had by including \'?callback=...\' at the end of your query string.'
+            '<p>A JSONP response may be had by including \'?callback=...\' at the end of your search string.'
         );
 
         return $response->withHeader('Content-Type', 'text/html')->withHeader('Access-Control-Allow-Origin', '*');
