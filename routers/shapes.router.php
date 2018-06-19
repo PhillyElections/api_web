@@ -9,7 +9,7 @@ $app->get('/shapes/', function (Request $request, Response $response) {
 
     if ($referrerAuth->authenticate()) {
         $response->getBody()->write(
-            '<h1>Available Shape Services:</h1>' .
+            '<h1>Available pre-2018 Shape Services:</h1>' .
             '<ul>' .
             '  <li><a href="/shapes/city_district/">City Council Districts</a> (/shapes/city_district/[district])</li>' .
             '  <li><a href="/shapes/city_division/">City Divisions</a> (/shapes/city_division/[division])</li>' .
