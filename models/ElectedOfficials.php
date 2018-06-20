@@ -33,7 +33,7 @@ class ElectedOfficials
      * @param mixed $address
      * @param mixed $precinct
      */
-    public function __construct($precinct)
+    public function __construct($precinct = false)
     {
         $this->core = \lib\Core::getInstance();
 
