@@ -38,7 +38,7 @@ class ElectedOfficials
         $this->core = \lib\Core::getInstance();
 
         $params = array();
-        parse_str($precinct, $params);
+//        parse_str($precinct, $params);
 
         // store precinct.
         if (isset($params['ward']) && isset($params['division'])) {
