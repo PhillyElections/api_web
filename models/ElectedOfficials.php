@@ -83,10 +83,57 @@ class ElectedOfficials
      */
     public function fetchAll()
     {
+
+$fields = '`id`,
+`office_level`,
+`leadership_role`,
+`office`,
+`office_label`,
+`district_label`,
+`district`,
+`first_name`,
+`middle_name`,
+`last_name`,
+`suffix`,
+`party`,
+`first_elected`,
+`next_election`,
+`website`,
+`email`,
+`main_contact_address_1`,
+`main_contact_address_2`,
+`main_contact_city`,
+`main_contact_state`,
+if(`main_contact_phone`>0,`main_contact_phone`,'') `main_contact_phone`,
+if(`main_contact_zip`>0,`main_contact_zip`,'') `main_contact_zip`,
+`main_contact_fax`,
+`local_contact_1_address_1`,
+`local_contact_1_address_2`,
+`local_contact_1_city`,
+if(`local_contact_1_phone`>0,`local_contact_1_phone`,'') `local_contact_1_phone`,
+if(`local_contact_1_fax`>0, `local_contact_1_fax`,'') `local_contact_1_fax`,
+`local_contact_1_phone`,
+`local_contact_1_fax`,
+`local_contact_2_address_1`,
+`local_contact_2_address_2`,
+`local_contact_2_city`,
+`local_contact_2_state`,
+if(`local_contact_2_phone`>0,`local_contact_2_phone`,'') `local_contact_2_phone`,
+if(`local_contact_2_fax`>0,`local_contact_2_fax`,'') `local_contact_2_fax`,
+`local_contact_2_fax`,
+`local_contact_3_address_1`,
+`local_contact_3_address_2`,
+`local_contact_3_city`,
+`local_contact_3_state`,
+`local_contact_3_zip`,
+if(`local_contact_3_phone`>0,`local_contact_3_phone`,'') `local_contact_3_phone`,
+if(`local_contact_3_fax`>0,`local_contact_3_fax`,'') `local_contact_3_fax`,
+`display_order`,
+`published`';
         $features = false;
         $status = 'failure';
         $data = array();
-        $sql = ' SELECT * FROM `elected_officials` WHERE `published` = 1 ORDER BY office_level, office, display_order ';
+        $sql = ' SELECT '.$fields.' FROM `elected_officials` WHERE `published` = 1 ORDER BY office_level, office, display_order ';
 
         $stmt = $this->core->dbh->prepare($sql);
 
