@@ -11,7 +11,7 @@ $app->get('/elected_officials/', function (Request $request, Response $response)
     if ($referrerAuth->authenticate()) {
 
         $electedOfficials = new models\ElectedOfficials();
-        $response->getBody()->write( ($callback ? $callback . '(' : '') . $electedOfficials->fetch() . ($callback ? ');' : '' ) );
+        $response->getBody()->write( ($callback ? $callback . '(' : '') . $electedOfficials->fetchAll() . ($callback ? ');' : '' ) );
 
         return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
 
