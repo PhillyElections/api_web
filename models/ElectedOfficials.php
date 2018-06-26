@@ -33,7 +33,7 @@ class ElectedOfficials
      * @param mixed $address
      * @param mixed $precinct
      */
-    public function __construct($precinct = false)
+    public function __construct()
     {
         $this->core = \lib\Core::getInstance();
 
@@ -41,11 +41,13 @@ class ElectedOfficials
 //        parse_str($precinct, $params);
 
         // store precinct.
+/*
         if (isset($params['ward']) && isset($params['division'])) {
             $this->precinct = sprintf('%02d', $params['ward']) . sprintf('%02d', $params['division']);
         } else if (is_numeric($precinct)) {
             $this->precinct = sprintf('%04d', $precinct);
         }
+*/
     }
 
     /**
@@ -133,7 +135,7 @@ if(`local_contact_3_fax`,`local_contact_3_fax`,"") `local_contact_3_fax`,
         $features = false;
         $status = 'failure';
         $data = array();
-        $sql = ' SELECT '.$fields.' FROM `elected_officials` WHERE `published` = 1 ORDER BY office_level, office, display_order ';
+        $sql = ' SELECT * FROM `elected_officials` WHERE `published` = 1 ORDER BY office_level, office, display_order ';
 
         $stmt = $this->core->dbh->prepare($sql);
 
