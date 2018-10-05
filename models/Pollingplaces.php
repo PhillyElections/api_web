@@ -67,13 +67,12 @@ class Pollingplaces
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (count($data)) {
                     $features=array();
-                    $features[0] = array();
-                    $features['attributes'] = $data[0];
+                    $features['attributes'] = $data;
                     $status = 'success';
                 }
             }
         }
 
-        return json_encode(array('status'=>$status, 'features'=>array('attributes'=>$data[0])));
+        return json_encode(array('status'=>$status, 'features'=>array('attributes'=>$data)));
     }
 }
