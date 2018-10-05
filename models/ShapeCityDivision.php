@@ -74,7 +74,7 @@ class ShapeCityDivision
             }
         }
 
-        return "?(".json_encode(array('status'=>$status, 'features'=>$features)).");";
+        return json_encode(array('status'=>$status, 'features'=>$features));
     }
 
     public function fetchSome()
