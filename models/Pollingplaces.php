@@ -73,6 +73,6 @@ class Pollingplaces
             }
         }
 
-        return json_encode(array('status'=>$status, 'features'=>$data));
+        return json_encode(array('status'=>$status, 'features'=>array('attributes'=>$data)));
     }
 }
