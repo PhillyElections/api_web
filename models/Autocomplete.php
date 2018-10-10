@@ -119,7 +119,9 @@ if ($status=='failure') {var_dump($stmt);}
 
         if ($direction) {
             // yes, $direction implies $street -- necessary duplication for simplicity here
-            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $dir_street . '%\' OR CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
+            // we removed zip from criteria
+            // $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $dir_street . '%\' OR CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
+            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $dir_street . '%\' OR CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
             $this->params = array(
 		':a1' => array('value'=>$b,'type'=>PDO::PARAM_STR),
                 ':a2' => array('value'=>$oe,'type'=>PDO::PARAM_STR),
@@ -130,7 +132,9 @@ if ($status=='failure') {var_dump($stmt);}
                 ':a7' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } elseif ($street) {
-            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
+            // we removed zip
+            // $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
+            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' AND (CONCAT(prefix_dir, TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' OR CONCAT(TRIM(LEADING \'0\' FROM street_name), suffix_type) LIKE \'' . $street . '%\' )';
             $this->params = array(
                 ':a1' => array('value'=>$b,'type'=>PDO::PARAM_STR),
                 ':a2' => array('value'=>$oe,'type'=>PDO::PARAM_STR),
@@ -140,7 +144,9 @@ if ($status=='failure') {var_dump($stmt);}
                 ':a6' => array('value'=>$street . '%','type'=>PDO::PARAM_STR),
             );
         } else {
-            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' ';
+            // we removed zip 
+            // $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND zip > 1 AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' ';
+            $this->criteria = ' oeb in (\'' . $b . '\', \'' . $oe  . '\') AND range_start <= ' . $number . ' AND range_end >= ' . $number . ' ';
             $this->params = array(
                 ':a1' => array('value'=>$b,'type'=>PDO::PARAM_STR),
                 ':a2' => array('value'=>$oe,'type'=>PDO::PARAM_STR),
