@@ -99,37 +99,37 @@ class Indexes
     }    
 
     public function fetchAllDivs() {
-        $sql = ' SELECT distinct precinct as division_id, TRIM(LEADING \'0\' FROM ward) as  ward, division FROM ' . $this->table_name . '  ';
+        $sql = ' SELECT distinct precinct as division_id, TRIM(LEADING \'0\' FROM ward) as  ward, division FROM ' . $this->table_name . '  order by precinct';
         $query = $this->core->dbh->query($sql);
         return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function fetchAllWards() {
-        $sql = ' SELECT distinct ward FROM ' . $this->table_name . '  ';
+        $sql = ' SELECT distinct ward FROM ' . $this->table_name . ' order by ward ';
         $query = $this->core->dbh->query($sql);
         return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function fetchAllCouncil() {
-        $sql = ' SELECT distinct city_district as council_district FROM ' . $this->table_name . ' ';
+        $sql = ' SELECT distinct city_district as council_district FROM ' . $this->table_name . ' order by city_district ';
         $query = $this->core->dbh->query($sql);
         return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function fetchAllStateSenate() {
-        $sql = ' SELECT distinct state_senate as state_senate_district FROM ' . $this->table_name . ' ';
+        $sql = ' SELECT distinct state_senate as state_senate_district FROM ' . $this->table_name . ' order by state_senate ';
         $query = $this->core->dbh->query($sql);
         return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function fetchAllStateHouse() {
-        $sql = ' SELECT distinct state_house as state_representative_district FROM ' . $this->table_name . ' ';
+        $sql = ' SELECT distinct state_house as state_representative_district FROM ' . $this->table_name . ' order by state_house ';
         $query = $this->core->dbh->query($sql);
         return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function fetchAllUsCongress() {
-        $sql = ' SELECT distinct federal_house as congressional_district FROM ' . $this->table_name . ' ';
+        $sql = ' SELECT distinct federal_house as congressional_district FROM ' . $this->table_name . ' order by federal_house ';
         $query = $this->core->dbh->query($sql);
         return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
     }
