@@ -66,7 +66,7 @@ class Election
             $primary = new \DateTime("third tuesday of may");
         }
 
-        if ($now > $primary) {
+        if ($now > $general) {
             $year++;
             $next_primary = new \DateTime("third tuesday of may $year");
             return array('type'=>'primary', 'date'=>$next_primary->format("Y-m-d"));
