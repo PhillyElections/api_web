@@ -22,7 +22,7 @@ use PDO;
  * @package    api_web
  * @subpackage api_web/models
  */
-class ElectedOfficials
+class Election
 {
     protected $core;
     protected $election;
