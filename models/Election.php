@@ -45,7 +45,7 @@ class ElectedOfficials
      */
     public function fetch()
     {
-        return json_encode(array('type'=>$type, 'date'=>$election));
+        return json_encode(getNextElection());
     }
 
     /**
@@ -53,7 +53,7 @@ class ElectedOfficials
      *
      * @param   $type requested type of election
      */
-    private function ($type) {
+    private function getNextElection($type) {
         $now = new DateTime("midnight today");
         $year = date("Y");
         $election_year = $year % 4;
