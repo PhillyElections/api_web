@@ -49,11 +49,10 @@ class Election
     }
 
     /**
-     * determine election of given type
+     * determine next election
      *
-     * @param   $type requested type of election
      */
-    private function getNextElection($type) {
+    private function getNextElection() {
         $now = new DateTime("midnight today");
         $year = date("Y");
         $election_year = $year % 4;
