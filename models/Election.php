@@ -53,22 +53,22 @@ class Election
      *
      */
     private function getNextElection() {
-        $now = new DateTime("midnight today");
+        $now = new \DateTime("midnight today");
         $year = date("Y");
         $election_year = $year % 4;
 
-        $first_monday_november = new DateTime("first monday of november");
+        $first_monday_november = new \DateTime("first monday of november");
         $general = $first_monday_november->modify("this tuesday");
 
         if ($election_year == 0) {
-            $primary = new DateTime("fourth tuesday of april");
+            $primary = new \DateTime("fourth tuesday of april");
         } else {
-            $primary = new DateTime("third tuesday of may");
+            $primary = new \DateTime("third tuesday of may");
         }
 
         if ($now > $primary) {
             $year++;
-            $next_primary = new DateTime("third tuesday of may $year");
+            $next_primary = new \DateTime("third tuesday of may $year");
             return array('type'=>'primary', 'date'=>$next_primary->format("Y-m-d"));
         }
 
