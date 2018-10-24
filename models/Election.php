@@ -45,7 +45,7 @@ class Election
      */
     public function fetch()
     {
-        return json_encode(getNextElection());
+        return json_encode($this->getNextElection());
     }
 
     /**
