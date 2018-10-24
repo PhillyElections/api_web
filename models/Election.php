@@ -35,7 +35,7 @@ class Election
      */
     public function __construct()
     {
-        $this->election=$this->findElection();
+        // nothing to see here
     }
 
     /**
