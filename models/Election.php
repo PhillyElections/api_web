@@ -66,7 +66,7 @@ class Election
         $year = $this->date->format("Y");
         $election_year = $year % 4;
 
-        $first_monday_november = new \DateTime("first monday of november");
+        $first_monday_november = new \DateTime("first monday of november $year");
         $general = $first_monday_november->modify("this tuesday");
 
         if ($election_year == 0) {
