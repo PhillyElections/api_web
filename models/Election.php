@@ -70,9 +70,9 @@ class Election
         $general = $first_monday_november->modify("this tuesday");
 
         if ($election_year == 0) {
-            $primary = new \DateTime("fourth tuesday of april");
+            $primary = new \DateTime("fourth tuesday of april $year");
         } else {
-            $primary = new \DateTime("third tuesday of may");
+            $primary = new \DateTime("third tuesday of may $year");
         }
 
         if ($this->date > $general) {
