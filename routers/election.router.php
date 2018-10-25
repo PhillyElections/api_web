@@ -22,9 +22,11 @@ $app->get('/election/{queried}', function (Request $request, Response $response)
 /*    $referrer = $this->request->getHeader('host')[0];
     $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 */
+
     $callback = $request->getParam('callback'); 
     $queried = $request->getParam('callback'); 
-
+print_r($queried);
+exit;
     $model = new models\Election($queried);
 
     $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetch() . ($callback ? ');' : '' ) );
