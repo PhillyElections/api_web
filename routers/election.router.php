@@ -24,7 +24,7 @@ $app->get('/election/{queried}', function (Request $request, Response $response)
 */
 
     $callback = $request->getParam('callback'); 
-    $queried = $request->getParam('callback'); 
+    $queried = $request->getParam('queried'); 
 
     $model = new models\Election($queried);
 
