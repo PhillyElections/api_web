@@ -35,6 +35,7 @@ class Election
      */
     public function __construct($date = '')
     {
+        $this->actual_request = $date;
         if (!$date) $date = date("Y-m-d");
         try {
             $this->date = new \DateTime("midnight $date");
@@ -81,9 +82,9 @@ class Election
         }
 
         if ($this->date > $primary) {
-            return array('type'=>'general', 'election_date'=>$general->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"));
+            return array('type'=>'general', 'election_date'=>$general->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
         }
 
-        return array('type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"));
+        return array('type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
     }
 }
