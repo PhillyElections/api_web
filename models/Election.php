@@ -81,9 +81,9 @@ class Election
         }
 
         if ($this->date > $primary) {
-            return array('type'=>'general', 'date'=>$general->format("Y-m-d"));
+            return array('type'=>'general', 'election_date'=>$general->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"));
         }
 
-        return array('type'=>'primary', 'date'=>$primary->format("Y-m-d"));
+        return array('type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"));
     }
 }
