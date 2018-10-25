@@ -28,7 +28,7 @@ $app->get('/election/{queried}', function (Request $request, Response $response)
 
     $model = new models\Election($queried);
 
-    $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetch() . ($callback ? ');' : '' ) );
+    $response->getBody()->write( ($queried ? $queried . '(' : '') . $model->fetch() . ($queried ? ');' : '' ) );
 
-    return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
+    return $response->withHeader('Content-Type', ($queried? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
 });
