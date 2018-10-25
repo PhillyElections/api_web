@@ -5,9 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->get('/election', function (Request $request, Response $response) {
     // exclude auth
-/*    $referrer = $this->request->getHeader('host')[0];
-    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
-*/
+//    $referrer = $this->request->getHeader('host')[0];
+//    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
+
     $callback = $request->getParam('callback'); 
 
     $model = new models\Election();
@@ -19,9 +19,9 @@ $app->get('/election', function (Request $request, Response $response) {
 
 $app->get('/election/{queried}', function (Request $request, Response $response) {
     // exclude auth
-/*    $referrer = $this->request->getHeader('host')[0];
-    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
-*/
+//    $referrer = $this->request->getHeader('host')[0];
+//    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
+
 
     $callback = $request->getParam('callback'); 
     $queried = $request->getAttribute('queried');
