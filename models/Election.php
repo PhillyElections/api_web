@@ -37,7 +37,7 @@ class Election
     {
         $this->actual_request = $date;
         if (!$date) $date = date("Y-m-d");
-        if (\DateTime::createFromFormat('Y-m-d', $myString) !== FALSE) {
+        if (\DateTime::createFromFormat('Y-m-d', $myString) == FALSE) {
             $this->message = "Had trouble reading your date.  Preferred format is: YYYY-MM-DD.";
             return;
         }
