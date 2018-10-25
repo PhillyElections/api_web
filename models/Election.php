@@ -39,7 +39,7 @@ class Election
         try {
             $this->date = new \DateTime("midnight $date");
         } catch (Exception $e) {
-            $this->message = "Had trouble reading your date.  Preferred format is: YYYY-MM-DD."
+            $this->message = "Had trouble reading your date.  Preferred format is: YYYY-MM-DD.";
         }
     }
 
