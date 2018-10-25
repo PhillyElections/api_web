@@ -35,7 +35,7 @@ class Election
      */
     public function __construct($date = '')
     {
-        sd($date);
+        print_r($date);
         if (!$date) $date = date("Y-m-d");
         try {
             $this->date = new \DateTime("midnight $date");
