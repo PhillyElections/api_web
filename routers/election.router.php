@@ -22,7 +22,6 @@ $app->get('/election/{queried}', function (Request $request, Response $response)
 //    $referrer = $this->request->getHeader('host')[0];
 //    $referrerAuth = new models\ReferrerAuth($referrer, 'indexes');
 
-
     $callback = $request->getParam('callback'); 
     $queried = $request->getAttribute('queried');
 
