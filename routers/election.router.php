@@ -24,11 +24,11 @@ $app->get('/election/{queried}', function (Request $request, Response $response)
 */
 
     $callback = $request->getParam('callback'); 
-    $queried = $request->getParam('queried'); 
+    $queried = $request->getAttribute('queried');
 
     $model = new models\Election($queried);
 
-    $response->getBody()->write( ($queried ? $queried . '(' : '') . $model->fetch() . ($queried ? ');' : '' ) );
+    $response->getBody()->write( ($callback ? $callback . '(' : '') . $model->fetch() . ($callback ? ');' : '' ) );
 
-    return $response->withHeader('Content-Type', ($queried? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
+    return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
 });
