@@ -78,13 +78,13 @@ class Election
         if ($this->date > $general) {
             $year++;
             $next_primary = new \DateTime("third tuesday of may $year");
-            return array('type'=>'primary', 'date'=>$next_primary->format("Y-m-d"));
+            return array('type'=>'primary', 'date'=>$next_primary->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
         }
 
         if ($this->date > $primary) {
-            return array('type'=>'general', 'election_date'=>$general->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
+            return array('type'=>'general', 'election_date'=>$general->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
         }
 
-        return array('type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'requested_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
+        return array('type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
     }
 }
