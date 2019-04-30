@@ -56,7 +56,7 @@ class Pollingplaces
     public function fetch()
     {
         $features = false;
-        $status = 'failure: ' & $this->precinct;
+        $status = 'failure: ' . $this->precinct;
         if ($this->precinct) {
             $sql = ' SELECT `ward`, `division`, `precinct`, `pin_address`, `display_address`, `zip_code`, `location`, `display_location`, `building`, `parking`, `lat`, `lng`, `elat`, `elng`, `alat`, `alng` FROM `pollingplaces`, `precincts` WHERE `published` = 1 AND `pollingplaces`.`id`=`precincts`.`pollingplace_id` AND `precincts`.`precinct` = :precinct ';
 
