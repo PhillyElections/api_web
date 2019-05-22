@@ -41,18 +41,30 @@ class Core
     /**
      * Setup our PDO.
      */
-    private function __construct()
+    private function __construct($override=false)
     {
         // building data source name from config.
-        $dsn = 'mysql:host=' . Config::read('db.host') .
-               ';dbname=' . Config::read('db.basename') .
-               ';port=' . Config::read('db.port') .
-               ';connect_timeout=15';
-        // getting DB user from config.
-        $user = Config::read('db.user');
-        // getting DB password from config.
-        $password = Config::read('db.password');
-
+	if (!$override) {
+	// apis user config
+	        $dsn = 'mysql:host=' . Config::read('db.host') .
+        	       ';dbname=' . Config::read('db.basename') .
+        	       ';port=' . Config::read('db.port') .
+	               ';connect_timeout=15';
+	        // getting DB user from config.
+        	$user = Config::read('db.user');
+	        // getting DB password from config.
+        	$password = Config::read('db.password');
+	} else {
+	// old-dev user config
+                $dsn = 'mysql:host=' . Config::read('db.host') .
+                       ';dbname=' . Config::read('db.basename_two') .
+                       ';port=' . Config::read('db.port') .
+                       ';connect_timeout=15';
+                // getting DB user from config.
+                $user = Config::read('db.user_two');
+                // getting DB password from config.
+                $password = Config::read('db.password_two');
+	}
         $this->dbh = new PDO($dsn, $user, $password);
     }
 
@@ -61,11 +73,11 @@ class Core
      *
      * @return     object  The instance.
      */
-    public static function getInstance()
+    public static function getInstance($override=false)
     {
         if (! isset(self::$instance)) {
             $object = __CLASS__;
-            self::$instance = new $object();
+            self::$instance = new $object($override);
         }
 
         return self::$instance;
