@@ -12,3 +12,23 @@ $app->get('/demos', function (Request $request, Response $response) {
 
     return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
 });
+
+$app->get('/demos/past', function (Request $request, Response $response) {
+
+    $demos = new models\Demos();
+    $callback = $request->getParam('callback');    
+
+    $response->getBody()->write( ($callback ? $callback . '(' : '') . $demos->fetchPast() . ($callback ? ');' : '' ) );
+
+    return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
+});
+
+$app->get('/demos/future', function (Request $request, Response $response) {
+
+    $demos = new models\Demos();
+    $callback = $request->getParam('callback');    
+
+    $response->getBody()->write( ($callback ? $callback . '(' : '') . $demos->fetchFuture() . ($callback ? ');' : '' ) );
+
+    return $response->withHeader('Content-Type', ($callback? 'application/javascript': 'application/json'))->withHeader('Access-Control-Allow-Origin', '*');
+});

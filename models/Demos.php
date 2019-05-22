@@ -37,7 +37,7 @@ class Demos
     }
 
     /**
-     * Fetch results based on setup().
+     * Fetch all results.
      *
      * @return     boolean  A json object.
      */
@@ -57,7 +57,73 @@ class Demos
 
         $stmt = $this->core->dbh->prepare($sql);
         if ($stmt->execute()) {
-	$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	       $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($data)) {
+                $features=array();
+                $features['attributes'] = $data;
+                $status = 'success';
+            }
+        }
+        return json_encode(array('status'=>$status, 'features'=>array('attributes'=>$data)));
+    }
+
+    /**
+     * Fetch Old results.
+     *
+     * @return     boolean  A json object.
+     */
+    public function fetchPast()
+    {
+        $features = false;
+        $status = 'failure: ';
+
+        $sql = ' 
+        SELECT 
+            `id`, `scheduler_id`, `start`, `end`, `name`, `location`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, `precinct`, `lat`, `lng`, `published`, `created`, `updated` 
+        FROM 
+            `jos_pv_demos_events` 
+        WHERE 
+            `published` = 1 
+        AND 
+            `start` <= now()
+        ;';
+
+        $stmt = $this->core->dbh->prepare($sql);
+        if ($stmt->execute()) {
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($data)) {
+                $features=array();
+                $features['attributes'] = $data;
+                $status = 'success';
+            }
+        }
+        return json_encode(array('status'=>$status, 'features'=>array('attributes'=>$data)));
+    }
+
+    /**
+     * Fetch New results.
+     *
+     * @return     boolean  A json object.
+     */
+    public function fetchFuture()
+    {
+        $features = false;
+        $status = 'failure: ';
+
+        $sql = ' 
+        SELECT 
+            `id`, `scheduler_id`, `start`, `end`, `name`, `location`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, `precinct`, `lat`, `lng`, `published`, `created`, `updated` 
+        FROM 
+            `jos_pv_demos_events` 
+        WHERE 
+            `published` = 1 
+        AND 
+            `start` > now()
+        ;';
+
+        $stmt = $this->core->dbh->prepare($sql);
+        if ($stmt->execute()) {
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (count($data)) {
                 $features=array();
                 $features['attributes'] = $data;
