@@ -93,7 +93,7 @@ class Demos
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (count($data)) {
                 $features=array();
-                $features['attributes'] = $data;
+                $features = $data;
                 $status = 'success';
             }
         }
