@@ -65,7 +65,7 @@ class Demos
                     $lng=$datum['lng'];
                     unset($datum['id'], $datum['lat'], $datum['lng']);
                     $features[] = array(
-                        'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
+                        'coordinates'=>array($lat,$lng), 
                         'attributes'=>$datum
                     );
                 }
@@ -106,7 +106,7 @@ class Demos
                     $lng=$datum['lng'];
                     unset($datum['id'], $datum['lat'], $datum['lng']);
                     $features[] = array(
-                        'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
+                        'coordinates'=>array($lat,$lng), 
                         'attributes'=>$datum
                     );
                 }
@@ -147,7 +147,7 @@ class Demos
                     $lng=$datum['lng'];
                     unset($datum['id'], $datum['lat'], $datum['lng']);
                     $features[] = array(
-                        'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
+                        'coordinates'=>array($lat,$lng), 
                         'attributes'=>$datum
                     );
                 }
