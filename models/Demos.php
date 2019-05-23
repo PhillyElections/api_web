@@ -64,7 +64,10 @@ class Demos
                     $lat=$datum->lat;
                     $lng=$datum->lng;
                     unset($datum->id, $datum->lat, $datum->lng);
-                    $features[] = array('coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 'attributes'=>$datum);
+                    $features[] = array(
+                        'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
+                        'attributes'=>$datum
+                    );
                 }
                 $status = 'success';
             }
@@ -102,7 +105,10 @@ class Demos
                     $lat=$datum->lat;
                     $lng=$datum->lng;
                     unset($datum->id, $datum->lat, $datum->lng);
-                    $features[] = array('coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 'attributes'=>$datum);
+                    $features[] = array(
+                        'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
+                        'attributes'=>$datum
+                    );
                 }
                 $status = 'success';
             }
@@ -140,7 +146,10 @@ class Demos
                     $lat=$datum->lat;
                     $lng=$datum->lng;
                     unset($datum->id, $datum->lat, $datum->lng);
-                    $features[] = array('coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 'attributes'=>$datum);
+                    $features[] = array(
+                        'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
+                        'attributes'=>$datum
+                    );
                 }
                 $status = 'success';
             }
