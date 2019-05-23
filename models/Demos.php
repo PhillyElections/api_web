@@ -61,9 +61,9 @@ class Demos
             if (count($data)) {
                 $features=array();
                 foreach ($data as $datum) {
-                    $lat=$datum->lat;
-                    $lng=$datum->lng;
-                    unset($datum->id, $datum->lat, $datum->lng);
+                    $lat=$datum['lat'];
+                    $lng=$datum['lng'];
+                    unset($datum['id'], $datum['lat'], $datum['lng']);
                     $features[] = array(
                         'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
                         'attributes'=>$datum
@@ -102,9 +102,9 @@ class Demos
             if (count($data)) {
                 $features=array();
                 foreach ($data as $datum) {
-                    $lat=$datum->lat;
-                    $lng=$datum->lng;
-                    unset($datum->id, $datum->lat, $datum->lng);
+                    $lat=$datum['lat'];
+                    $lng=$datum['lng'];
+                    unset($datum['id'], $datum['lat'], $datum['lng']);
                     $features[] = array(
                         'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
                         'attributes'=>$datum
@@ -143,9 +143,9 @@ class Demos
             if (count($data)) {
                 $features=array();
                 foreach ($data as $datum) {
-                    $lat=$datum->lat;
-                    $lng=$datum->lng;
-                    unset($datum->id, $datum->lat, $datum->lng);
+                    $lat=$datum['lat'];
+                    $lng=$datum['lng'];
+                    unset($datum['id'], $datum['lat'], $datum['lng']);
                     $features[] = array(
                         'coordinates'=>array('lat'=>$lat, 'lng'=>$lng), 
                         'attributes'=>$datum
