@@ -57,10 +57,10 @@ class Demos
 
         $stmt = $this->core->dbh->prepare($sql);
         if ($stmt->execute()) {
-	       $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (count($data)) {
                 $features=array();
-                $features['attributes'] = $data;
+                $features[$data['id']] = $data;
                 $status = 'success';
             }
         }
@@ -126,7 +126,7 @@ class Demos
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (count($data)) {
                 $features=array();
-                $features['attributes'] = $data;
+                $features[$data['id']] = $data;
                 $status = 'success';
             }
         }
