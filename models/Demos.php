@@ -64,7 +64,7 @@ class Demos
                 $status = 'success';
             }
         }
-        return json_encode(array('status'=>$status, 'features'=>$features)));
+        return json_encode(array('status'=>$status, 'features'=>$features));
     }
 
     /**
@@ -97,7 +97,7 @@ class Demos
                 $status = 'success';
             }
         }
-        return json_encode(array('status'=>$status, 'features'=>$features)));
+        return json_encode(array('status'=>$status, 'features'=>$features));
     }
 
     /**
@@ -130,6 +130,6 @@ class Demos
                 $status = 'success';
             }
         }
-        return json_encode(array('status'=>$status, 'features'=>$features)));
+        return json_encode(array('status'=>$status, 'features'=>$features));
     }
 }
