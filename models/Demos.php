@@ -128,7 +128,7 @@ class Demos
 
         $sql = ' 
         SELECT 
-            `id`, `scheduler_id`, `start`, `end`, `name`, `location`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, `precinct`, `lat`, `lng`, `published`, `created`, `updated` 
+            `id`, `scheduler_id`, `start`, `end`, `name`, `location`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `lat`, `lng`, `published`, `created`, `updated` 
         FROM 
             `jos_pv_demos_events` 
         WHERE 
