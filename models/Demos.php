@@ -134,6 +134,8 @@ class Demos
         WHERE 
             `published` = 1 
         AND 
+            LENGTH(`display_title`) > 1
+        AND 
             `start` > now()
         ;';
 
