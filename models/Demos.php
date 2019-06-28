@@ -48,7 +48,7 @@ class Demos
 
         $sql = ' 
         SELECT 
-            `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
+            `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `display_title`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
 		FROM 
 			`jos_pv_demos_events` 
 		WHERE 
@@ -87,7 +87,7 @@ class Demos
 
         $sql = ' 
         SELECT 
-            `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
+            `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `display_title`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
         FROM 
             `jos_pv_demos_events` 
         WHERE 
@@ -128,11 +128,13 @@ class Demos
 
         $sql = ' 
         SELECT 
-            `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
+            `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `display_title`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
         FROM 
             `jos_pv_demos_events` 
         WHERE 
             `published` = 1 
+        AND
+            `display_title` != ""
         AND 
             `start` > now()
         ;';
