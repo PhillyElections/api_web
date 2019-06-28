@@ -133,8 +133,6 @@ class Demos
             `jos_pv_demos_events` 
         WHERE 
             `published` = 1 
-        AND
-            `display_title` != ""
         AND 
             `start` > now()
         ;';
