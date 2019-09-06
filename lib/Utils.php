@@ -74,7 +74,7 @@ class Utils
         $coordPairs = explode(',', $coordString);
         foreach ($coordPairs as $pair) { 
             $tmp = explode(' ', $pair);
-            array_push($output, array((int) $tmp[0],(int) $tmp[1] ));
+            array_push($output, array((float) $tmp[0],(float) $tmp[1] ));
         }
 
         return $output;
