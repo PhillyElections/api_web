@@ -82,7 +82,7 @@ class Autocomplete
                 $status = 'success';
             }
         }
-if ($status=='failure') {var_dump($stmt);}
+
         return json_encode(array('status'=>$status, 'data'=>$data));
     }
 
