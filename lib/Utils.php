@@ -72,7 +72,7 @@ class Utils
 
         $coordString = substr($polygon, strlen($label) + 2, strlen($polygon) - strlen($label) - 4);
         $coordPairs = explode(',', $coordString);
-        foreach ($coordPairs as $pair) {
+        foreach ($coordPairs as $pair) { 
             $tmp = explode(' ', $pair);
             array_push($output, array(int($tmp[0],int($tmp[1]);
         }
