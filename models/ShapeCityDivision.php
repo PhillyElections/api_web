@@ -71,7 +71,7 @@ class ShapeCityDivision
                     $features[0]['geometry']['rings'][0] = \lib\Utils::polygonString2Array($data[0]['SHAPE']);
                     $status = 'success';
                 }
-            }
+            } 
         }
 
         return json_encode(array('status'=>$status, 'features'=>$features));
