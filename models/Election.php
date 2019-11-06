@@ -27,6 +27,9 @@ class Election
     protected $core;
     protected $date;
     protected $message;
+    protected $primary;
+    protected $general;
+
     /**
      * Constructor: get core, call setup to process request.
      *
@@ -80,19 +83,37 @@ class Election
             $general = $first_monday_november->modify("this tuesday");
         }
 
-        // presidentials are 4th tuesday of april, all else third tuesday in may
+        // presidential primaries are 4th tuesday of april, all else third tuesday in may
         if ($year % 4 == 0) {
-            $primary = new \DateTime("fourth tuesday of april $year");
+            $this->setPresidentialPrimary($year)
         } else {
-            $primary = new \DateTime("third tuesday of may $year");
+            $this->setPrimary($year)
         }
 
         // if the date is greater than primary, return general
         if ($this->date > $primary) {
-            return array('election_type'=>'general', 'election_date'=>$general->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
+            return $this->getReturnArray($this->general, 'general');
         }
 
         // default: return primary
-        return array('election_type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
+        return $this->getReturnArray($this->primary, 'primary');
     }
+
+    private function getReturnArray($election, $type) {
+        return array('election_type'=>$type, 'election_date'=>$election->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);       
+    }
+
+    private function setPresidentialPrimary($year) {
+        $this->primary = new \DateTime("fourth tuesday of april $year");
+    }
+
+    private function setPrimary($year) {
+        $this->primary = new \DateTime("third tuesday of may $year");
+    }
+
+    private function setGeneral($year) {
+        $first_monday_november = new \DateTime("first monday of november $year");
+        $this->general = $first_monday_november->modify("this tuesday");
+    }
+
 }
