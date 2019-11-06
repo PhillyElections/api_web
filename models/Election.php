@@ -73,14 +73,21 @@ class Election
         $first_monday_november = new \DateTime("first monday of november $year");
         $general = $first_monday_november->modify("this tuesday");
 
-        if ($this->date > $general) {
-            $year++;
-            $next_primary = new \DateTime("third tuesday of may $year");
-            return array('election_type'=>'primary', 'election_date'=>$next_primary->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
-        } else if ($election_year == 0) {
+        if ($election_year == 0) {
             $primary = new \DateTime("fourth tuesday of april $year");
         } else {
             $primary = new \DateTime("third tuesday of may $year");
+        }
+
+        if ($this->date > $general) {
+            $year++;
+            if ($year % 4 == 0) {
+                $primary = new \DateTime("fourth tuesday of april $year");
+            } else {
+                $primary = new \DateTime("third tuesday of may $year");
+            }
+
+            return array('election_type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
         }
 
         if ($this->date > $primary) {
