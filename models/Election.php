@@ -72,15 +72,13 @@ class Election
 
         $year = $this->date->format("Y");
 
-        // generate general first
-        $first_monday_november = new \DateTime("first monday of november $year");
-        $general = $first_monday_november->modify("this tuesday");
+        // set general first
+        $this->setGeneral($year);
 
-        // if this->date is greater than general, we increment year and re-generate general
+        // if this->date is greater than general, we increment year and re-set general
         if ($this->date > $general) {
             $year++;
-            $first_monday_november = new \DateTime("first monday of november $year");
-            $general = $first_monday_november->modify("this tuesday");
+            $this->setGeneral($year);
         }
 
         // presidential primaries are 4th tuesday of april, all else third tuesday in may
@@ -100,7 +98,7 @@ class Election
     }
 
     private function getReturnArray($election, $type) {
-        return array('election_type'=>$type, 'election_date'=>$election->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);       
+        return array('election_type'=>$type, 'election_date'=>$election->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
     }
 
     private function setPresidentialPrimary($year) {
