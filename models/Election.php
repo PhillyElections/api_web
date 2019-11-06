@@ -85,9 +85,9 @@ class Election
 
         // presidential primaries are 4th tuesday of april, all else third tuesday in may
         if ($year % 4 == 0) {
-            $this->setPresidentialPrimary($year)
+            $this->setPresidentialPrimary($year);
         } else {
-            $this->setPrimary($year)
+            $this->setPrimary($year);
         }
 
         // if the date is greater than primary, return general
