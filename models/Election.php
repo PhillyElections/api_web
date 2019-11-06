@@ -68,13 +68,15 @@ class Election
     private function getNextElection() {
 
         $year = $this->date->format("Y");
-        $election_year = $year % 4;
 
         $first_monday_november = new \DateTime("first monday of november $year");
         $general = $first_monday_november->modify("this tuesday");
 
+        // if this->date is greater than general, we need the next general
         if ($this->date > $general) {
             $year++;
+            $first_monday_november = new \DateTime("first monday of november $year");
+            $general = $first_monday_november->modify("this tuesday");
         }
 
         if ($year % 4 == 0) {
