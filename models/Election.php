@@ -75,7 +75,7 @@ class Election
         // set general first
         $this->setGeneral($year);
 
-        // if this->date is greater than general, we increment year and re-set general
+        // if date is greater than general, we increment year and re-set general
         if ($this->date > $general) {
             $year++;
             $this->setGeneral($year);
@@ -88,7 +88,7 @@ class Election
             $this->setPrimary($year);
         }
 
-        // if the date is greater than primary, return general
+        // if date is greater than primary, return general
         if ($this->date > $primary) {
             return $this->getReturnArray($this->general, 'general');
         }
@@ -98,7 +98,12 @@ class Election
     }
 
     private function getReturnArray($election, $type) {
-        return array('election_type'=>$type, 'election_date'=>$election->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
+        return array(
+            'election_type'=>$type, 
+            'election_date'=>$election->format("Y-m-d"), 
+            'from_date'=>$this->date->format("Y-m-d"), 
+            'actual_request'=>$this->actual_request
+        );
     }
 
     private function setPresidentialPrimary($year) {
