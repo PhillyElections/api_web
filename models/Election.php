@@ -69,26 +69,30 @@ class Election
 
         $year = $this->date->format("Y");
 
+        // generate general first
         $first_monday_november = new \DateTime("first monday of november $year");
         $general = $first_monday_november->modify("this tuesday");
 
-        // if this->date is greater than general, we need the next general
+        // if this->date is greater than general, we increment year and re-generate general
         if ($this->date > $general) {
             $year++;
             $first_monday_november = new \DateTime("first monday of november $year");
             $general = $first_monday_november->modify("this tuesday");
         }
 
+        // presidentials are 4th tuesday of april, all else third tuesday in may
         if ($year % 4 == 0) {
             $primary = new \DateTime("fourth tuesday of april $year");
         } else {
             $primary = new \DateTime("third tuesday of may $year");
         }
 
+        // if the date is greater than primary, return general
         if ($this->date > $primary) {
             return array('election_type'=>'general', 'election_date'=>$general->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
         }
 
+        // default: return primary
         return array('election_type'=>'primary', 'election_date'=>$primary->format("Y-m-d"), 'from_date'=>$this->date->format("Y-m-d"), 'actual_request'=>$this->actual_request);
     }
 }
