@@ -69,21 +69,15 @@ class Election
      *
      */
     private function getNextElection() {
-        echo "date: ";
-        var_dump($this->date);
+
         $year = $this->date->format("Y");
-        echo "initial year: " . $year;
         // set general first
         $this->setGeneral($year);
-        echo "initial general: ";
-        var_dump($this->general);
 
         // if date is greater than general, we increment year and re-set general
         if ($this->date > $this->general) {
             $year++;
             $this->setGeneral($year);
-            echo "new general: ";
-            var_dump($this->general);
         }
 
         // presidential primaries are 4th tuesday of april, all else third tuesday in may
@@ -92,8 +86,6 @@ class Election
         } else {
             $this->setPrimary($year);
         }
-        echo "primary: ";
-        var_dump($this->primary);
 
         // if date is greater than primary, return general
         if ($this->date > $this->primary) {
