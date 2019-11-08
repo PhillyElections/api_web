@@ -79,7 +79,7 @@ class Election
         var_dump($this->general);
 
         // if date is greater than general, we increment year and re-set general
-        if ($this->date > $general) {
+        if ($this->date > $this->general) {
             $year++;
             $this->setGeneral($year);
             echo "new general: ";
@@ -96,7 +96,7 @@ class Election
         var_dump($this->primary);
 
         // if date is greater than primary, return general
-        if ($this->date > $primary) {
+        if ($this->date > $this->primary) {
             return $this->getReturnArray($this->general, 'general');
         }
 
