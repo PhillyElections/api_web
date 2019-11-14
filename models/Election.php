@@ -31,10 +31,9 @@ class Election
     protected $general;
 
     /**
-     * Constructor: get core, call setup to process request.
+     * Constructor: try to read the date, set message on failure.
      *
-     * @param mixed $address
-     * @param mixed $precinct
+     * @param mixed $date
      */
     public function __construct($date = '')
     {
@@ -52,7 +51,7 @@ class Election
     }
 
     /**
-     * Fetch results based on setup().
+     * Fetch an election.
      *
      * @return     boolean  A json object.
      */
@@ -65,7 +64,7 @@ class Election
     }
 
     /**
-     * determine next election
+     * Get next election
      *
      */
     private function getNextElection() {
