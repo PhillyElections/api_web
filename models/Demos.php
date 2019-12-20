@@ -33,7 +33,7 @@ class Demos
     public function __construct()
     {
         // call core with override set 
-	$this->core = \lib\Core::getInstance(true);
+	   $this->core = \lib\Core::getInstance();
     }
 
     /**
@@ -50,7 +50,7 @@ class Demos
         SELECT 
             `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `display_title`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
 		FROM 
-			`jos_pv_demos_events` 
+			`demos_events` 
 		WHERE 
 			`published` = 1 
 		;';
@@ -89,7 +89,7 @@ class Demos
         SELECT 
             `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `display_title`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
         FROM 
-            `jos_pv_demos_events` 
+            `demos_events` 
         WHERE 
             `published` = 1 
         AND 
@@ -130,7 +130,7 @@ class Demos
         SELECT 
             `id`, `scheduler_id`, `setup`, `start`, `end`, `event_name`, `organization_name`, `location_name`, `display_title`, `address_street`, `address_extra`, `zip`, `contact`, `email`, `phone`, `ada_confirmed`, `special_ballot_needed`, `special_ballot_worker_id`, `staffer1_id`, `staffer2_id`, `staffer3_id`, lpad(`precinct`,4,"0") as `precinct`, `district`, `lat`, `lng`
         FROM 
-            `jos_pv_demos_events` 
+            `demos_events` 
         WHERE 
             `published` = 1 
         AND 
