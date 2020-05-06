@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Election model.
  *
@@ -87,9 +88,9 @@ class Election
         } else {
             $this->setPrimary($year);
         }
-
+        $twentyTwentyOverrideDate = new \DateTime('2020-06-02');
         // if date is greater than primary, return general
-        if ($this->date > $this->primary) {
+        if ($this->date > $this->primary && $this->date > $twentyTwentyOverrideDate) {
             return $this->getReturnArray($this->general, 'general');
         }
 
@@ -135,5 +136,4 @@ class Election
         $first_monday_november = new \DateTime("first monday of november $year");
         $this->general = $first_monday_november->modify("this tuesday");
     }
-
 }
